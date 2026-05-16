@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>COBOLCE — Almacén Virtual BPG</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <style>
+
 
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--n:#1B3A6B;--nl:#2A5BA0;--nd:#0F2347;--g:#F5A800;--gl:#FFCA3A;--r:#CC2200;--bg:#EEF2FA;--bg2:#E2E9F4;--card:#fff;--bdr:#D0D9E8;--bdr2:#B8C7E0;--tx:#1B3A6B;--txm:#5A6E8A;--txl:#9AAABB;--grn-bg:#E6F4EC;--grn-tx:#145230;--amb-bg:#FFF8E6;--amb-tx:#7A4F00;--red-bg:#FCEAE8;--red-tx:#7A1A0E;--rad:8px;--radl:10px;--rads:5px;}
@@ -127,28 +129,61 @@ body.dark .lista-tbl tbody tr.rg td{background:#0D2E1A}body.dark .lista-tbl tbod
 .calc-total-n{font-size:24px;font-weight:500}
 .mat-cod{font-family:monospace;font-size:11px;font-weight:600;color:var(--n);flex-shrink:0;min-width:65px}
 
+
+/* === EXPANSIÓN v3 === */
+.sel-bar{position:fixed;bottom:0;left:0;right:0;background:var(--nd);padding:10px 16px;display:flex;align-items:center;gap:8px;z-index:150;border-top:2px solid var(--g);box-shadow:0 -4px 16px rgba(0,0,0,.3)}
+.alert-banner{background:var(--amb-bg);border:1px solid #E8D09A;border-radius:var(--rad);padding:9px 12px;margin-bottom:12px;display:flex;align-items:center;gap:8px;cursor:pointer}
+body.dark .alert-banner{border-color:#4A3800}
+.tab-badge{display:inline-flex;align-items:center;justify-content:center;background:var(--r);color:#fff;border-radius:99px;font-size:9px;font-weight:500;min-width:14px;height:14px;padding:0 3px;margin-left:3px;line-height:1}
+.cotiz-wrap{background:var(--card);border-radius:var(--radl);border:1px solid var(--bdr);overflow:hidden;overflow-x:auto;margin-bottom:10px}
+.cotiz-tbl{width:100%;border-collapse:collapse;min-width:500px}
+.cotiz-tbl th{font-size:9px;font-weight:500;color:var(--txm);text-transform:uppercase;letter-spacing:.06em;padding:7px 10px;text-align:left;border-bottom:1px solid var(--bdr);white-space:nowrap;background:var(--bg2)}
+.cotiz-tbl td{padding:7px 10px;border-bottom:1px solid var(--bdr);font-size:12px;vertical-align:middle;border-right:1px solid var(--bdr)}
+.cotiz-tbl td:last-child{border-right:none}
+.cotiz-tbl tbody tr:last-child td{border-bottom:none}
+.cotiz-tbl tbody tr:hover td{background:var(--bg2)}
+.best-cell{background:#E6F4EC!important;font-weight:600;color:var(--grn-tx)}
+body.dark .best-cell{background:#0D2E1A!important}
+.price-input{width:80px;padding:4px 6px;border:1px solid var(--bdr2);border-radius:4px;font-size:11px;text-align:right;background:var(--card);color:var(--tx);font-family:monospace}
+.price-input:focus{border-color:var(--nl);outline:none}
+.cotiz-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--radl);padding:12px 14px;margin-bottom:8px}
+.rec-badge{font-size:9px;padding:1px 6px;border-radius:99px;font-weight:500;flex-shrink:0}
+.rbcomplete{background:#E6F4EC;color:var(--grn-tx)}.rbpartial{background:#FFF8E6;color:var(--amb-tx)}.rbnone{background:var(--bg2);color:var(--txm)}
+.dash-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--radl);padding:14px;margin-bottom:10px}
+.dash-disc-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--bdr)}
+.dash-disc-row:last-child{border-bottom:none}
+.disc-prog{flex:1;height:6px;background:var(--bg2);border-radius:3px;overflow:hidden}
+.disc-progf{height:100%;border-radius:3px}
+.proj-sel{border:1px solid var(--bdr2);border-radius:var(--rad);padding:6px 10px;font-size:12px;background:var(--card);color:var(--tx);font-family:inherit;outline:none;cursor:pointer}
+.li-check{width:14px;height:14px;cursor:pointer;accent-color:var(--n);flex-shrink:0}
+.lista-tbl td:first-child{width:26px;padding:8px 6px 8px 10px}
+.lista-tbl th:first-child{width:26px;padding:7px 6px 7px 10px}
+.check-all{width:14px;height:14px;cursor:pointer;accent-color:var(--n)}
+.warehouse-loc{font-size:9px;padding:2px 7px;border-radius:99px;background:var(--n);color:#fff;display:inline-block;margin:1px 2px;font-family:monospace}
+
 </style>
 </head>
 <body>
 <div class="app" id="app"></div>
 <script>
 
+
 const ITYPES=[{id:'box',l:'Caja',ic:'📦'},{id:'pallet',l:'Pallet de material',ic:'🪵'},{id:'spool',l:'Bobina de cable',ic:'🔄'},{id:'tube',l:'Tubo / Conduit',ic:'📏'},{id:'bag',l:'Big Bag',ic:'🎒'},{id:'other',l:'Otro',ic:'📌'}];
 const PROJ_HINTS=['Hornos Fase 1','Hornos Fase 2','APE GLP','General','EPP','Material BPG','Mantenimiento','Otro'];
 const DISCIPLINAS=[{id:'civil',l:'Civil',ic:'🏗️'},{id:'electrica',l:'Eléctrica',ic:'⚡'},{id:'instrumentacion',l:'Inst. y Control',ic:'🎛️'},{id:'mecanica',l:'Mecánica',ic:'⚙️'}];
 const OC_STATES=[{id:'cotizacion',l:'Cotización'},{id:'revision',l:'Rev. Técnica'},{id:'aprobada',l:'Aprobada'},{id:'enviada',l:'OC Enviada'},{id:'transito',l:'En Tránsito'},{id:'aduana',l:'En Aduana'},{id:'recibido',l:'Recibido'}];
 const PAISES=['Bolivia','Argentina','Chile','Perú','Brasil','EEUU','Paraguay','China','España','Colombia','Uruguay','Otro'];
-const SK={pos:'cobolce-pos',zi:'cobolce-zi',pal:'cobolce-pal',ag:'cobolce-ag',docs:'cobolce-docs',log:'cobolce-log',cfg:'cobolce-cfg',listas:'cobolce-listas',ocs:'cobolce-ocs',provs:'cobolce-provs'};
+const SK={pos:'cobolce-pos',zi:'cobolce-zi',pal:'cobolce-pal',ag:'cobolce-ag',docs:'cobolce-docs',log:'cobolce-log',cfg:'cobolce-cfg',listas:'cobolce-listas',ocs:'cobolce-ocs',provs:'cobolce-provs',cotiz:'cobolce-cotiz'};
 
 let S={tab:'mapa',room:'hab1',disc:'civil',user:'',dark:false,
   positions:{},zoneItems:{caseta:[],intemperie:[],cotoca:[]},
   pallets:{hab1:[],hab2:[]},agenda:[],docs:[],changelog:[],
   config:{hab1:{gabs:7,lvls:4,dsp:10},hab2:{gabs:7,lvls:4,dsp:10}},
   listas:{civil:[],electrica:[],instrumentacion:[],mecanica:[]},
-  ocs:[],proveedores:[]};
+  ocs:[],proveedores:[],cotizaciones:[]};
 let localLM=0,modal=null,toastMsg='',toastTmr=null,pFile=null,modalMats=[];
 let calcItems=[];
-let searches={mapa:'',agenda:'',docs:'',registro:'',listas:'',oc:'',proveedores:''};
+let searches={mapa:'',agenda:'',docs:'',registro:'',listas:'',oc:'',proveedores:'',cotiz:''};
 
 async function sg(k){try{const r=await fetch('/api/kv/'+encodeURIComponent(k));if(!r.ok)return null;const d=await r.json();return d?JSON.parse(d.value):null;}catch(e){return null;}}
 async function ss(k,v){try{await fetch('/api/kv/'+encodeURIComponent(k),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({value:JSON.stringify(v)})});}catch(e){}}
@@ -161,7 +196,7 @@ async function loadAll(){
   S.config=await sg(SK.cfg)||{hab1:{gabs:7,lvls:4,dsp:10},hab2:{gabs:7,lvls:4,dsp:10}};
   const ls=await sg(SK.listas)||{civil:[],electrica:[],instrumentacion:[],mecanica:[]};
   DISCIPLINAS.forEach(d=>{if(!ls[d.id])ls[d.id]=[];});S.listas=ls;
-  S.ocs=await sg(SK.ocs)||[];S.proveedores=await sg(SK.provs)||[];
+  S.ocs=await sg(SK.ocs)||[];S.proveedores=await sg(SK.provs)||[];S.cotizaciones=await sg(SK.cotiz)||[];
   S.user=localStorage.getItem('cobolce-user')||'';
   S.dark=localStorage.getItem('cobolce-dark')==='true';
   if(S.dark)document.body.classList.add('dark');
@@ -178,6 +213,7 @@ async function sv(keys){
   if(keys.includes('listas'))await ss(SK.listas,S.listas);
   if(keys.includes('ocs'))await ss(SK.ocs,S.ocs);
   if(keys.includes('provs'))await ss(SK.provs,S.proveedores);
+  if(keys.includes('cotiz'))await ss(SK.cotiz,S.cotizaciones);
   localLM=Date.now();
 }
 
@@ -226,7 +262,9 @@ function rApp(){
       {id:'oc',ic:'ti-file-invoice',l:'Órd. de Compra'},
       {id:'proveedores',ic:'ti-truck',l:'Proveedores'},
       {id:'calculadora',ic:'ti-weight',l:'Calculadora'},
-      {id:'agenda',ic:'ti-calendar-event',l:'Agenda'},
+      {id:'cotiz',ic:'ti-receipt',l:'Cotiz.'},
+      {id:'dashboard',ic:'ti-dashboard',l:'Dashboard'},
+      {id:'agenda',ic:'ti-calendar-event',l:'Agenda',badge:true},
       {id:'docs',ic:'ti-file-description',l:'Documentos'},
       {id:'registro',ic:'ti-history',l:'Registro'}
     ].map(t=>'<div class="tab'+(S.tab===t.id?' act':'')+'" onclick="setTab(\''+t.id+'\')"><i class="ti '+t.ic+'"></i>'+t.l+'</div>').join('')+'</div>'+
@@ -236,11 +274,12 @@ function rApp(){
     '<div class="body">'+
     (S.tab==='mapa'&&!searches.mapa?rSB():'')+
     '<div class="main">'+rMain()+'</div></div>'+
+    (selSet.size>0?rSelBar():'')+
     (modal?rMover():'')+
     '</div>';
 }
-function rSP(){const ps={mapa:'Buscar material...',agenda:'Buscar entrega...',docs:'Buscar documento...',registro:'Buscar en registro...',listas:'Buscar por código, descripción...',oc:'Buscar por número, proveedor...',proveedores:'Buscar proveedor...'};return ps[S.tab]||'Buscar...';}
-function rMain(){if(S.tab==='mapa')return rMapa();if(S.tab==='listas')return rListas();if(S.tab==='oc')return rOC();if(S.tab==='proveedores')return rProveedores();if(S.tab==='calculadora')return rCalc();if(S.tab==='agenda')return rAg();if(S.tab==='docs')return rDocs();return rLog();}
+function rSP(){const ps={mapa:'Buscar material...',agenda:'Buscar entrega...',docs:'Buscar documento...',registro:'Buscar en registro...',listas:'Buscar por código, descripción...',oc:'Buscar por número, proveedor...',proveedores:'Buscar proveedor...',cotiz:'Buscar comparativo...',dashboard:''};return ps[S.tab]||'Buscar...';}
+function rMain(){if(S.tab==='mapa')return rMapa();if(S.tab==='listas')return rListas();if(S.tab==='oc')return rOC();if(S.tab==='cotiz')return rCotiz();if(S.tab==='proveedores')return rProveedores();if(S.tab==='dashboard')return rDashboard();if(S.tab==='calculadora')return rCalc();if(S.tab==='agenda')return rAg();if(S.tab==='docs')return rDocs();return rLog();}
 function rSB(){return'<div class="sb"><div class="sblbl">Zonas</div>'+[
   {id:'hab1',ic:'ti-layout-grid',l:'Habitación 1',s:'7 gabinetes'},
   {id:'hab2',ic:'ti-layout-grid',l:'Habitación 2',s:'7 gabinetes'},
@@ -251,6 +290,7 @@ function rSB(){return'<div class="sb"><div class="sblbl">Zonas</div>'+[
 
 function rMapa(){
   const q=searches.mapa;
+  if(!q){}; // alert handled below
   if(q){const res=searchMapa(q);if(!res.length)return '<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados para "'+esc(q)+'"</div>';
     return'<div style="margin-bottom:8px;font-size:11px;color:var(--txm)">'+res.length+' resultado'+(res.length>1?'s':'')+' encontrado'+(res.length>1?'s':'')+' para "'+esc(q)+'"</div>'+
     res.map(r=>'<div class="sres"><span style="font-size:15px;flex-shrink:0;margin-top:2px">'+iti(r.item.type).ic+'</span><div style="flex:1;min-width:0">'+
@@ -261,8 +301,8 @@ function rMapa(){
       (r.item.oc?'<span style="font-size:9px;color:var(--txm);font-family:monospace">'+hl(r.item.oc,q)+'</span>':'')+
       (r.item.llegada?'<span style="font-size:9px;color:var(--txm)">Llegó: '+fdS(r.item.llegada)+'</span>':'')+
       '<span style="font-size:9px;color:var(--txm)">'+esc(r.item.qty+' '+r.item.unit)+'</span></div></div></div>').join('');}
-  if(S.room==='caseta'||S.room==='intemperie'||S.room==='cotoca')return rZone(S.room);
-  return rRoom(S.room);
+  if(S.room==='caseta'||S.room==='intemperie'||S.room==='cotoca')return rAlertBanner()+rZone(S.room);
+  return rAlertBanner()+rRoom(S.room);
 }
 function searchMapa(q){
   const res=[];
@@ -309,16 +349,20 @@ function rListas(){
   const filtered=allI.map((item,i)=>({item,i})).filter(({item})=>matchStr([item.codigo,item.desc,item.notas,item.unidad].filter(Boolean).join(' '),q));
   const completos=allI.filter(i=>getCantComp(i.codigo)>=(+i.cantReq||0)&&i.cantReq>0).length;
   return'<div class="ph"><div><div class="phtitle">Listas de Materiales</div><div class="phsub">Por disciplina · Trazabilidad con Órdenes de Compra</div></div>'+
-    '<button class="btn btnp" onclick="oAddLI()"><i class="ti ti-plus"></i> Agregar ítem</button></div>'+
+    '<div class="brow"><button class="btn btnp" onclick="oAddLI()"><i class="ti ti-plus"></i> Agregar ítem</button><button class="btn" onclick="exportExcel(\'lista\')"><i class="ti ti-download"></i> Excel</button></div></div>'+
     '<div class="disc-nav">'+DISCIPLINAS.map(d=>'<button class="disc-btn'+(disc===d.id?' act':'')+'" onclick="setDisc(\''+d.id+'\')">'+d.ic+' '+d.l+' <span style="opacity:.7">('+((S.listas[d.id]||[]).length)+')</span></button>').join('')+'</div>'+
     (allI.length>0?'<div class="stats" style="grid-template-columns:repeat(3,1fr);margin-bottom:12px"><div class="stat"><div class="stn">'+allI.length+'</div><div class="stl">En lista</div></div><div class="stat"><div class="stn" style="color:#1E7040">'+completos+'</div><div class="stl">Completos</div></div><div class="stat"><div class="stn" style="color:#F5A800">'+(allI.length-completos)+'</div><div class="stl">Pendientes</div></div></div>':'')+
     (!allI.length?'<div class="nodata"><i class="ti ti-clipboard-off"></i>Sin materiales en la lista. Agrega el primer ítem.</div>':
     !filtered.length?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados para "'+esc(q)+'"</div>':
-    '<div class="lista-wrap"><table class="lista-tbl"><thead><tr><th>Código</th><th>Descripción</th><th>Und.</th><th style="text-align:right">Req.</th><th style="text-align:right">Comprado</th><th style="text-align:right">Falta</th><th>Estado</th><th></th></tr></thead><tbody>'+
+    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+
+    '<input type="checkbox" class="check-all" title="Seleccionar todos" onchange="this.checked?selectAll():clearSel()">'+
+    '<span style="font-size:10px;color:var(--txm)">'+(selSet.size>0?selSet.size+' seleccionados — ':'')+'Clic en fila para ver detalle, checkbox para seleccionar</span></div>'+
+    '<div class="lista-wrap"><table class="lista-tbl"><thead><tr><th></th><th>Código</th><th>Descripción</th><th>Und.</th><th style="text-align:right">Req.</th><th style="text-align:right">Comprado</th><th style="text-align:right">Falta</th><th>Estado</th><th></th></tr></thead><tbody>'+
     filtered.map(({item,i})=>{
       const comp=getCantComp(item.codigo);const req=+item.cantReq||0;const falta=Math.max(0,req-comp);const cls=getItemCls(item);
       const stIco=cls==='rg'?'🟢':cls==='ry'?'🟡':'⚪';const stTxt=cls==='rg'?'Completo':cls==='ry'?'Parcial':'Sin compra';
-      return'<tr class="'+cls+'" onclick="oVerItem(\''+disc+'\','+i+')"><td><span class="cod">'+hl(item.codigo||'—',q)+'</span></td>'+
+      return'<tr class="'+cls+'" onclick="onRowClick(\''+disc+'\','+i+')"><td onclick="event.stopPropagation()"><input type="checkbox" class="li-check" onchange="toggleSel(\''+item.id+'\',event)"'+(selSet.has(item.id)?' checked':'')+' title="Seleccionar"></td>'+
+        '<td><span class="cod">'+hl(item.codigo||'—',q)+'</span></td>'+
         '<td style="max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hl(item.desc||'',q)+'</td>'+
         '<td style="color:var(--txm)">'+esc(item.unidad||'—')+'</td>'+
         '<td style="text-align:right;font-weight:500">'+req+'</td>'+
@@ -333,7 +377,7 @@ function rOC(){
   const q=searches.oc||'';let ocs=[...S.ocs];
   if(q)ocs=ocs.filter(oc=>matchStr([oc.numero,getProvNom(oc.provId),oc.notas].filter(Boolean).join(' '),q));
   return'<div class="ph"><div><div class="phtitle">Órdenes de Compra</div><div class="phsub">'+S.ocs.length+' OC'+(S.ocs.length!==1?'s':'')+' registradas</div></div>'+
-    '<button class="btn btnp" onclick="oAddOC()"><i class="ti ti-plus"></i> Nueva OC</button></div>'+
+    '<div class="brow"><button class="btn btnp" onclick="oAddOC()"><i class="ti ti-plus"></i> Nueva OC</button><button class="btn" onclick="exportExcel(\'ocs\')"><i class="ti ti-download"></i> Excel</button></div></div>'+
     (!ocs.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!ocs.length?'<div class="nodata"><i class="ti ti-file-off"></i>Sin órdenes de compra registradas</div>':
     ocs.map(oc=>{const stIdx=OC_STATES.findIndex(s=>s.id===oc.estado);
       return'<div class="oc-card"><div class="oc-hdr"><div style="flex:1;min-width:0">'+
@@ -342,7 +386,7 @@ function rOC(){
         (oc.fechaEmision?'Emitida: '+fdS(oc.fechaEmision)+' · ':'')+(oc.fechaEntrega?'Entrega est.: '+fdS(oc.fechaEntrega):'')+'</div>'+
         '<div class="flow">'+OC_STATES.map((s,idx)=>(idx>0?'<span class="farr">›</span>':'')+'<span class="fstep '+(idx<stIdx?'fdone':idx===stIdx?'fact':'')+'">'+(idx===stIdx?'<b>':'')+s.l+(idx===stIdx?'</b>':'')+'</span>').join('')+'</div></div>'+
         '<div class="brow"><button class="btn btnxs" onclick="oEditOC(\''+oc.id+'\')"><i class="ti ti-edit"></i></button><button class="btn btnxs btnd" onclick="dOC(\''+oc.id+'\')"><i class="ti ti-trash"></i></button></div></div>'+
-        ((oc.materiales||[]).length>0?'<div class="oc-mats"><div style="font-size:9px;font-weight:500;color:var(--txm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Materiales ('+oc.materiales.length+')</div>'+oc.materiales.map(m=>'<div class="oc-mat"><span class="mat-cod">'+esc(m.codigo||'—')+'</span><span style="flex:1">'+esc(m.desc||'')+'</span><span style="color:var(--n);font-weight:500;flex-shrink:0">'+m.qty+' '+esc(m.unidad||'')+'</span></div>').join('')+'</div>':'')+
+        ((oc.materiales||[]).length>0?'<div class="oc-mats"><div style="font-size:9px;font-weight:500;color:var(--txm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Materiales ('+oc.materiales.length+')</div>'+oc.materiales.map((m,midx)=>{const rec=getOCrecibida(m);const pct=m.qty>0?rec/m.qty:0;const rbcls=pct>=1?'rbcomplete':pct>0?'rbpartial':'rbnone';const rbTxt=pct>=1?'Completo':pct>0?rec+'/'+m.qty+' recibido':'Sin recibir';return '<div class="oc-mat"><span class="mat-cod">'+esc(m.codigo||'—')+'</span><span style="flex:1">'+esc(m.desc||'')+'</span><span style="color:var(--n);font-weight:500;flex-shrink:0;margin-right:6px">'+m.qty+' '+esc(m.unidad||'')+'</span><span class="rec-badge '+rbcls+'">'+rbTxt+'</span><button class="btn btnxs" style="margin-left:4px" onclick="oRecepcion(\''+oc.id+'\','+midx+')"><i class="ti ti-package-import"></i></button></div>';}).join('')+'</div>':'')+
         (oc.notas?'<div style="font-size:10px;color:var(--txm);margin-top:7px;font-style:italic">'+esc(oc.notas)+'</div>':'')+
         '</div>';}).join(''));
 }
@@ -444,6 +488,8 @@ function rMover(){
   else if(modal.s==='vi'){c=mVI();lg=' mlg';}
   else if(modal.s==='oc'){c=mOC();lg=' mlg';}
   else if(modal.s==='prov')c=mProv();
+  else if(modal.s==='cotiz')c=mCotiz();
+  else if(modal.s==='recepcion')c=mRecepcion();
   return'<div class="mover" onclick="bgC(event)"><div class="modal'+lg+'" onclick="event.stopPropagation()">'+c+'</div></div>';
 }
 
@@ -543,6 +589,7 @@ function mVI(){const{disc,idx}=modal.d;const item=S.listas[disc]?.[idx];
         '<span class="cod">'+esc(oc.numero)+'</span><span style="flex:1;font-size:11px;color:var(--txm)">'+esc(getProvNom(oc.provId))+'</span>'+
         '<span style="font-size:11px;font-weight:500;color:var(--n)">'+(mat?.qty||0)+' '+esc(mat?.unidad||item.unidad||'')+'</span>'+
         '<span class="bdg '+ocBadge(oc.estado)+'">'+(OC_STATES.find(s=>s.id===oc.estado)?.l||oc.estado)+'</span></div>';}).join(''))+
+    (()=>{const locs=findInWarehouse(item.codigo);return locs.length?'<div class="stitle" style="margin-top:12px">Ubicación en almacén</div><div>'+locs.map(l=>'<span class="warehouse-loc">'+esc(l.loc)+'</span>').join('')+'</div>':'';})()+
     (item.notas?'<div class="stitle" style="margin-top:12px">Especificaciones</div><div style="font-size:11px;color:var(--txm)">'+esc(item.notas)+'</div>':'')+
     '</div><div class="mfoot"><button class="btn" onclick="cM()">Cerrar</button><button class="btn btnxs btnp" onclick="oEditLI(\''+disc+'\','+idx+')"><i class="ti ti-edit"></i> Editar</button></div>';}
 
@@ -552,6 +599,7 @@ function mOC(){const{ei,item}=modal.d;const codes=allItems().filter(i=>i.codigo)
     '<div class="fg"><label class="fl">Proveedor</label><select class="fi" id="oc-prov"><option value="">— Seleccionar —</option>'+S.proveedores.map(p=>'<option value="'+p.id+'"'+(item?.provId===p.id?' selected':'')+'>'+esc(p.nombre)+' ('+esc(p.pais||'—')+')</option>').join('')+'</select></div></div>'+
     '<div class="fr2"><div class="fg"><label class="fl">Fecha de emisión</label><input type="date" class="fi" id="oc-fe" value="'+(item?.fechaEmision||'')+'"></div>'+
     '<div class="fg"><label class="fl">Fecha estimada entrega</label><input type="date" class="fi" id="oc-fd" value="'+(item?.fechaEntrega||'')+'"></div></div>'+
+    '<div class="fg"><label class="fl">Proyecto / Asunto</label>'+projInput('oc-proj',item?.proj||'')+'</div>'+
     '<div class="fg"><label class="fl">Estado actual</label><select class="fi" id="oc-est">'+OC_STATES.map(s=>'<option value="'+s.id+'"'+((item?.estado||'cotizacion')===s.id?' selected':'')+'>'+s.l+'</option>').join('')+'</select></div>'+
     '<div class="fg"><label class="fl">Materiales incluidos en esta OC</label>'+
     '<div id="mm-list">'+modalMats.map((m,i)=>'<div style="display:flex;align-items:center;gap:5px;padding:5px 8px;background:var(--bg2);border-radius:6px;margin-bottom:4px">'+
@@ -598,7 +646,7 @@ function oEditItem(r,g,l,i){const item=gld(r,g,l).items[i];modal={s:'item',d:{r,
 function svItem(){
   if(!S.user){tst('Identifícate primero');showUsr();return;}
   const{r,g,l,ei}=modal.d;const desc=document.getElementById('i-d')?.value?.trim();if(!desc){tst('Ingresa una descripción');return;}
-  const it={id:uid(),type:document.getElementById('i-t')?.value||'box',desc,qty:+document.getElementById('i-q')?.value||1,unit:document.getElementById('i-u')?.value?.trim()||'PZA',sp:Math.max(1,+document.getElementById('i-s')?.value||1),proj:document.getElementById('i-p')?.value?.trim()||'',oc:document.getElementById('i-o')?.value?.trim()||'',llegada:document.getElementById('i-ll')?.value||'',notes:document.getElementById('i-n')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
+  const it={id:uid(),type:document.getElementById('i-t')?.value||'box',desc,qty:+document.getElementById('i-q')?.value||1,unit:document.getElementById('i-u')?.value?.trim()||'PZA',sp:Math.max(1,+document.getElementById('i-s')?.value||1),proj:document.getElementById('i-p')?.value?.trim()||'',oc:document.getElementById('i-o')?.value?.trim()||'',liCod:document.getElementById('i-lc')?.value?.trim()||'',llegada:document.getElementById('i-ll')?.value||'',notes:document.getElementById('i-n')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
   const ld=gld(r,g,l);
   if(ei!==undefined){it.id=ld.items[ei].id;it.by=ld.items[ei].by;it.at=ld.items[ei].at;ld.items[ei]=it;}else ld.items.push(it);
   alog('Material '+(ei!==undefined?'editado':'agregado')+' — Gab. '+g+' N'+l,it.desc+(it.llegada?' · Llegó: '+fdS(it.llegada):''));
@@ -655,7 +703,7 @@ function rmMM(i){modalMats.splice(i,1);render();}
 function svOC(){
   if(!S.user){tst('Identifícate primero');return;}
   const numero=document.getElementById('oc-num')?.value?.trim();if(!numero){tst('Ingresa el número de OC');return;}
-  const oc={id:uid(),numero,provId:document.getElementById('oc-prov')?.value||'',fechaEmision:document.getElementById('oc-fe')?.value||'',fechaEntrega:document.getElementById('oc-fd')?.value||'',estado:document.getElementById('oc-est')?.value||'cotizacion',materiales:[...modalMats],notas:document.getElementById('oc-notes')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
+  const oc={id:uid(),numero,provId:document.getElementById('oc-prov')?.value||'',proj:document.getElementById('oc-proj')?.value?.trim()||'',fechaEmision:document.getElementById('oc-fe')?.value||'',fechaEntrega:document.getElementById('oc-fd')?.value||'',estado:document.getElementById('oc-est')?.value||'cotizacion',materiales:[...modalMats],notas:document.getElementById('oc-notes')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
   const ei=modal.d?.ei;
   if(ei!==undefined){oc.id=S.ocs[ei].id;oc.by=S.ocs[ei].by;oc.at=S.ocs[ei].at;S.ocs[ei]=oc;alog('OC actualizada',numero);}
   else{S.ocs.push(oc);alog('OC registrada',numero+(oc.provId?' · '+getProvNom(oc.provId):''));}
@@ -697,6 +745,652 @@ function tst(msg){toastMsg=msg;clearTimeout(toastTmr);render();toastTmr=setTimeo
 async function poll(){try{const r=await fetch('/api/lastmod');const d=await r.json();if(d.lm>localLM){await loadAll();render();}}catch(e){}}
 async function init(){await loadAll();if(!S.user)modal={s:'usr',d:{}};render();setInterval(poll,20000);}
 init();
+
+/* ===========================
+   NUEVAS VARIABLES DE ESTADO
+   =========================== */
+let selSet = new Set();
+let cotizItems = []; // temp items for cotiz modal
+let cotizCols = [];  // temp cols for cotiz modal
+let cotizPrecios = {}; // temp prices for cotiz modal
+let cotizEditId = null; // which cotiz is being price-edited
+let dashProj = 'Hornos Fase 2';
+
+/* ===========================
+   HELPERS NUEVOS
+   =========================== */
+function getAlerts() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const in7 = new Date(today.getTime() + 7*86400000);
+  const todayS = today.toISOString().slice(0,10);
+  const in7S = in7.toISOString().slice(0,10);
+  const overdue = S.agenda.filter(a => a.date < todayS && a.status !== 'received');
+  const upcoming = S.agenda.filter(a => a.date >= todayS && a.date <= in7S && a.status !== 'received');
+  return { overdue, upcoming };
+}
+
+function findInWarehouse(codigo) {
+  const locs = [];
+  for (const r of ['hab1','hab2']) {
+    const cfg = S.config[r] || {gabs:7,lvls:4};
+    for (let g = 1; g <= (cfg.gabs||7); g++)
+      for (let l = 1; l <= (cfg.lvls||4); l++)
+        (gld(r,g,l).items||[]).forEach(it => {
+          if (it.liCod === codigo || it.oc === codigo)
+            locs.push({loc:(r==='hab1'?'Hab.1':'Hab.2')+' Gab.'+g+' N'+l, it});
+        });
+    (S.pallets[r]||[]).forEach(p => (p.items||[]).forEach(it => {
+      if (it.liCod === codigo) locs.push({loc:(r==='hab1'?'Hab.1':'Hab.2')+' Pallet: '+p.lbl, it});
+    }));
+  }
+  for (const z of ['caseta','intemperie','cotoca'])
+    (S.zoneItems[z]||[]).forEach(it => {
+      if (it.liCod === codigo) locs.push({loc:z==='caseta'?'Caseta':z==='intemperie'?'Intemperie':'Cotoca', it});
+    });
+  return locs;
+}
+
+function getWarehouseByProj(proj) {
+  const items = [];
+  for (const r of ['hab1','hab2']) {
+    const cfg = S.config[r]||{gabs:7,lvls:4};
+    for (let g=1;g<=(cfg.gabs||7);g++)
+      for (let l=1;l<=(cfg.lvls||4);l++)
+        (gld(r,g,l).items||[]).filter(i=>i.proj===proj).forEach(i=>items.push({...i,loc:(r==='hab1'?'Hab.1':'Hab.2')+' Gab.'+g+' N'+l}));
+  }
+  for (const z of ['caseta','intemperie','cotoca'])
+    (S.zoneItems[z]||[]).filter(i=>i.proj===proj).forEach(i=>items.push({...i,loc:z}));
+  return items;
+}
+
+function getOCrecibida(mat) {
+  return (mat.recepciones||[]).reduce((a,r)=>a+(+r.qty||0),0);
+}
+
+function cotizBest(cotiz, itemId) {
+  let best=null, bp=Infinity;
+  (cotiz.cols||[]).forEach(col=>{
+    const k=itemId+':'+col.id; const p=cotiz.precios?.[k];
+    if(p!==undefined && +p < bp){bp=+p;best=col;}
+  });
+  return {col:best, price:bp===Infinity?null:bp};
+}
+
+function selGetItems() {
+  // Returns all selected items across all disciplines
+  const items = [];
+  DISCIPLINAS.forEach(d => (S.listas[d.id]||[]).forEach(i => {
+    if (selSet.has(i.id)) items.push({...i, disc:d.id});
+  }));
+  return items;
+}
+
+/* ===========================
+   RENDER — ALERTAS
+   =========================== */
+function rAlertBanner() {
+  const al = getAlerts();
+  const tot = al.overdue.length + al.upcoming.length;
+  if (!tot) return '';
+  return '<div class="alert-banner" onclick="setTab(\'agenda\')">'+
+    '<i class="ti ti-bell" style="color:var(--amb-tx);font-size:15px;flex-shrink:0"></i>'+
+    '<div style="flex:1">'+
+    '<div style="font-size:11px;font-weight:500;color:var(--amb-tx)">'+
+    (al.overdue.length?'⚠️ '+al.overdue.length+' entrega'+(al.overdue.length>1?'s':'')+' con retraso':'')  +
+    (al.overdue.length&&al.upcoming.length?' · ':'')+
+    (al.upcoming.length?'🕐 '+al.upcoming.length+' entrega'+(al.upcoming.length>1?'s':'')+' en los próximos 7 días':'')+'</div>'+
+    '<div style="font-size:10px;color:var(--amb-tx);opacity:.7">Toca para ver la Agenda</div></div>'+
+    '<span class="bdg bmid">'+tot+'</span></div>';
+}
+
+function rSelBar() {
+  const n = selSet.size;
+  return '<div class="sel-bar">'+
+    '<span style="font-size:12px;font-weight:500;color:#fff">'+n+' ítem'+(n!==1?'s':'')+' seleccionado'+(n!==1?'s':'')+'</span>'+
+    '<div style="flex:1"></div>'+
+    '<button class="ibtn" onclick="selToCalc()"><i class="ti ti-weight" style="font-size:12px"></i> Calculadora</button>'+
+    '<button class="ibtn" onclick="selToOC()"><i class="ti ti-file-invoice" style="font-size:12px"></i> Nueva OC</button>'+
+    '<button class="ibtn" onclick="selToCotiz()"><i class="ti ti-receipt" style="font-size:12px"></i> Cotización</button>'+
+    '<button class="ibtn" style="background:rgba(204,34,0,.35);border-color:rgba(204,34,0,.6)" onclick="selDelete()"><i class="ti ti-trash" style="font-size:12px"></i></button>'+
+    '<button class="ibtn" onclick="clearSel()"><i class="ti ti-x" style="font-size:12px"></i></button>'+
+    '</div>';
+}
+
+/* ===========================
+   RENDER — COTIZACIONES
+   =========================== */
+function rCotiz() {
+  if (cotizEditId) return rCotizEditor();
+  const q = searches.cotiz||'';
+  let cotizs = [...(S.cotizaciones||[])];
+  if (q) cotizs = cotizs.filter(c => matchStr([c.nombre,c.proj].filter(Boolean).join(' '), q));
+  return '<div class="ph"><div><div class="phtitle">Cuadros Comparativos</div>'+
+    '<div class="phsub">Comparación de cotizaciones de proveedores</div></div>'+
+    '<button class="btn btnp" onclick="oNewCotiz()"><i class="ti ti-plus"></i> Nuevo comparativo</button></div>'+
+    (!cotizs.length?'<div class="nodata"><i class="ti ti-table-off"></i>Sin comparativos registrados. Crea uno para comparar cotizaciones de varios proveedores.</div>':
+    cotizs.map(c => {
+      const totalItems = (c.items||[]).length, totalCols = (c.cols||[]).length;
+      // Find overall winner (most items with best price)
+      const winCount = {};
+      (c.items||[]).forEach(item => {
+        const b = cotizBest(c, item.id);
+        if (b.col) winCount[b.col.id] = (winCount[b.col.id]||0)+1;
+      });
+      const winnerId = Object.entries(winCount).sort((a,b)=>b[1]-a[1])[0]?.[0];
+      const winner = (c.cols||[]).find(col=>col.id===winnerId);
+      return '<div class="cotiz-card"><div class="oc-hdr">'+
+        '<div style="flex:1;min-width:0">'+
+        '<div style="font-size:13px;font-weight:500;color:var(--tx)">'+esc(c.nombre)+'</div>'+
+        '<div class="oc-meta">'+(c.proj?'📁 '+esc(c.proj)+' · ':'')+(c.fecha?fdS(c.fecha)+' · ':'')+totalItems+' ítem'+(totalItems!==1?'s':'')+' · '+totalCols+' proveedor'+(totalCols!==1?'es':'')+'</div>'+
+        (winner?'<div style="font-size:11px;color:var(--grn-tx);margin-top:4px">🏆 Mejor precio global: <b>'+esc(winner.nombre)+'</b></div>':'')+
+        '</div>'+
+        '<div class="brow">'+
+        '<button class="btn btnxs" onclick="oEditCotizPrecios(\''+c.id+'\')"><i class="ti ti-table"></i> Editar precios</button>'+
+        '<button class="btn btnxs" onclick="exportCotiz(\''+c.id+'\')"><i class="ti ti-download"></i> Excel</button>'+
+        (c.cols&&c.cols.length?'<button class="btn btnxs brecv" onclick="cotizToOC(\''+c.id+'\')"><i class="ti ti-file-invoice"></i> → OC</button>':'')+
+        '<button class="btn btnxs" onclick="oEditCotiz(\''+c.id+'\')"><i class="ti ti-edit"></i></button>'+
+        '<button class="btn btnxs btnd" onclick="dCotiz(\''+c.id+'\')"><i class="ti ti-trash"></i></button>'+
+        '</div></div>'+
+        (c.notas?'<div style="font-size:10px;color:var(--txm);margin-top:6px;font-style:italic">'+esc(c.notas)+'</div>':'')+
+        '</div>';
+    }).join(''));
+}
+
+function rCotizEditor() {
+  const c = (S.cotizaciones||[]).find(x=>x.id===cotizEditId);
+  if (!c) { cotizEditId=null; return rCotiz(); }
+  // Build table: rows=items, cols=suppliers
+  const colHeaders = (c.cols||[]).map(col=>'<th style="min-width:110px;text-align:center">'+esc(col.nombre)+'<br><button class="btn btnxs btnd" style="margin-top:3px;font-size:9px" onclick="cotizRemoveCol(\''+cotizEditId+'\',\''+col.id+'\')"><i class="ti ti-x"></i></button></th>').join('');
+  const rows = (c.items||[]).map(item => {
+    const priceCells = (c.cols||[]).map(col => {
+      const key = item.id+':'+col.id;
+      const val = c.precios?.[key] ?? '';
+      const best = cotizBest(c, item.id);
+      const isBest = best.col?.id === col.id && val !== '';
+      return '<td style="text-align:center" id="pcell-'+key+'">'+
+        '<input class="price-input'+(isBest?' best-cell':'')+'" id="pinp-'+key+'" type="number" min="0" step="0.01" value="'+val+'" placeholder="—" onchange="updatePx(\''+cotizEditId+'\',\''+key+'\',this.value)" style="width:80px">'+
+        '</td>';
+    }).join('');
+    const best = cotizBest(c, item.id);
+    const total = best.price !== null ? (best.price * (+item.cantReq||0)).toFixed(2) : '—';
+    return '<tr>'+
+      '<td><span class="cod">'+esc(item.codigo||'—')+'</span></td>'+
+      '<td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(item.desc)+'</td>'+
+      '<td style="text-align:center;color:var(--txm)">'+esc(item.unidad||'—')+'</td>'+
+      '<td style="text-align:center;font-weight:500">'+( item.cantReq||0)+'</td>'+
+      priceCells+
+      '<td style="text-align:center;background:var(--bg2)">'+
+        '<div style="font-size:10px;color:var(--grn-tx);font-weight:500">'+(best.col?'$'+best.price:' — ')+'</div>'+
+        '<div style="font-size:9px;color:var(--txm)">'+(best.col?esc(best.col.nombre):'')+'</div>'+
+      '</td>'+
+      '<td style="text-align:right;font-weight:500;color:var(--n)">'+total+'</td>'+
+      '<td><button class="btn btnxs btnd" onclick="cotizRemoveItem(\''+cotizEditId+'\',\''+item.id+'\')"><i class="ti ti-x"></i></button></td>'+
+    '</tr>';
+  }).join('');
+  // Totals row per supplier
+  const totalCells = (c.cols||[]).map(col => {
+    const tot = (c.items||[]).reduce((sum,item) => {
+      const k = item.id+':'+col.id; const p = c.precios?.[k];
+      return sum + (p !== undefined ? +p * (+item.cantReq||0) : 0);
+    }, 0);
+    const best = false; // compare totals
+    return '<td style="text-align:center;font-weight:600;background:var(--bg2);font-family:monospace">$'+tot.toFixed(2)+'</td>';
+  }).join('');
+
+  return '<div class="ph">'+
+    '<div><div class="phtitle">'+esc(c.nombre)+'</div><div class="phsub">'+(c.proj||'')+(c.fecha?' · '+fdS(c.fecha):'')+'</div></div>'+
+    '<div class="brow">'+
+    '<button class="btn btnxs" onclick="exportCotiz(\''+cotizEditId+'\')"><i class="ti ti-download"></i> Excel</button>'+
+    '<button class="btn btnxs btnp" onclick="cotizSavePrecios()"><i class="ti ti-check"></i> Guardar</button>'+
+    '<button class="btn btnxs" onclick="cotizEditId=null;render()"><i class="ti ti-arrow-left"></i> Volver</button>'+
+    '</div></div>'+
+    '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">'+
+    '<button class="btn btnxs" onclick="cotizAddItemUI()"><i class="ti ti-plus"></i> Ítem</button>'+
+    '<button class="btn btnxs" onclick="cotizAddColUI()"><i class="ti ti-user-plus"></i> Proveedor</button>'+
+    '</div>'+
+    (!(c.items||[]).length?'<div class="nodata"><i class="ti ti-table-off"></i>Agrega ítems y proveedores para comenzar</div>':
+    '<div class="cotiz-wrap"><table class="cotiz-tbl">'+
+    '<thead><tr>'+
+    '<th>Código</th><th>Descripción</th><th style="text-align:center">Und.</th><th style="text-align:center">Cant.</th>'+
+    colHeaders+
+    '<th style="text-align:center;background:var(--grn-bg)">Mejor p/ud</th>'+
+    '<th style="text-align:right">Total mejor</th><th></th></tr></thead>'+
+    '<tbody>'+rows+
+    '<tr style="font-weight:600;background:var(--bg2)">'+
+    '<td colspan="4" style="text-align:right;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--txm)">TOTALES</td>'+
+    totalCells+
+    '<td colspan="3"></td></tr>'+
+    '</tbody></table></div>');
+}
+
+/* ===========================
+   RENDER — DASHBOARD
+   =========================== */
+function rDashboard() {
+  const proj = dashProj;
+  const ocsP = S.ocs.filter(o => o.proj === proj);
+  const agP = S.agenda.filter(a => a.proj === proj);
+  const almP = getWarehouseByProj(proj);
+  const alerts = getAlerts();
+  const agPend = agP.filter(a => a.status !== 'received');
+  const agRecv = agP.filter(a => a.status === 'received');
+  const ocByState = {};
+  OC_STATES.forEach(s => ocByState[s.id] = ocsP.filter(o=>o.estado===s.id).length);
+  // Lista completeness per discipline
+  const discomp = DISCIPLINAS.map(d => {
+    const items = S.listas[d.id]||[];
+    const completos = items.filter(i=>getCantComp(i.codigo)>=(+i.cantReq||0)&&+i.cantReq>0).length;
+    return {disc:d, total:items.length, completos, pct:items.length?completos/items.length:0};
+  });
+  // Peso total en almacén de este proyecto
+  const pesoAlm = almP.reduce((a,i)=>a+(+i.qty||0)*(+i.pesoUn||0),0);
+
+  return '<div class="ph">'+
+    '<div><div class="phtitle">Dashboard por proyecto</div><div class="phsub">Resumen integrado de avance y estado</div></div>'+
+    '<select class="proj-sel" onchange="dashProj=this.value;render()">'+
+    PROJ_HINTS.map(p=>'<option value="'+p+'"'+(proj===p?' selected':'')+'>'+p+'</option>').join('')+
+    '</select></div>'+
+    rAlertBanner()+
+    '<div class="stats" style="grid-template-columns:repeat(4,1fr)">'+
+    '<div class="stat"><div class="stn">'+ocsP.length+'</div><div class="stl">OCs</div></div>'+
+    '<div class="stat"><div class="stn" style="color:#1E7040">'+agRecv.length+'</div><div class="stl">Entregas recibidas</div></div>'+
+    '<div class="stat"><div class="stn" style="color:#F5A800">'+agPend.length+'</div><div class="stl">Entregas pendientes</div></div>'+
+    '<div class="stat"><div class="stn">'+almP.length+'</div><div class="stl">Ítems en almacén</div></div></div>'+
+    '<div class="fr2">'+
+    '<div class="dash-card"><div class="stitle" style="margin-bottom:10px">Estado de listas por disciplina</div>'+
+    discomp.map(dc=>'<div class="dash-disc-row">'+
+      '<span style="font-size:11px;min-width:90px">'+dc.disc.ic+' '+dc.disc.l+'</span>'+
+      '<div class="disc-prog"><div class="disc-progf" style="width:'+Math.round(dc.pct*100)+'%;background:'+(dc.pct>=1?'#1E7040':dc.pct>0?'#F5A800':'#C8D5E8')+'"></div></div>'+
+      '<span style="font-size:10px;color:var(--txm);min-width:55px;text-align:right">'+dc.completos+'/'+dc.total+' ('+Math.round(dc.pct*100)+'%)</span>'+
+    '</div>').join('')+
+    '</div>'+
+    '<div class="dash-card"><div class="stitle" style="margin-bottom:10px">OCs del proyecto ('+ocsP.length+')</div>'+
+    (!ocsP.length?'<div style="font-size:11px;color:var(--txm)">Sin OCs para este proyecto. Agrega el campo Proyecto al crear una OC.</div>':
+    ocsP.map(oc=>'<div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--bdr)">'+
+      '<span class="cod" style="font-size:10px">'+esc(oc.numero)+'</span>'+
+      '<span style="flex:1;font-size:10px;color:var(--txm)">'+esc(getProvNom(oc.provId))+'</span>'+
+      '<span class="bdg '+ocBadge(oc.estado)+'">'+(OC_STATES.find(s=>s.id===oc.estado)?.l||oc.estado)+'</span></div>').join(''))+
+    '</div></div>'+
+    '<div class="fr2">'+
+    '<div class="dash-card"><div class="stitle" style="margin-bottom:10px">Próximas entregas del proyecto</div>'+
+    (!agPend.length?'<div style="font-size:11px;color:var(--txm)">Sin entregas pendientes.</div>':
+    agPend.sort((a,b)=>a.date.localeCompare(b.date)).slice(0,5).map(a=>{const d=fdate(a.date);return'<div style="display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--bdr)">'+
+      '<div style="background:var(--n);color:#fff;border-radius:5px;padding:2px 6px;text-align:center;flex-shrink:0"><div style="font-size:13px;font-weight:500;line-height:1">'+d.day+'</div><div style="font-size:8px;opacity:.8">'+d.mon+'</div></div>'+
+      '<div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:500;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(a.material)+'</div>'+
+      '<div style="font-size:10px;color:var(--txm)">'+esc(a.supplier||'—')+'</div></div>'+
+      '<span class="bdg '+(a.status==='delayed'?'bdel':'bpend')+'">'+(a.status==='delayed'?'Retraso':'Pendiente')+'</span></div>';}).join(''))+
+    '</div>'+
+    '<div class="dash-card"><div class="stitle" style="margin-bottom:10px">Materiales en almacén del proyecto</div>'+
+    (!almP.length?'<div style="font-size:11px;color:var(--txm)">Sin materiales de este proyecto en almacén.</div>':
+    almP.slice(0,6).map(i=>'<div style="display:flex;align-items:center;gap:6px;padding:5px 0;border-bottom:1px solid var(--bdr)">'+
+      '<span style="font-size:14px">'+iti(i.type).ic+'</span>'+
+      '<div style="flex:1;min-width:0"><div style="font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(i.desc)+'</div>'+
+      '<div style="font-size:9px;color:var(--txm)">'+esc(i.loc)+' · '+i.qty+' '+esc(i.unit||'')+'</div></div></div>').join('')+
+    (almP.length>6?'<div style="font-size:10px;color:var(--txm);margin-top:5px">...y '+(almP.length-6)+' más</div>':''))+
+    '</div></div>'+
+    '<div class="brow" style="margin-top:10px;justify-content:flex-end">'+
+    '<button class="btn btnxs" onclick="exportExcel(\'inventario\')"><i class="ti ti-download"></i> Exportar inventario</button>'+
+    '<button class="btn btnxs" onclick="exportExcel(\'ocs\')"><i class="ti ti-download"></i> Exportar OCs</button>'+
+    '</div>';
+}
+
+/* ===========================
+   MODALES NUEVOS
+   =========================== */
+function mCotiz() {
+  const isEdit = !!modal.d?.id;
+  const c = isEdit ? S.cotizaciones.find(x=>x.id===modal.d.id) : null;
+  // Reinit temp state if not edit
+  if (!isEdit && !modal.d._init) {
+    cotizItems = [...(modal.d.preItems||[])];
+    cotizCols = [];
+    cotizPrecios = {};
+    modal.d._init = true;
+  } else if (isEdit && !modal.d._init) {
+    cotizItems = [...(c.items||[])];
+    cotizCols = [...(c.cols||[])];
+    cotizPrecios = {...(c.precios||{})};
+    modal.d._init = true;
+  }
+  const codes = allItems().filter(i=>i.codigo);
+  return '<div class="mhdr"><div class="mttl"><i class="ti ti-receipt"></i> '+(isEdit?'Editar':'Nuevo')+' comparativo de cotizaciones</div>'+
+    '<button class="btn btnxs" onclick="cM()"><i class="ti ti-x"></i></button></div>'+
+    '<div class="mbody">'+
+    '<div class="fr2"><div class="fg"><label class="fl">Nombre del comparativo *</label>'+
+    '<input class="fi" id="ct-nom" value="'+esc(c?.nombre||'')+'" placeholder="Ej: Comparativo piping Hornos F2" autofocus></div>'+
+    '<div class="fg"><label class="fl">Proyecto</label>'+projInput('ct-proj',c?.proj||dashProj)+'</div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Fecha</label><input type="date" class="fi" id="ct-fecha" value="'+(c?.fecha||new Date().toISOString().slice(0,10))+'"></div>'+
+    '<div class="fg"><label class="fl">Notas</label><input class="fi" id="ct-notas" value="'+esc(c?.notas||'')+'" placeholder="Observaciones..."></div></div>'+
+    '<div class="fg"><label class="fl">Ítems a comparar ('+cotizItems.length+')</label>'+
+    '<div style="margin-bottom:5px">'+cotizItems.map((item,i)=>'<div style="display:flex;align-items:center;gap:5px;padding:4px 7px;background:var(--bg2);border-radius:5px;margin-bottom:3px">'+
+      '<span class="cod" style="flex-shrink:0">'+esc(item.codigo||'—')+'</span>'+
+      '<span style="flex:1;font-size:11px">'+esc(item.desc)+'</span>'+
+      '<span style="font-size:11px;color:var(--txm);flex-shrink:0">'+( item.cantReq||0)+' '+esc(item.unidad||'')+'</span>'+
+      '<button class="btn btnxs btnd" onclick="ctRemItem('+i+')"><i class="ti ti-x"></i></button></div>').join('')+'</div>'+
+    '<div style="display:grid;grid-template-columns:100px 1fr 60px 50px auto;gap:5px;align-items:center">'+
+    '<input class="fi" id="ct-icod" list="ct-cdl" placeholder="Código" style="font-size:11px" oninput="ctAutoFill()">'+
+    '<input class="fi" id="ct-idesc" placeholder="Descripción" style="font-size:11px">'+
+    '<input class="fi" type="number" id="ct-iqty" placeholder="Cant." style="font-size:11px">'+
+    '<input class="fi" id="ct-iund" placeholder="Und." style="font-size:11px">'+
+    '<button class="btn btnxs btnp" onclick="ctAddItem()"><i class="ti ti-plus"></i></button></div>'+
+    '<datalist id="ct-cdl">'+codes.map(i=>'<option value="'+esc(i.codigo)+'">'+esc(i.codigo)+' — '+esc(i.desc)+'</option>').join('')+'</datalist></div>'+
+    '<div class="fg"><label class="fl">Proveedores a comparar ('+cotizCols.length+')</label>'+
+    '<div style="margin-bottom:5px">'+cotizCols.map((col,i)=>'<div style="display:flex;align-items:center;gap:5px;padding:4px 7px;background:var(--bg2);border-radius:5px;margin-bottom:3px">'+
+      '<span style="font-size:12px">'+flagEmoji((S.proveedores.find(p=>p.id===col.provId)||{}).pais||'')+'</span>'+
+      '<span style="flex:1;font-size:12px;font-weight:500">'+esc(col.nombre)+'</span>'+
+      '<button class="btn btnxs btnd" onclick="ctRemCol('+i+')"><i class="ti ti-x"></i></button></div>').join('')+'</div>'+
+    '<div style="display:grid;grid-template-columns:1fr auto auto;gap:5px;align-items:center">'+
+    '<input class="fi" list="ct-pdl" id="ct-pnom" placeholder="Nombre del proveedor" style="font-size:11px">'+
+    '<datalist id="ct-pdl">'+S.proveedores.map(p=>'<option value="'+esc(p.nombre)+'" data-id="'+p.id+'">'+esc(p.nombre)+'</option>').join('')+'</datalist>'+
+    '<button class="btn btnxs btnp" onclick="ctAddCol()"><i class="ti ti-plus"></i></button></div></div>'+
+    '</div>'+
+    '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button>'+
+    '<button class="btn btnp" onclick="svCotiz()"><i class="ti ti-check"></i> '+(isEdit?'Guardar cambios':'Crear y editar precios')+'</button></div>';
+}
+
+function mRecepcion() {
+  const {ocId, matIdx} = modal.d;
+  const oc = S.ocs.find(o=>o.id===ocId);
+  const mat = oc?.materiales?.[matIdx];
+  if (!oc || !mat) return '<div class="mbody">Error</div>';
+  const recibida = getOCrecibida(mat);
+  const falta = Math.max(0, (+mat.qty||0) - recibida);
+  return '<div class="mhdr"><div class="mttl"><i class="ti ti-package-import"></i> Registrar recepción</div></div>'+
+    '<div class="mbody">'+
+    '<div style="padding:8px 10px;background:var(--bg2);border-radius:6px;margin-bottom:12px">'+
+    '<div style="font-size:12px;font-weight:500">'+esc(mat.desc||mat.codigo)+'</div>'+
+    '<div style="font-size:11px;color:var(--txm);margin-top:2px">Ordenado: <b>'+mat.qty+' '+esc(mat.unidad||'')+'</b> · Recibido: <b style="color:var(--grn-tx)">'+recibida+'</b> · Faltante: <b style="color:'+(falta>0?'var(--red-tx)':'var(--grn-tx)')+'">'+falta+'</b></div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Fecha de recepción</label><input type="date" class="fi" id="rec-fecha" value="'+new Date().toISOString().slice(0,10)+'"></div>'+
+    '<div class="fg"><label class="fl">Cantidad recibida</label><input class="fi" type="number" id="rec-qty" min="0.01" step="0.01" value="'+falta+'" placeholder="0"></div></div>'+
+    '<div class="fg"><label class="fl">Estado de calidad</label><select class="fi" id="rec-est">'+
+    '<option value="ok">✅ Conforme — sin observaciones</option>'+
+    '<option value="obs">⚠️ Conforme con observaciones</option>'+
+    '<option value="rechazado">❌ Rechazado</option>'+
+    '</select></div>'+
+    '<div class="fg"><label class="fl">Notas de inspección</label><input class="fi" id="rec-notas" placeholder="Observaciones, daños, diferencias..."></div>'+
+    '<div class="fg"><label class="fl">Destino en almacén (opcional)</label>'+
+    '<input class="fi" id="rec-dest" placeholder="Ej: Hab. 1 Gab. 3 N2, Caseta..."></div>'+
+    '</div>'+
+    '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button>'+
+    '<button class="btn btnp" onclick="svRecepcion()"><i class="ti ti-check"></i> Registrar recepción</button></div>';
+}
+
+/* ===========================
+   ACCIONES — SELECCIÓN
+   =========================== */
+function toggleSel(itemId, e) {
+  if (e) e.stopPropagation();
+  if (selSet.has(itemId)) selSet.delete(itemId); else selSet.add(itemId);
+  render();
+}
+function clearSel() { selSet.clear(); render(); }
+function selectAll() {
+  const disc = S.disc||'civil';
+  (S.listas[disc]||[]).forEach(i => selSet.add(i.id));
+  render();
+}
+
+function selToCalc() {
+  const items = selGetItems().filter(i => i.pesoUnit > 0);
+  if (!items.length) { tst('Los ítems seleccionados no tienen peso unitario definido'); return; }
+  items.forEach(i => calcItems.push({cod:i.codigo, desc:i.desc, pesoUnit:i.pesoUnit, qty:+i.cantReq||1, subtotal:i.pesoUnit*(+i.cantReq||1)}));
+  clearSel(); setTab('calculadora'); tst(items.length+' ítem'+(items.length!==1?'s':'')+' enviado'+(items.length!==1?'s':'')+' a la calculadora');
+}
+
+function selToOC() {
+  const items = selGetItems();
+  modalMats = items.map(i => ({codigo:i.codigo, desc:i.desc, qty:i.cantReq||0, unidad:i.unidad}));
+  clearSel(); modal = {s:'oc', d:{}}; render();
+}
+
+function selToCotiz() {
+  const items = selGetItems();
+  const preItems = items.map(i => ({id:uid(), codigo:i.codigo, desc:i.desc, unidad:i.unidad, cantReq:i.cantReq||0}));
+  clearSel(); cotizItems=preItems; cotizCols=[]; cotizPrecios={};
+  modal = {s:'cotiz', d:{_init:true}}; render();
+}
+
+function selDelete() {
+  if (!confirm('¿Eliminar '+selSet.size+' ítem'+(selSet.size!==1?'s':'')+' de la lista?')) return;
+  DISCIPLINAS.forEach(d => { S.listas[d.id] = (S.listas[d.id]||[]).filter(i => !selSet.has(i.id)); });
+  alog('Ítems eliminados en lote', selSet.size+' ítems eliminados de las listas');
+  clearSel(); sv(['listas','log']); render(); tst('Ítems eliminados');
+}
+
+function onRowClick(disc, idx) {
+  if (selSet.size > 0) toggleSel((S.listas[disc]||[])[idx]?.id);
+  else oVerItem(disc, idx);
+}
+
+/* ===========================
+   ACCIONES — COTIZACIONES
+   =========================== */
+function oNewCotiz(preItems) {
+  cotizItems = preItems||[]; cotizCols=[]; cotizPrecios={};
+  modal={s:'cotiz',d:{_init:true}}; render();
+}
+function oEditCotiz(id) {
+  modal={s:'cotiz',d:{id}}; render();
+}
+function oEditCotizPrecios(id) {
+  cotizEditId=id; modal=null; render();
+}
+function cotizSavePrecios() {
+  const c = S.cotizaciones.find(x=>x.id===cotizEditId);
+  if (c) { sv(['cotiz','log']); tst('Precios guardados'); }
+}
+function cotizAddItemUI() {
+  const cod = prompt('Código del ítem (de la lista):');
+  if (!cod) return;
+  let found = null;
+  for (const items of Object.values(S.listas)) { const f=items.find(i=>i.codigo===cod); if(f){found=f;break;} }
+  const c = S.cotizaciones.find(x=>x.id===cotizEditId);
+  if (!c) return;
+  if (!c.items) c.items = [];
+  if (c.items.find(i=>i.codigo===cod)) { tst('Ese código ya está en el comparativo'); return; }
+  c.items.push({id:uid(), codigo:cod, desc:found?.desc||cod, unidad:found?.unidad||'', cantReq:found?.cantReq||0});
+  sv(['cotiz']); render();
+}
+function cotizAddColUI() {
+  const nom = prompt('Nombre del proveedor:');
+  if (!nom) return;
+  const c = S.cotizaciones.find(x=>x.id===cotizEditId);
+  if (!c) return;
+  if (!c.cols) c.cols=[];
+  const prov = S.proveedores.find(p=>p.nombre===nom);
+  c.cols.push({id:uid(), nombre:nom, provId:prov?.id||''});
+  sv(['cotiz']); render();
+}
+function cotizRemoveItem(cotizId, itemId) {
+  const c = S.cotizaciones.find(x=>x.id===cotizId);
+  if (!c) return;
+  c.items = c.items.filter(i=>i.id!==itemId);
+  Object.keys(c.precios||{}).filter(k=>k.startsWith(itemId+':')).forEach(k=>delete c.precios[k]);
+  sv(['cotiz']); render();
+}
+function cotizRemoveCol(cotizId, colId) {
+  const c = S.cotizaciones.find(x=>x.id===cotizId);
+  if (!c) return;
+  c.cols = c.cols.filter(col=>col.id!==colId);
+  Object.keys(c.precios||{}).filter(k=>k.endsWith(':'+colId)).forEach(k=>delete c.precios[k]);
+  sv(['cotiz']); render();
+}
+function ctAutoFill() {
+  const cod = document.getElementById('ct-icod')?.value?.trim();
+  if (!cod) return;
+  for (const items of Object.values(S.listas)) {
+    const f = items.find(i=>i.codigo===cod);
+    if (f) {
+      const d=document.getElementById('ct-idesc'); const u=document.getElementById('ct-iund'); const q=document.getElementById('ct-iqty');
+      if(d&&!d.value)d.value=f.desc; if(u&&!u.value)u.value=f.unidad||''; if(q&&!q.value)q.value=f.cantReq||''; return;
+    }
+  }
+}
+function ctAddItem() {
+  const cod=document.getElementById('ct-icod')?.value?.trim()||'';
+  let desc=document.getElementById('ct-idesc')?.value?.trim()||'';
+  const qty=+document.getElementById('ct-iqty')?.value||0;
+  const und=document.getElementById('ct-iund')?.value?.trim()||'';
+  if(!cod&&!desc){tst('Ingresa código o descripción');return;}
+  if(cotizItems.find(i=>i.codigo===cod&&cod)){tst('Ese código ya está en el comparativo');return;}
+  if(cod&&!desc){for(const items of Object.values(S.listas)){const f=items.find(i=>i.codigo===cod);if(f){desc=f.desc;break;}}}
+  cotizItems.push({id:uid(),codigo:cod,desc:desc||cod,unidad:und,cantReq:qty});
+  render();
+}
+function ctRemItem(i){cotizItems.splice(i,1);render();}
+function ctAddCol(){
+  const nom=document.getElementById('ct-pnom')?.value?.trim();
+  if(!nom){tst('Ingresa el nombre del proveedor');return;}
+  if(cotizCols.find(c=>c.nombre===nom)){tst('Ese proveedor ya está');return;}
+  const prov=S.proveedores.find(p=>p.nombre===nom);
+  cotizCols.push({id:uid(),nombre:nom,provId:prov?.id||''});
+  render();
+}
+function ctRemCol(i){cotizCols.splice(i,1);render();}
+function svCotiz(){
+  if(!S.user){tst('Identifícate primero');return;}
+  const nom=document.getElementById('ct-nom')?.value?.trim();
+  if(!nom){tst('Ingresa un nombre para el comparativo');return;}
+  const isEdit=!!modal.d?.id;
+  const c={
+    id:isEdit?modal.d.id:uid(), nombre:nom,
+    proj:document.getElementById('ct-proj')?.value?.trim()||'',
+    fecha:document.getElementById('ct-fecha')?.value||'',
+    notas:document.getElementById('ct-notas')?.value?.trim()||'',
+    items:[...cotizItems], cols:[...cotizCols],
+    precios:isEdit?{...(S.cotizaciones.find(x=>x.id===modal.d.id)?.precios||{}),...cotizPrecios}:{...cotizPrecios},
+    by:S.user,at:new Date().toISOString()
+  };
+  if(!S.cotizaciones)S.cotizaciones=[];
+  if(isEdit){const idx=S.cotizaciones.findIndex(x=>x.id===c.id);if(idx>=0){c.by=S.cotizaciones[idx].by;c.at=S.cotizaciones[idx].at;S.cotizaciones[idx]=c;}else S.cotizaciones.push(c);}
+  else S.cotizaciones.push(c);
+  alog(isEdit?'Comparativo actualizado':'Comparativo creado',nom);
+  sv(['cotiz','log']); modal=null;
+  if(!isEdit){cotizEditId=c.id;} // auto-open price editor
+  render(); tst(isEdit?'Comparativo guardado':'Comparativo creado. Ahora ingresa los precios.');
+}
+function dCotiz(id){
+  if(!confirm('¿Eliminar este comparativo?'))return;
+  S.cotizaciones=S.cotizaciones.filter(x=>x.id!==id);
+  alog('Comparativo eliminado','');sv(['cotiz','log']);render();tst('Comparativo eliminado');
+}
+function cotizToOC(id){
+  const c=S.cotizaciones.find(x=>x.id===id);if(!c)return;
+  // Find winner col (most wins)
+  const wins={};
+  (c.items||[]).forEach(item=>{const b=cotizBest(c,item.id);if(b.col)wins[b.col.id]=(wins[b.col.id]||0)+1;});
+  const winnerId=Object.entries(wins).sort((a,b)=>b[1]-a[1])[0]?.[0];
+  const winner=(c.cols||[]).find(col=>col.id===winnerId);
+  if(!winner){tst('No hay precios ingresados para determinar el ganador');return;}
+  modalMats=(c.items||[]).map(item=>({codigo:item.codigo,desc:item.desc,qty:item.cantReq,unidad:item.unidad}));
+  const prov=S.proveedores.find(p=>p.id===winner.provId||p.nombre===winner.nombre);
+  modal={s:'oc',d:{_init:true,item:{provId:prov?.id||'',proj:c.proj||'',numero:'OC-'+new Date().getFullYear()+'-'}}};
+  // Set winner prov
+  if(prov) modal.d.item.provId=prov.id;
+  render();tst('OC pre-cargada con proveedor ganador: '+winner.nombre);
+}
+function updatePx(cotizId, key, val){
+  const c=S.cotizaciones.find(x=>x.id===cotizId);if(!c)return;
+  if(!c.precios)c.precios={};
+  if(val!=='')c.precios[key]=parseFloat(val)||0; else delete c.precios[key];
+  // Update best highlighting in DOM without full re-render
+  const itemId=key.split(':')[0];
+  const item=(c.items||[]).find(i=>i.id===itemId);
+  if(!item)return;
+  const best=cotizBest(c,itemId);
+  (c.cols||[]).forEach(col=>{
+    const k=itemId+':'+col.id;
+    const inp=document.getElementById('pinp-'+k);
+    if(inp){inp.classList.toggle('best-cell',col.id===best.col?.id&&c.precios?.[k]!==undefined);}
+  });
+  // Update best col in bestcell
+  const bestTd=document.getElementById('pcell-'+itemId+':best');
+}
+
+/* ===========================
+   ACCIONES — RECEPCIÓN EN OC
+   =========================== */
+function oRecepcion(ocId, matIdx){
+  modal={s:'recepcion',d:{ocId,matIdx}};render();
+}
+function svRecepcion(){
+  if(!S.user){tst('Identifícate primero');return;}
+  const{ocId,matIdx}=modal.d;
+  const oc=S.ocs.find(o=>o.id===ocId);
+  if(!oc||!oc.materiales[matIdx])return;
+  const fecha=document.getElementById('rec-fecha')?.value;
+  const qty=+document.getElementById('rec-qty')?.value||0;
+  if(!fecha||!qty){tst('Ingresa fecha y cantidad');return;}
+  const mat=oc.materiales[matIdx];
+  if(!mat.recepciones)mat.recepciones=[];
+  mat.recepciones.push({id:uid(),fecha,qty,estado:document.getElementById('rec-est')?.value||'ok',notas:document.getElementById('rec-notas')?.value?.trim()||'',dest:document.getElementById('rec-dest')?.value?.trim()||'',by:S.user,at:new Date().toISOString()});
+  // Auto-update OC status
+  const allMats=oc.materiales;
+  const allFull=allMats.every(m=>getOCrecibida(m)>=(+m.qty||0));
+  const anyRec=allMats.some(m=>getOCrecibida(m)>0);
+  if(allFull)oc.estado='recibido';
+  else if(anyRec&&oc.estado!=='recibido')oc.estado='aduana';
+  alog('Recepción registrada',oc.numero+' — '+mat.codigo+' '+qty+' '+mat.unidad);
+  sv(['ocs','log']);modal=null;render();tst('Recepción registrada correctamente');
+}
+
+/* ===========================
+   EXPORT EXCEL
+   =========================== */
+function exportExcel(type, cotizId) {
+  if(typeof XLSX==='undefined'){tst('Cargando módulo de exportación...');return;}
+  let wb=XLSX.utils.book_new(),ws,data,filename;
+  if(type==='lista'){
+    data=[['Código','Descripción','Disciplina','Unidad','Req.','Comprado','Falta','Estado','Peso unit. (kg)','En almacén (ubicación)','Notas']];
+    DISCIPLINAS.forEach(d=>(S.listas[d.id]||[]).forEach(item=>{
+      const comp=getCantComp(item.codigo);const falta=Math.max(0,(+item.cantReq||0)-comp);
+      const cls=getItemCls(item);const est=cls==='rg'?'Completo':cls==='ry'?'Parcial':'Sin compra';
+      const locs=findInWarehouse(item.codigo).map(l=>l.loc).join('; ');
+      data.push([item.codigo,item.desc,d.l,item.unidad,item.cantReq||0,comp,falta,est,item.pesoUnit||0,locs,item.notas||'']);
+    }));
+    filename='COBOLCE_Listas.xlsx';
+  } else if(type==='inventario'){
+    data=[['Zona','Gabinete','Nivel','Tipo','Descripción','Cantidad','Unidad','Proyecto','Ref. OC','Fecha llegada','Notas','Ingresado por']];
+    for(const r of['hab1','hab2']){const rn=r==='hab1'?'Habitación 1':'Habitación 2';const cfg=S.config[r]||{gabs:7,lvls:4};
+      for(let g=1;g<=(cfg.gabs||7);g++)for(let l=1;l<=(cfg.lvls||4);l++)
+        (gld(r,g,l).items||[]).forEach(it=>data.push([rn,'Gab.'+g,'N'+l,iti(it.type).l,it.desc,it.qty,it.unit||'',it.proj||'',it.oc||'',it.llegada||'',it.notes||'',it.by||'']));
+    }
+    for(const z of['caseta','intemperie','cotoca']){const zn=z==='caseta'?'Caseta':z==='intemperie'?'Intemperie':'Cotoca';
+      (S.zoneItems[z]||[]).forEach(it=>data.push([zn,'','',iti(it.type).l,it.desc,it.qty,it.unit||'',it.proj||'',it.oc||'',it.llegada||'',it.notes||'',it.by||'']));}
+    filename='COBOLCE_Inventario.xlsx';
+  } else if(type==='ocs'){
+    data=[['N° OC','Proveedor','Proyecto','Fecha emisión','Fecha entrega est.','Estado','Materiales (código x cant.)','Notas']];
+    S.ocs.forEach(oc=>{
+      const mats=(oc.materiales||[]).map(m=>esc(m.codigo||'—')+' x'+m.qty+' '+esc(m.unidad||'')).join('; ');
+      data.push([oc.numero,getProvNom(oc.provId),oc.proj||'',oc.fechaEmision||'',oc.fechaEntrega||'',OC_STATES.find(s=>s.id===oc.estado)?.l||oc.estado,mats,oc.notas||'']);
+    });
+    filename='COBOLCE_OCs.xlsx';
+  } else if(type==='cotiz'){
+    const c=S.cotizaciones.find(x=>x.id===cotizId);if(!c)return;
+    const hdr=['Código','Descripción','Unidad','Cant.'];
+    (c.cols||[]).forEach(col=>hdr.push(col.nombre));
+    hdr.push('Mejor precio/ud','Proveedor ganador','Total (mejor precio)');
+    data=[hdr];
+    (c.items||[]).forEach(item=>{
+      const row=[item.codigo,item.desc,item.unidad,item.cantReq||0];
+      let bp=Infinity,bc=null;
+      (c.cols||[]).forEach(col=>{const k=item.id+':'+col.id;const p=c.precios?.[k];row.push(p!==undefined?+p:'');if(p!==undefined&&+p<bp){bp=+p;bc=col;}});
+      row.push(bc?bp:''); row.push(bc?bc.nombre:''); row.push(bc?bp*(item.cantReq||0):'');
+      data.push(row);
+    });
+    const totalRow=['','','','TOTALES'];
+    (c.cols||[]).forEach(col=>{const tot=(c.items||[]).reduce((s,item)=>{const k=item.id+':'+col.id;const p=c.precios?.[k];return s+(p!==undefined?+p*(item.cantReq||0):0);},0);totalRow.push(tot||'');});
+    data.push(totalRow);
+    filename='COBOLCE_Cotiz_'+(c.nombre||'comparativo').replace(/\s+/g,'_')+'.xlsx';
+  }
+  ws=XLSX.utils.aoa_to_sheet(data);
+  ws['!cols']=Array(data[0]?.length||1).fill({wch:20});
+  XLSX.utils.book_append_sheet(wb,ws,'Datos');
+  XLSX.writeFile(wb,filename);
+  tst('Exportando '+filename+'...');
+}
+function exportCotiz(id){exportExcel('cotiz',id);}
+
 
 </script>
 </body>
