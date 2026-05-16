@@ -6,26 +6,10 @@
 <title>COBOLCE — Almacén Virtual BPG</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
 <style>
+
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --n:#1B3A6B;--nl:#2A5BA0;--nd:#0F2347;
-  --g:#F5A800;--gl:#FFCA3A;--r:#CC2200;
-  --bg:#EEF2FA;--bg2:#E2E9F4;--card:#fff;
-  --bdr:#D0D9E8;--bdr2:#B8C7E0;
-  --tx:#1B3A6B;--txm:#5A6E8A;--txl:#9AAABB;
-  --grn-bg:#E6F4EC;--grn-tx:#145230;
-  --amb-bg:#FFF8E6;--amb-tx:#7A4F00;
-  --red-bg:#FCEAE8;--red-tx:#7A1A0E;
-  --rad:8px;--radl:10px;--rads:5px;
-}
-body.dark{
-  --bg:#0B1525;--bg2:#0F1C30;--card:#152238;
-  --bdr:#243550;--bdr2:#2E4266;
-  --tx:#C8D9F0;--txm:#7B96B8;--txl:#4A6080;
-  --grn-bg:#0D2E1A;--grn-tx:#6DD69A;
-  --amb-bg:#2A1F00;--amb-tx:#FFB938;
-  --red-bg:#2A0B08;--red-tx:#FF8070;
-}
+:root{--n:#1B3A6B;--nl:#2A5BA0;--nd:#0F2347;--g:#F5A800;--gl:#FFCA3A;--r:#CC2200;--bg:#EEF2FA;--bg2:#E2E9F4;--card:#fff;--bdr:#D0D9E8;--bdr2:#B8C7E0;--tx:#1B3A6B;--txm:#5A6E8A;--txl:#9AAABB;--grn-bg:#E6F4EC;--grn-tx:#145230;--amb-bg:#FFF8E6;--amb-tx:#7A4F00;--red-bg:#FCEAE8;--red-tx:#7A1A0E;--rad:8px;--radl:10px;--rads:5px;}
+body.dark{--bg:#0B1525;--bg2:#0F1C30;--card:#152238;--bdr:#243550;--bdr2:#2E4266;--tx:#C8D9F0;--txm:#7B96B8;--txl:#4A6080;--grn-bg:#0D2E1A;--grn-tx:#6DD69A;--amb-bg:#2A1F00;--amb-tx:#FFB938;--red-bg:#2A0B08;--red-tx:#FF8070;}
 html,body{height:100%;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,sans-serif;font-size:13px;line-height:1.4}
 .app{min-height:100vh;display:flex;flex-direction:column;position:relative}
 .hdr{background:var(--n);color:#fff;padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:50px;flex-shrink:0}
@@ -45,7 +29,6 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:system-ui
 .tab.act{color:var(--g);border-bottom-color:var(--g)}
 .tbanner{background:var(--n);color:#fff;padding:6px 16px;font-size:12px;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;border-bottom:2px solid var(--g);flex-shrink:0}
 .searchbar{padding:10px 18px;background:var(--bg2);border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:8px;flex-shrink:0}
-.searchbar i{font-size:15px;color:var(--txm);flex-shrink:0}
 .srch{flex:1;border:1px solid var(--bdr2);border-radius:99px;padding:5px 12px;font-size:12px;background:var(--card);color:var(--tx);font-family:inherit;outline:none}
 .srch:focus{border-color:var(--nl)}
 .clrbtn{background:none;border:none;cursor:pointer;color:var(--txm);font-size:14px;padding:2px;display:flex;align-items:center}
@@ -79,131 +62,106 @@ body.dark .stn{color:var(--tx)}
 .glvf{height:100%;border-radius:2px}
 .glvp{font-size:9px;color:var(--txm);width:25px;text-align:right;flex-shrink:0}
 .bdg{font-size:9px;padding:1px 5px;border-radius:99px;font-weight:500}
-.bok{background:var(--grn-bg);color:var(--grn-tx)}
-.bmid{background:var(--amb-bg);color:var(--amb-tx)}
-.bfull{background:var(--red-bg);color:var(--red-tx)}
-.bemp{background:var(--bg2);color:var(--txm)}
-.bpend{background:var(--amb-bg);color:var(--amb-tx)}
-.brecv{background:var(--grn-bg);color:var(--grn-tx)}
-.bdel{background:var(--red-bg);color:var(--red-tx)}
+.bok{background:var(--grn-bg);color:var(--grn-tx)}.bmid{background:var(--amb-bg);color:var(--amb-tx)}.bfull{background:var(--red-bg);color:var(--red-tx)}.bemp{background:var(--bg2);color:var(--txm)}.bpend{background:var(--amb-bg);color:var(--amb-tx)}.brecv{background:var(--grn-bg);color:var(--grn-tx)}.bdel{background:var(--red-bg);color:var(--red-tx)}
 .palz{background:var(--amb-bg);border:1px solid #E8D09A;border-radius:var(--rad);padding:10px 12px;margin-bottom:8px}
 body.dark .palz{border-color:#4A3800}
 .palzh{font-size:11px;font-weight:500;color:var(--amb-tx);margin-bottom:7px;display:flex;align-items:center;justify-content:space-between}
 .zi{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);margin-bottom:5px}
-.ziic{font-size:15px;flex-shrink:0;margin-top:1px}
-.zii{flex:1;min-width:0}
-.zin{font-size:11px;font-weight:500;color:var(--tx)}
-.zim{font-size:10px;color:var(--txm);margin-top:1px}
+.ziic{font-size:15px;flex-shrink:0;margin-top:1px}.zii{flex:1;min-width:0}.zin{font-size:11px;font-weight:500;color:var(--tx)}.zim{font-size:10px;color:var(--txm);margin-top:1px}
 .agi{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);padding:10px 12px;margin-bottom:7px;display:flex;align-items:flex-start;gap:10px}
 .agd{background:var(--n);color:#fff;border-radius:6px;padding:4px 7px;text-align:center;flex-shrink:0;min-width:40px}
-.agday{font-size:17px;font-weight:500;line-height:1}
-.agmon{font-size:8px;text-transform:uppercase;letter-spacing:.05em;opacity:.8}
-.agttl{font-size:12px;font-weight:500;color:var(--tx)}
-.agmeta{font-size:10px;color:var(--txm);margin-top:2px}
+.agday{font-size:17px;font-weight:500;line-height:1}.agmon{font-size:8px;text-transform:uppercase;letter-spacing:.05em;opacity:.8}
+.agttl{font-size:12px;font-weight:500;color:var(--tx)}.agmeta{font-size:10px;color:var(--txm);margin-top:2px}
 .doci{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);padding:10px 12px;margin-bottom:7px;display:flex;align-items:center;gap:10px}
 .docic{width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.docin{font-size:12px;font-weight:500;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.docim{font-size:10px;color:var(--txm);margin-top:2px}
-.logr{padding:8px 0;border-bottom:1px solid var(--bdr);display:flex;gap:10px}
-.logr:last-child{border-bottom:none}
-.logd{width:7px;height:7px;border-radius:50%;background:var(--g);flex-shrink:0;margin-top:4px}
-.logt{font-size:11px;color:var(--tx)}
-.logm{font-size:10px;color:var(--txm);margin-top:2px}
+.docin{font-size:12px;font-weight:500;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.docim{font-size:10px;color:var(--txm);margin-top:2px}
+.logr{padding:8px 0;border-bottom:1px solid var(--bdr);display:flex;gap:10px}.logr:last-child{border-bottom:none}
+.logd{width:7px;height:7px;border-radius:50%;background:var(--g);flex-shrink:0;margin-top:4px}.logt{font-size:11px;color:var(--tx)}.logm{font-size:10px;color:var(--txm);margin-top:2px}
 .btn{padding:6px 11px;border-radius:var(--rad);border:1px solid var(--bdr2);background:var(--card);color:var(--tx);font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:inherit;white-space:nowrap;transition:all .1s}
-.btn:hover{background:var(--bg);border-color:var(--nl)}
-.btnp{background:var(--n);border-color:var(--n);color:#fff}
-.btnp:hover{background:var(--nl);border-color:var(--nl)}
-.btnxs{padding:3px 8px;font-size:10px;border-radius:var(--rads)}
-.btnd{border-color:#E5C0BC;color:var(--r)}
-.btnd:hover{background:var(--red-bg);border-color:var(--r)}
+.btn:hover{background:var(--bg);border-color:var(--n)}.btnp{background:var(--n);border-color:var(--n);color:#fff}.btnp:hover{background:var(--nl);border-color:var(--nl)}
+.btnxs{padding:3px 8px;font-size:10px;border-radius:var(--rads)}.btnd{border-color:#E5C0BC;color:var(--r)}.btnd:hover{background:var(--red-bg);border-color:var(--r)}
 .brow{display:flex;gap:4px;align-items:center;flex-shrink:0}
 .card{background:var(--card);border-radius:var(--radl);border:1px solid var(--bdr);padding:14px}
-.nodata{text-align:center;padding:30px 16px;color:var(--txm);font-size:12px}
-.nodata i{font-size:26px;display:block;margin-bottom:6px;color:var(--txl)}
-.sres{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);padding:9px 12px;margin-bottom:6px;display:flex;align-items:flex-start;gap:9px;cursor:pointer;transition:border-color .12s}
-.sres:hover{border-color:var(--nl)}
-.sres-loc{font-size:10px;color:var(--txm);margin-top:2px}
-.sres-ic{font-size:15px;flex-shrink:0;margin-top:2px}
-.sres-name{font-size:12px;font-weight:500;color:var(--tx)}
+.nodata{text-align:center;padding:30px 16px;color:var(--txm);font-size:12px}.nodata i{font-size:26px;display:block;margin-bottom:6px;color:var(--txl)}
+.sres{background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);padding:9px 12px;margin-bottom:6px;display:flex;align-items:flex-start;gap:9px;transition:border-color .12s}.sres:hover{border-color:var(--nl)}
 .mover{position:absolute;inset:0;background:rgba(5,12,30,.48);z-index:200;display:flex;align-items:flex-start;justify-content:center;padding:36px 16px 20px;overflow-y:auto}
 .modal{background:var(--card);border-radius:12px;border:1px solid var(--bdr2);width:100%;max-width:460px;display:flex;flex-direction:column;max-height:90vh}
-.mlg{max-width:560px}
-.mhdr{padding:12px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.mttl{font-size:13px;font-weight:500;color:var(--tx)}
-.mbody{padding:14px 16px;overflow-y:auto;flex:1}
-.mfoot{padding:10px 16px;border-top:1px solid var(--bdr);display:flex;justify-content:flex-end;gap:7px;flex-shrink:0}
-.fg{margin-bottom:10px}
-.fl{font-size:10px;font-weight:500;color:var(--txm);display:block;margin-bottom:3px}
-.fi{width:100%;padding:7px 9px;border-radius:var(--rad);border:1px solid var(--bdr2);font-size:12px;color:var(--tx);background:var(--card);font-family:inherit;outline:none}
-.fi:focus{border-color:var(--nl)}
-select.fi{cursor:pointer}
-.fr2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.mlg{max-width:600px}.mhdr{padding:12px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.mttl{font-size:13px;font-weight:500;color:var(--tx)}.mbody{padding:14px 16px;overflow-y:auto;flex:1}.mfoot{padding:10px 16px;border-top:1px solid var(--bdr);display:flex;justify-content:flex-end;gap:7px;flex-shrink:0}
+.fg{margin-bottom:10px}.fl{font-size:10px;font-weight:500;color:var(--txm);display:block;margin-bottom:3px}
+.fi{width:100%;padding:7px 9px;border-radius:var(--rad);border:1px solid var(--bdr2);font-size:12px;color:var(--tx);background:var(--card);font-family:inherit;outline:none}.fi:focus{border-color:var(--nl)}
+select.fi{cursor:pointer}.fr2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .lvblk{border:1px solid var(--bdr);border-radius:var(--rad);margin-bottom:8px;overflow:hidden}
 .lvhdr{background:var(--bg2);padding:7px 11px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bdr)}
-.lvhdrl{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.lvname{font-size:12px;font-weight:500;color:var(--tx)}
-.lvsp{font-size:9px;padding:2px 7px;border-radius:99px;background:var(--card);border:1px solid var(--bdr);color:var(--txm)}
-.lvbody{padding:8px 11px}
+.lvhdrl{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.lvname{font-size:12px;font-weight:500;color:var(--tx)}.lvsp{font-size:9px;padding:2px 7px;border-radius:99px;background:var(--card);border:1px solid var(--bdr);color:var(--txm)}.lvbody{padding:8px 11px}
 .ic{display:flex;align-items:flex-start;gap:7px;padding:6px 8px;background:var(--bg2);border-radius:6px;margin-bottom:5px}
-.icico{font-size:14px;flex-shrink:0;margin-top:1px}
-.icinfo{flex:1;min-width:0}
-.icn{font-size:11px;font-weight:500;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.icm{font-size:10px;color:var(--txm);margin-top:1px}
-.icp{font-size:9px;padding:1px 5px;border-radius:99px;background:var(--card);border:1px solid var(--bdr);color:var(--tx);display:inline-block;margin-top:2px}
-.icby{font-size:9px;color:var(--txl);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
-.upbox{border:2px dashed var(--bdr2);border-radius:var(--rad);padding:20px;text-align:center;cursor:pointer;transition:border-color .15s}
-.upbox:hover{border-color:var(--nl)}
+.icico{font-size:14px;flex-shrink:0;margin-top:1px}.icinfo{flex:1;min-width:0}.icn{font-size:11px;font-weight:500;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.icm{font-size:10px;color:var(--txm);margin-top:1px}.icp{font-size:9px;padding:1px 5px;border-radius:99px;background:var(--card);border:1px solid var(--bdr);color:var(--tx);display:inline-block;margin-top:2px}.icby{font-size:9px;color:var(--txl);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
+.upbox{border:2px dashed var(--bdr2);border-radius:var(--rad);padding:20px;text-align:center;cursor:pointer;transition:border-color .15s}.upbox:hover{border-color:var(--nl)}
 mark{background:rgba(245,168,0,.3);color:inherit;border-radius:2px;padding:0 1px}
+/* NUEVOS */
+.disc-nav{display:flex;gap:5px;margin-bottom:14px;flex-wrap:wrap}
+.disc-btn{padding:5px 13px;border-radius:99px;border:1px solid var(--bdr2);background:var(--card);color:var(--txm);font-size:11px;cursor:pointer;font-family:inherit;transition:all .12s}
+.disc-btn:hover{background:var(--bg);color:var(--tx)}.disc-btn.act{background:var(--n);border-color:var(--n);color:#fff}
+.lista-wrap{background:var(--card);border-radius:var(--radl);border:1px solid var(--bdr);overflow:hidden;overflow-x:auto}
+.lista-tbl{width:100%;border-collapse:collapse;min-width:600px}
+.lista-tbl th{font-size:9px;font-weight:500;color:var(--txm);text-transform:uppercase;letter-spacing:.06em;padding:7px 10px;text-align:left;border-bottom:1px solid var(--bdr);white-space:nowrap;background:var(--bg2)}
+.lista-tbl td{padding:8px 10px;border-bottom:1px solid var(--bdr);font-size:12px;vertical-align:middle}
+.lista-tbl tbody tr:last-child td{border-bottom:none}.lista-tbl tbody tr.rg td{background:#EBF7F0}.lista-tbl tbody tr.ry td{background:#FEFAE8}
+body.dark .lista-tbl tbody tr.rg td{background:#0D2E1A}body.dark .lista-tbl tbody tr.ry td{background:#2A1F00}
+.lista-tbl tbody tr:hover{opacity:.9;cursor:pointer}
+.cod{font-family:monospace;font-size:11px;font-weight:600;color:var(--n)}body.dark .cod{color:var(--g)}
+.oc-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--radl);padding:13px 15px;margin-bottom:8px}
+.oc-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.oc-num{font-size:13px;font-weight:600;color:var(--n);font-family:monospace}body.dark .oc-num{color:var(--tx)}
+.oc-meta{font-size:10px;color:var(--txm);margin-top:3px}
+.flow{display:flex;align-items:center;gap:3px;flex-wrap:wrap;margin-top:7px}
+.fstep{font-size:9px;padding:2px 7px;border-radius:99px;border:1px solid var(--bdr);color:var(--txl);background:var(--card)}
+.fstep.fdone{background:var(--grn-bg);border-color:var(--grn-tx);color:var(--grn-tx)}.fstep.fact{background:var(--n);border-color:var(--n);color:#fff;font-weight:500}
+.farr{font-size:10px;color:var(--txl)}
+.oc-mats{margin-top:9px;padding-top:9px;border-top:1px solid var(--bdr)}
+.oc-mat{display:flex;align-items:center;gap:8px;padding:3px 0;font-size:11px;color:var(--txm)}
+.prov-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--radl);padding:13px 15px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px}
+.prov-flag{font-size:22px;flex-shrink:0;margin-top:2px}.prov-info{flex:1;min-width:0}.prov-name{font-size:13px;font-weight:500;color:var(--tx)}.prov-meta{font-size:10px;color:var(--txm);margin-top:3px;display:flex;flex-wrap:wrap;gap:6px}
+.calc-item{display:flex;align-items:center;gap:9px;padding:8px 11px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--rad);margin-bottom:5px}
+.calc-total{background:var(--n);color:#fff;border-radius:var(--rad);padding:14px 18px;margin-top:12px;display:flex;align-items:center;justify-content:space-between}
+.calc-total-n{font-size:24px;font-weight:500}
+.mat-cod{font-family:monospace;font-size:11px;font-weight:600;color:var(--n);flex-shrink:0;min-width:65px}
+
 </style>
 </head>
 <body>
 <div class="app" id="app"></div>
 <script>
-const ITYPES=[
-  {id:'box',l:'Caja',ic:'📦'},{id:'pallet',l:'Pallet de material',ic:'🪵'},
-  {id:'spool',l:'Bobina de cable',ic:'🔄'},{id:'tube',l:'Tubo / Conduit',ic:'📏'},
-  {id:'bag',l:'Big Bag',ic:'🎒'},{id:'other',l:'Otro',ic:'📌'}
-];
+
+const ITYPES=[{id:'box',l:'Caja',ic:'📦'},{id:'pallet',l:'Pallet de material',ic:'🪵'},{id:'spool',l:'Bobina de cable',ic:'🔄'},{id:'tube',l:'Tubo / Conduit',ic:'📏'},{id:'bag',l:'Big Bag',ic:'🎒'},{id:'other',l:'Otro',ic:'📌'}];
 const PROJ_HINTS=['Hornos Fase 1','Hornos Fase 2','APE GLP','General','EPP','Material BPG','Mantenimiento','Otro'];
-const SK={pos:'cobolce-pos',zi:'cobolce-zi',pal:'cobolce-pal',ag:'cobolce-ag',
-  docs:'cobolce-docs',log:'cobolce-log',cfg:'cobolce-cfg'};
+const DISCIPLINAS=[{id:'civil',l:'Civil',ic:'🏗️'},{id:'electrica',l:'Eléctrica',ic:'⚡'},{id:'instrumentacion',l:'Inst. y Control',ic:'🎛️'},{id:'mecanica',l:'Mecánica',ic:'⚙️'}];
+const OC_STATES=[{id:'cotizacion',l:'Cotización'},{id:'revision',l:'Rev. Técnica'},{id:'aprobada',l:'Aprobada'},{id:'enviada',l:'OC Enviada'},{id:'transito',l:'En Tránsito'},{id:'aduana',l:'En Aduana'},{id:'recibido',l:'Recibido'}];
+const PAISES=['Bolivia','Argentina','Chile','Perú','Brasil','EEUU','Paraguay','China','España','Colombia','Uruguay','Otro'];
+const SK={pos:'cobolce-pos',zi:'cobolce-zi',pal:'cobolce-pal',ag:'cobolce-ag',docs:'cobolce-docs',log:'cobolce-log',cfg:'cobolce-cfg',listas:'cobolce-listas',ocs:'cobolce-ocs',provs:'cobolce-provs'};
 
-let S={tab:'mapa',room:'hab1',user:'',dark:false,
-  positions:{},zoneItems:{caseta:[],intemperie:[]},
-  pallets:{hab1:[],hab2:[]},
-  agenda:[],docs:[],changelog:[],
-  config:{hab1:{gabs:7,lvls:4,dsp:10},hab2:{gabs:7,lvls:4,dsp:10}}};
-let localLM=0,modal=null,toastMsg='',toastTmr=null,pFile=null;
-let searches={mapa:'',agenda:'',docs:'',registro:''};
+let S={tab:'mapa',room:'hab1',disc:'civil',user:'',dark:false,
+  positions:{},zoneItems:{caseta:[],intemperie:[],cotoca:[]},
+  pallets:{hab1:[],hab2:[]},agenda:[],docs:[],changelog:[],
+  config:{hab1:{gabs:7,lvls:4,dsp:10},hab2:{gabs:7,lvls:4,dsp:10}},
+  listas:{civil:[],electrica:[],instrumentacion:[],mecanica:[]},
+  ocs:[],proveedores:[]};
+let localLM=0,modal=null,toastMsg='',toastTmr=null,pFile=null,modalMats=[];
+let calcItems=[];
+let searches={mapa:'',agenda:'',docs:'',registro:'',listas:'',oc:'',proveedores:''};
 
-/* === STORAGE (backend API) === */
-async function sg(k){
-  try{
-    const r=await fetch(`/api/kv/${encodeURIComponent(k)}`);
-    if(!r.ok)return null;
-    const d=await r.json();
-    return d?JSON.parse(d.value):null;
-  }catch(e){return null;}
-}
-async function ss(k,v){
-  try{
-    await fetch(`/api/kv/${encodeURIComponent(k)}`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({value:JSON.stringify(v)})
-    });
-  }catch(e){}
-}
-
+async function sg(k){try{const r=await fetch('/api/kv/'+encodeURIComponent(k));if(!r.ok)return null;const d=await r.json();return d?JSON.parse(d.value):null;}catch(e){return null;}}
+async function ss(k,v){try{await fetch('/api/kv/'+encodeURIComponent(k),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({value:JSON.stringify(v)})});}catch(e){}}
 async function loadAll(){
   S.positions=await sg(SK.pos)||{};
-  S.zoneItems=await sg(SK.zi)||{caseta:[],intemperie:[]};
+  const zi=await sg(SK.zi)||{caseta:[],intemperie:[],cotoca:[]};
+  if(!zi.cotoca)zi.cotoca=[];S.zoneItems=zi;
   S.pallets=await sg(SK.pal)||{hab1:[],hab2:[]};
-  S.agenda=await sg(SK.ag)||[];
-  S.docs=await sg(SK.docs)||[];
-  S.changelog=await sg(SK.log)||[];
+  S.agenda=await sg(SK.ag)||[];S.docs=await sg(SK.docs)||[];S.changelog=await sg(SK.log)||[];
   S.config=await sg(SK.cfg)||{hab1:{gabs:7,lvls:4,dsp:10},hab2:{gabs:7,lvls:4,dsp:10}};
+  const ls=await sg(SK.listas)||{civil:[],electrica:[],instrumentacion:[],mecanica:[]};
+  DISCIPLINAS.forEach(d=>{if(!ls[d.id])ls[d.id]=[];});S.listas=ls;
+  S.ocs=await sg(SK.ocs)||[];S.proveedores=await sg(SK.provs)||[];
   S.user=localStorage.getItem('cobolce-user')||'';
   S.dark=localStorage.getItem('cobolce-dark')==='true';
   if(S.dark)document.body.classList.add('dark');
@@ -217,11 +175,13 @@ async function sv(keys){
   if(keys.includes('docs'))await ss(SK.docs,S.docs);
   if(keys.includes('log'))await ss(SK.log,S.changelog);
   if(keys.includes('cfg'))await ss(SK.cfg,S.config);
+  if(keys.includes('listas'))await ss(SK.listas,S.listas);
+  if(keys.includes('ocs'))await ss(SK.ocs,S.ocs);
+  if(keys.includes('provs'))await ss(SK.provs,S.proveedores);
   localLM=Date.now();
 }
 
-/* === HELPERS === */
-function lk(r,g,l){return`${r}-G${g}-N${l}`;}
+function lk(r,g,l){return r+'-G'+g+'-N'+l;}
 function gld(r,g,l){const k=lk(r,g,l);if(!S.positions[k])S.positions[k]={sp:S.config[r]?.dsp||10,items:[]};return S.positions[k];}
 function gls(r,g,l){return gld(r,g,l).sp||10;}
 function glu(r,g,l){return gld(r,g,l).items.reduce((a,i)=>a+(i.sp||1),0);}
@@ -230,606 +190,514 @@ function iti(t){return ITYPES.find(x=>x.id===t)||ITYPES[5];}
 function lvc(p){return p>=1?'#CC2200':p>=.7?'#F5A800':p>0?'#1E7040':'#C8D5E8';}
 function binfo(p){if(p>=1)return{c:'bfull',t:'Lleno'};if(p>=.7)return{c:'bmid',t:'Parcial'};if(p>0)return{c:'bok',t:'Espacio'};return{c:'bemp',t:'Vacío'};}
 function fd(iso){if(!iso)return'';const d=new Date(iso);return d.toLocaleDateString('es-BO',{day:'2-digit',month:'2-digit',year:'2-digit'})+' '+d.toLocaleTimeString('es-BO',{hour:'2-digit',minute:'2-digit'});}
-function fdShort(s){if(!s)return'';const[y,m,d]=s.split('-');return`${d}/${m}/${y}`;}
-function fdate(s){if(!s)return{day:'--',mon:'---'};const[y,m,d]=s.split('-');return{day:d,mon:['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][+m-1]};}
+function fdS(s){if(!s)return'';const p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+function fdate(s){if(!s)return{day:'--',mon:'---'};const p=s.split('-');const ms=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];return{day:p[2],mon:ms[+p[1]-1]};}
 function uid(){return Math.random().toString(36).slice(2,9);}
 function alog(act,det){S.changelog.unshift({id:uid(),act,det,user:S.user||'Anónimo',ts:new Date().toISOString()});if(S.changelog.length>200)S.changelog=S.changelog.slice(0,200);}
-function hl(text,q){
-  if(!q||!text)return text||'';
-  const safe=text.replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
-  if(!q.trim())return safe;
-  const words=q.trim().split(/\s+/).filter(Boolean);
-  let result=safe;
-  words.forEach(w=>{const re=new RegExp(w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');result=result.replace(re,m=>`<mark>${m}</mark>`);});
-  return result;
-}
-function matches(item,q){
-  if(!q)return true;
-  const txt=[item.desc,item.type,item.proj,item.oc,item.notes,item.unit,item.by,item.llegada].filter(Boolean).join(' ').toLowerCase();
-  return q.toLowerCase().trim().split(/\s+/).every(w=>txt.includes(w));
-}
-function matchLog(l,q){
-  if(!q)return true;
-  const txt=[l.act,l.det,l.user].filter(Boolean).join(' ').toLowerCase();
-  return q.toLowerCase().trim().split(/\s+/).every(w=>txt.includes(w));
-}
+function esc(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function hl(text,q){const safe=esc(text||'');if(!q||!q.trim())return safe;let r=safe;q.trim().split(/\s+/).filter(Boolean).forEach(w=>{const re=new RegExp(w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');r=r.replace(re,m=>'<mark>'+m+'</mark>');});return r;}
+function matchStr(str,q){if(!q)return true;return q.toLowerCase().trim().split(/\s+/).every(w=>(str||'').toLowerCase().includes(w));}
+function matches(item,q){if(!q)return true;return matchStr([item.desc,item.type,item.proj,item.oc,item.notes,item.unit,item.by,item.llegada].filter(Boolean).join(' '),q);}
+function matchLog(l,q){return matchStr([l.act,l.det,l.user].filter(Boolean).join(' '),q);}
+function projInput(id,val){return '<input class="fi" list="plist" id="'+id+'" value="'+esc(val||'')+'" placeholder="Hornos Fase 2, EPP..."><datalist id="plist">'+PROJ_HINTS.map(p=>'<option value="'+p+'">').join('')+'</datalist>';}
+function getCantComp(cod){if(!cod)return 0;return S.ocs.reduce((t,oc)=>{const m=(oc.materiales||[]).find(m=>m.codigo===cod);return t+(m?+m.qty||0:0);},0);}
+function getOCsForCod(cod){if(!cod)return[];return S.ocs.filter(oc=>(oc.materiales||[]).some(m=>m.codigo===cod));}
+function getItemCls(item){const c=getCantComp(item.codigo);if(c<=0)return'';if(c>=(+item.cantReq||0)&&item.cantReq>0)return'rg';return'ry';}
+function getProvNom(pid){const p=S.proveedores.find(p=>p.id===pid);return p?p.nombre:pid||'—';}
+function flagEmoji(pais){const f={Bolivia:'🇧🇴',Argentina:'🇦🇷',Chile:'🇨🇱',Perú:'🇵🇪',Brasil:'🇧🇷',EEUU:'🇺🇸',Paraguay:'🇵🇾',China:'🇨🇳',España:'🇪🇸',Colombia:'🇨🇴',Uruguay:'🇺🇾'};return f[pais]||'🌐';}
+function ocBadge(st){const m={recibido:'bok',aduana:'bmid',transito:'bmid',enviada:'bmid',aprobada:'brecv',revision:'bpend',cotizacion:'bemp'};return m[st]||'bemp';}
+function allItems(){const a=[];DISCIPLINAS.forEach(d=>(S.listas[d.id]||[]).forEach(i=>a.push(Object.assign({},i,{disc:d.id}))));return a;}
 
-/* === RENDER === */
 function render(){document.getElementById('app').innerHTML=rApp();}
-
 function rApp(){
   const t=localLM?new Date(localLM).toLocaleTimeString('es-BO',{hour:'2-digit',minute:'2-digit'}):'—';
-  return`<div class="app">
-    ${toastMsg?`<div class="tbanner"><i class="ti ti-check-circle" aria-hidden="true" style="font-size:13px"></i>${toastMsg}</div>`:''}
-    <div class="hdr">
-      <div class="hbrand">
-        <svg width="26" height="28" viewBox="0 0 26 28" fill="none" aria-hidden="true">
-          <path d="M13 1C11 6 7 8 7 14c0 5 3 8 6 10-3-3-4-6-2.5-10 1 3 2.5 5 2.5 5s1.5-3 1.5-6c1 2.5 1 6-.5 8.5 3-2 5-5 5-7.5 0-6-4-8-6-13z" fill="#F5A800"/>
-          <path d="M13 5c-1 3-4 5-4 9 0 3 2 6 4 8-2-3-3-5-2-8 1 2 2 3.5 2 3.5s1.5-2.5 1.5-5c.5 2 .5 5-.5 7 2-2 3-4 3-6 0-4-2-6-4-9z" fill="#CC2200"/>
-        </svg>
-        <div class="hsep"></div>
-        <div class="htitle"><b>COBOLCE</b>Almacén Virtual BPG</div>
-      </div>
-      <div class="hright">
-        <div class="sync"><span class="sdot"></span>Sync ${t}</div>
-        <button class="ibtn" onclick="toggleDark()">
-          <i class="ti ${S.dark?'ti-sun':'ti-moon'}" aria-hidden="true" style="font-size:13px"></i>
-          ${S.dark?'Claro':'Oscuro'}
-        </button>
-        <button class="ibtn" onclick="showUsr()">
-          <i class="ti ti-user-circle" aria-hidden="true" style="font-size:13px"></i>
-          ${S.user||'Identificarse'}
-        </button>
-      </div>
-    </div>
-    <div class="tabs">${[
-      {id:'mapa',ic:'ti-building-warehouse',l:'Mapa del almacén'},
+  const noSearch=S.tab==='calculadora';
+  return '<div class="app">'+
+    (toastMsg?'<div class="tbanner"><i class="ti ti-check-circle" style="font-size:13px"></i>'+esc(toastMsg)+'</div>':'')+
+    '<div class="hdr"><div class="hbrand">'+
+    '<svg width="26" height="28" viewBox="0 0 26 28" fill="none"><path d="M13 1C11 6 7 8 7 14c0 5 3 8 6 10-3-3-4-6-2.5-10 1 3 2.5 5 2.5 5s1.5-3 1.5-6c1 2.5 1 6-.5 8.5 3-2 5-5 5-7.5 0-6-4-8-6-13z" fill="#F5A800"/><path d="M13 5c-1 3-4 5-4 9 0 3 2 6 4 8-2-3-3-5-2-8 1 2 2 3.5 2 3.5s1.5-2.5 1.5-5c.5 2 .5 5-.5 7 2-2 3-4 3-6 0-4-2-6-4-9z" fill="#CC2200"/></svg>'+
+    '<div class="hsep"></div><div class="htitle"><b>COBOLCE</b>Almacén Virtual BPG</div></div>'+
+    '<div class="hright"><div class="sync"><span class="sdot"></span>Sync '+t+'</div>'+
+    '<button class="ibtn" onclick="toggleDark()"><i class="ti '+(S.dark?'ti-sun':'ti-moon')+'" style="font-size:13px"></i>'+(S.dark?'Claro':'Oscuro')+'</button>'+
+    '<button class="ibtn" onclick="showUsr()"><i class="ti ti-user-circle" style="font-size:13px"></i>'+(S.user||'Identificarse')+'</button></div></div>'+
+    '<div class="tabs">'+[
+      {id:'mapa',ic:'ti-building-warehouse',l:'Mapa'},
+      {id:'listas',ic:'ti-list-check',l:'Listas'},
+      {id:'oc',ic:'ti-file-invoice',l:'Órd. de Compra'},
+      {id:'proveedores',ic:'ti-truck',l:'Proveedores'},
+      {id:'calculadora',ic:'ti-weight',l:'Calculadora'},
       {id:'agenda',ic:'ti-calendar-event',l:'Agenda'},
       {id:'docs',ic:'ti-file-description',l:'Documentos'},
-      {id:'registro',ic:'ti-history',l:'Registro'},
-    ].map(t=>`<div class="tab${S.tab===t.id?' act':''}" onclick="setTab('${t.id}')"><i class="ti ${t.ic}" aria-hidden="true"></i>${t.l}</div>`).join('')}</div>
-    <div class="searchbar">
-      <i class="ti ti-search" aria-hidden="true"></i>
-      <input class="srch" id="srch" placeholder="${rSP()}" value="${searches[S.tab]}" oninput="setSearch(this.value)">
-      ${searches[S.tab]?`<button class="clrbtn" onclick="clearSearch()"><i class="ti ti-x" aria-hidden="true"></i></button>`:''}
-    </div>
-    <div class="body">
-      ${S.tab==='mapa'&&!searches.mapa?rSB():''}
-      <div class="main">${S.tab==='mapa'?rMapa():S.tab==='agenda'?rAg():S.tab==='docs'?rDocs():rLog()}</div>
-    </div>
-    ${modal?rMover():''}
-  </div>`;
+      {id:'registro',ic:'ti-history',l:'Registro'}
+    ].map(t=>'<div class="tab'+(S.tab===t.id?' act':'')+'" onclick="setTab(\''+t.id+'\')"><i class="ti '+t.ic+'"></i>'+t.l+'</div>').join('')+'</div>'+
+    (!noSearch?'<div class="searchbar"><i class="ti ti-search" style="font-size:15px;color:var(--txm)"></i>'+
+    '<input class="srch" id="srch" placeholder="'+rSP()+'" value="'+(searches[S.tab]||'')+'" oninput="setSearch(this.value)">'+
+    (searches[S.tab]?'<button class="clrbtn" onclick="clearSearch()"><i class="ti ti-x"></i></button>':'')+'</div>':'')+
+    '<div class="body">'+
+    (S.tab==='mapa'&&!searches.mapa?rSB():'')+
+    '<div class="main">'+rMain()+'</div></div>'+
+    (modal?rMover():'')+
+    '</div>';
 }
-
-function rSP(){const ps={mapa:'Buscar material por nombre, OC, proyecto...',agenda:'Buscar entrega...',docs:'Buscar documento...',registro:'Buscar en registro...'};return ps[S.tab]||'Buscar...';}
-
-function rSB(){
-  return`<div class="sb"><div class="sblbl">Zonas</div>${[
-    {id:'hab1',ic:'ti-layout-grid',l:'Habitación 1',s:'7 gabinetes'},
-    {id:'hab2',ic:'ti-layout-grid',l:'Habitación 2',s:'7 gabinetes'},
-    {id:'caseta',ic:'ti-home-2',l:'Caseta',s:'Ladrillos'},
-    {id:'intemperie',ic:'ti-sun-wind',l:'Intemperie',s:'Garaje exterior'},
-  ].map(r=>`<div class="sbi${S.room===r.id?' act':''}" onclick="setRoom('${r.id}')">
-    <i class="ti ${r.ic}" aria-hidden="true"></i>
-    <div><div>${r.l}</div><div class="sbsub">${r.s}</div></div>
-  </div>`).join('')}</div>`;
-}
+function rSP(){const ps={mapa:'Buscar material...',agenda:'Buscar entrega...',docs:'Buscar documento...',registro:'Buscar en registro...',listas:'Buscar por código, descripción...',oc:'Buscar por número, proveedor...',proveedores:'Buscar proveedor...'};return ps[S.tab]||'Buscar...';}
+function rMain(){if(S.tab==='mapa')return rMapa();if(S.tab==='listas')return rListas();if(S.tab==='oc')return rOC();if(S.tab==='proveedores')return rProveedores();if(S.tab==='calculadora')return rCalc();if(S.tab==='agenda')return rAg();if(S.tab==='docs')return rDocs();return rLog();}
+function rSB(){return'<div class="sb"><div class="sblbl">Zonas</div>'+[
+  {id:'hab1',ic:'ti-layout-grid',l:'Habitación 1',s:'7 gabinetes'},
+  {id:'hab2',ic:'ti-layout-grid',l:'Habitación 2',s:'7 gabinetes'},
+  {id:'caseta',ic:'ti-home-2',l:'Caseta',s:'Ladrillos'},
+  {id:'intemperie',ic:'ti-sun-wind',l:'Intemperie',s:'Garaje exterior'},
+  {id:'cotoca',ic:'ti-map-pin',l:'Cotoca',s:'Almacén externo'}
+].map(r=>'<div class="sbi'+(S.room===r.id?' act':'')+'" onclick="setRoom(\''+r.id+'\')"><i class="ti '+r.ic+'"></i><div><div>'+r.l+'</div><div class="sbsub">'+r.s+'</div></div></div>').join('')+'</div>';}
 
 function rMapa(){
   const q=searches.mapa;
-  if(q){
-    const res=searchMapa(q);
-    if(!res.length)return`<div class="nodata"><i class="ti ti-search-off" aria-hidden="true"></i>Sin resultados para "${q}"</div>`;
-    return`<div style="margin-bottom:8px;font-size:11px;color:var(--txm)">${res.length} resultado${res.length>1?'s':''} encontrado${res.length>1?'s':''}</div>
-    ${res.map(r=>`<div class="sres" onclick="${r.gabClick||''}">
-      <span class="sres-ic">${iti(r.item.type).ic}</span>
-      <div style="flex:1;min-width:0">
-        <div class="sres-name">${hl(r.item.desc,q)}</div>
-        <div class="sres-loc"><i class="ti ti-map-pin" aria-hidden="true" style="font-size:10px;vertical-align:-1px"></i> ${r.location}</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:3px">
-          ${r.item.proj?`<span style="font-size:9px;padding:1px 5px;border-radius:99px;background:var(--bg2);color:var(--tx)">${hl(r.item.proj,q)}</span>`:''}
-          ${r.item.oc?`<span style="font-size:9px;color:var(--txm);font-family:monospace">${hl(r.item.oc,q)}</span>`:''}
-          ${r.item.llegada?`<span style="font-size:9px;color:var(--txm)">Llegó: ${fdShort(r.item.llegada)}</span>`:''}
-          <span style="font-size:9px;color:var(--txm)">${r.item.qty} ${r.item.unit}</span>
-        </div>
-      </div>
-    </div>`).join('')}`;
-  }
-  if(S.room==='caseta')return rZone('caseta');
-  if(S.room==='intemperie')return rZone('intemperie');
+  if(q){const res=searchMapa(q);if(!res.length)return '<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados para "'+esc(q)+'"</div>';
+    return'<div style="margin-bottom:8px;font-size:11px;color:var(--txm)">'+res.length+' resultado'+(res.length>1?'s':'')+' encontrado'+(res.length>1?'s':'')+' para "'+esc(q)+'"</div>'+
+    res.map(r=>'<div class="sres"><span style="font-size:15px;flex-shrink:0;margin-top:2px">'+iti(r.item.type).ic+'</span><div style="flex:1;min-width:0">'+
+      '<div style="font-size:12px;font-weight:500;color:var(--tx)">'+hl(r.item.desc,q)+'</div>'+
+      '<div style="font-size:10px;color:var(--txm);margin-top:2px"><i class="ti ti-map-pin" style="font-size:10px;vertical-align:-1px"></i> '+esc(r.location)+'</div>'+
+      '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:3px">'+
+      (r.item.proj?'<span style="font-size:9px;padding:1px 5px;border-radius:99px;background:var(--bg2);color:var(--tx)">'+hl(r.item.proj,q)+'</span>':'')+
+      (r.item.oc?'<span style="font-size:9px;color:var(--txm);font-family:monospace">'+hl(r.item.oc,q)+'</span>':'')+
+      (r.item.llegada?'<span style="font-size:9px;color:var(--txm)">Llegó: '+fdS(r.item.llegada)+'</span>':'')+
+      '<span style="font-size:9px;color:var(--txm)">'+esc(r.item.qty+' '+r.item.unit)+'</span></div></div></div>').join('');}
+  if(S.room==='caseta'||S.room==='intemperie'||S.room==='cotoca')return rZone(S.room);
   return rRoom(S.room);
 }
-
 function searchMapa(q){
   const res=[];
-  for(const r of['hab1','hab2']){
-    const cfg=S.config[r]||{gabs:7,lvls:4};const ng=cfg.gabs||7,nl=cfg.lvls||4;
-    const rn=r==='hab1'?'Habitación 1':'Habitación 2';
-    for(let g=1;g<=ng;g++)for(let l=1;l<=nl;l++)
-      (gld(r,g,l).items||[]).forEach(item=>{
-        if(matches(item,q))res.push({item,location:`${rn} — Gab. ${g} / Nivel ${l}`,gabClick:`oGab('${r}',${g})`});
-      });
-    (S.pallets[r]||[]).forEach(p=>(p.items||[]).forEach(item=>{
-      if(matches(item,q))res.push({item,location:`${r==='hab1'?'Hab. 1':'Hab. 2'} — Pallet: ${p.lbl}`});
-    }));
-  }
-  for(const z of['caseta','intemperie'])
-    (S.zoneItems[z]||[]).forEach(item=>{
-      if(matches(item,q))res.push({item,location:z==='caseta'?'Caseta de Ladrillos':'Intemperie / Garaje'});
-    });
+  for(const r of['hab1','hab2']){const cfg=S.config[r]||{gabs:7,lvls:4};const ng=cfg.gabs||7,nl=cfg.lvls||4;const rn=r==='hab1'?'Habitación 1':'Habitación 2';
+    for(let g=1;g<=ng;g++)for(let l=1;l<=nl;l++)(gld(r,g,l).items||[]).forEach(item=>{if(matches(item,q))res.push({item,location:rn+' — Gab. '+g+' / Nivel '+l});});
+    (S.pallets[r]||[]).forEach(p=>(p.items||[]).forEach(item=>{if(matches(item,q))res.push({item,location:(r==='hab1'?'Hab. 1':'Hab. 2')+' — Pallet: '+p.lbl});}));}
+  for(const z of['caseta','intemperie','cotoca'])
+    (S.zoneItems[z]||[]).forEach(item=>{if(matches(item,q))res.push({item,location:z==='caseta'?'Caseta de Ladrillos':z==='intemperie'?'Intemperie / Garaje':'Almacén Cotoca'});});
   return res;
 }
-
 function rRoom(r){
   const cfg=S.config[r]||{gabs:7,lvls:4,dsp:10};const ng=cfg.gabs||7,nl=cfg.lvls||4;
-  let ts=0,us=0,fl=0;
-  for(let g=1;g<=ng;g++){const s=gstat(r,g);ts+=s.ts;us+=s.us;if(s.p>=1)fl++;}
-  const rn=r==='hab1'?'Habitación 1':'Habitación 2';
-  const pals=S.pallets[r]||[];
-  return`
-  <div class="ph"><div><div class="phtitle">${rn}</div>
-  <div class="phsub">${ng} gabinetes · ${nl} niveles c/u · ${ts} espacios totales</div></div>
-  <div class="brow">
-    <button class="btn btnxs" onclick="oPallet('${r}')"><i class="ti ti-plus" aria-hidden="true"></i> Pallet</button>
-    <button class="btn btnp btnxs" onclick="oCfg('${r}')"><i class="ti ti-settings" aria-hidden="true"></i></button>
-  </div></div>
-  <div class="stats">
-    <div class="stat"><div class="stn">${ts}</div><div class="stl">Total espacios</div></div>
-    <div class="stat"><div class="stn" style="color:#1E7040">${ts-us}</div><div class="stl">Disponibles</div></div>
-    <div class="stat"><div class="stn" style="color:#F5A800">${us}</div><div class="stl">Ocupados</div></div>
-    <div class="stat"><div class="stn" style="color:#CC2200">${fl}</div><div class="stl">Gab. llenos</div></div>
-  </div>
-  <div class="stitle">Gabinetes — ${rn}</div>
-  <div class="ggrid">
-    ${Array.from({length:ng},(_,i)=>{
-      const g=i+1;const st=gstat(r,g);const bi=binfo(st.p);
-      return`<div class="gc" onclick="oGab('${r}',${g})">
-        <div class="gch"><span class="gcn">Gab. ${g}</span><span class="bdg ${bi.c}">${bi.t}</span></div>
-        ${Array.from({length:nl},(_,li)=>{
-          const l=li+1;const sp=gls(r,g,l);const us=glu(r,g,l);const p=sp>0?us/sp:0;
-          return`<div class="glv"><span class="glvl">N${l}</span><div class="glvb"><div class="glvf" style="width:${Math.min(100,Math.round(p*100))}%;background:${lvc(p)}"></div></div><span class="glvp">${us}/${sp}</span></div>`;
-        }).join('')}
-      </div>`;
-    }).join('')}
-  </div>
-  ${pals.length>0?`<div class="stitle" style="margin-top:4px">Pallets en ${rn}</div>
-  ${pals.map((p,pi)=>`<div class="palz">
-    <div class="palzh"><span>📦 Pallet ${pi+1}: ${p.lbl}</span>
-    <div class="brow"><button class="btn btnxs" onclick="oAddZI('${r}-p-${p.id}','${p.lbl}')"><i class="ti ti-plus" aria-hidden="true"></i></button><button class="btn btnxs btnd" onclick="dPallet('${r}','${p.id}')"><i class="ti ti-trash" aria-hidden="true"></i></button></div></div>
-    ${(p.items||[]).length===0?'<div style="font-size:11px;color:var(--amb-tx);opacity:.8">Sin ítems</div>':
-      (p.items||[]).map((it,j)=>`<div class="zi" style="background:rgba(255,248,230,0.4)">
-        <span class="ziic">${iti(it.type).ic}</span>
-        <div class="zii"><div class="zin">${it.desc}</div>
-        <div style="font-size:10px;color:var(--txm)">${it.qty} ${it.unit}${it.proj?' · <b>'+it.proj+'</b>':''}${it.llegada?' · Llegó: '+fdShort(it.llegada):''}</div></div>
-        <div class="brow"><button class="btn btnxs" onclick="oEditZI('${r}-p-${p.id}',${j})"><i class="ti ti-edit" aria-hidden="true"></i></button><button class="btn btnxs btnd" onclick="dZI('${r}-p-${p.id}',${j})"><i class="ti ti-trash" aria-hidden="true"></i></button></div>
-      </div>`).join('')}
-  </div>`).join('')}`:''}`;
+  let ts=0,us=0,fl=0;for(let g=1;g<=ng;g++){const s=gstat(r,g);ts+=s.ts;us+=s.us;if(s.p>=1)fl++;}
+  const rn=r==='hab1'?'Habitación 1':'Habitación 2';const pals=S.pallets[r]||[];
+  return'<div class="ph"><div><div class="phtitle">'+rn+'</div><div class="phsub">'+ng+' gabinetes · '+nl+' niveles c/u · '+ts+' espacios totales</div></div>'+
+    '<div class="brow"><button class="btn btnxs" onclick="oPallet(\''+r+'\')"><i class="ti ti-plus"></i> Pallet</button><button class="btn btnp btnxs" onclick="oCfg(\''+r+'\')"><i class="ti ti-settings"></i></button></div></div>'+
+    '<div class="stats"><div class="stat"><div class="stn">'+ts+'</div><div class="stl">Total</div></div><div class="stat"><div class="stn" style="color:#1E7040">'+(ts-us)+'</div><div class="stl">Disponibles</div></div><div class="stat"><div class="stn" style="color:#F5A800">'+us+'</div><div class="stl">Ocupados</div></div><div class="stat"><div class="stn" style="color:#CC2200">'+fl+'</div><div class="stl">Gab. llenos</div></div></div>'+
+    '<div class="stitle">Gabinetes — '+rn+'</div>'+
+    '<div class="ggrid">'+Array.from({length:ng},(_,i)=>{const g=i+1;const st=gstat(r,g);const bi=binfo(st.p);
+      return'<div class="gc" onclick="oGab(\''+r+'\','+g+')"><div class="gch"><span class="gcn">Gab. '+g+'</span><span class="bdg '+bi.c+'">'+bi.t+'</span></div>'+
+      Array.from({length:nl},(_,li)=>{const l=li+1;const sp=gls(r,g,l);const us2=glu(r,g,l);const p=sp>0?us2/sp:0;
+        return'<div class="glv"><span class="glvl">N'+l+'</span><div class="glvb"><div class="glvf" style="width:'+Math.min(100,Math.round(p*100))+'%;background:'+lvc(p)+'"></div></div><span class="glvp">'+us2+'/'+sp+'</span></div>';}).join('')+'</div>';}).join('')+'</div>'+
+    (pals.length>0?'<div class="stitle" style="margin-top:4px">Pallets en '+rn+'</div>'+pals.map((p,pi)=>'<div class="palz"><div class="palzh"><span>📦 Pallet '+(pi+1)+': '+esc(p.lbl)+'</span><div class="brow"><button class="btn btnxs" onclick="oAddZI(\''+r+'-p-'+p.id+'\',\''+esc(p.lbl)+'\')"><i class="ti ti-plus"></i></button><button class="btn btnxs btnd" onclick="dPallet(\''+r+'\',\''+p.id+'\')"><i class="ti ti-trash"></i></button></div></div>'+
+      ((p.items||[]).length===0?'<div style="font-size:11px;color:var(--amb-tx);opacity:.8">Sin ítems</div>':(p.items||[]).map((it,j)=>'<div class="zi" style="background:rgba(255,248,230,0.4)"><span class="ziic">'+iti(it.type).ic+'</span><div class="zii"><div class="zin">'+esc(it.desc)+'</div><div style="font-size:10px;color:var(--txm)">'+it.qty+' '+esc(it.unit)+(it.proj?' · '+esc(it.proj):'')+'</div></div><div class="brow"><button class="btn btnxs" onclick="oEditZI(\''+r+'-p-'+p.id+'\','+j+')"><i class="ti ti-edit"></i></button><button class="btn btnxs btnd" onclick="dZI(\''+r+'-p-'+p.id+'\','+j+')"><i class="ti ti-trash"></i></button></div></div>').join(''))+'</div>').join(''):'');
+}
+function rZone(zid){
+  const info={caseta:{t:'Caseta de Ladrillos',ic:'ti-home-2',s:'Bobinas medianas, cajas en pallets.'},intemperie:{t:'Intemperie / Garaje',ic:'ti-sun-wind',s:'Bobinas grandes, tubos conduit, tubings.'},cotoca:{t:'Almacén Cotoca',ic:'ti-map-pin',s:'Almacén externo en Cotoca.'}}[zid];
+  const items=S.zoneItems[zid]||[];
+  return'<div class="ph"><div><div class="phtitle">'+info.t+'</div><div class="phsub">'+info.s+'</div></div>'+
+    '<button class="btn btnp btnxs" onclick="oAddZI(\''+zid+'\',\''+info.t+'\')"><i class="ti ti-plus"></i> Agregar material</button></div>'+
+    '<div class="stats" style="grid-template-columns:repeat(3,1fr)"><div class="stat"><div class="stn">'+items.length+'</div><div class="stl">Ítems</div></div><div class="stat"><div class="stn">'+items.reduce((a,i)=>a+(+i.qty||0),0)+'</div><div class="stl">Unidades</div></div><div class="stat"><div class="stn">'+(new Set(items.map(i=>i.proj).filter(Boolean))).size+'</div><div class="stl">Proyectos</div></div></div>'+
+    (!items.length?'<div class="nodata"><i class="ti ti-package-off"></i>Sin materiales en esta zona</div>':
+    items.map((it,i)=>'<div class="zi"><span class="ziic" style="font-size:17px">'+iti(it.type).ic+'</span><div class="zii"><div class="zin">'+esc(it.desc)+'</div>'+
+      '<div style="font-size:10px;color:var(--txm)">'+it.qty+' '+esc(it.unit)+(it.proj?' · <b>'+esc(it.proj)+'</b>':'')+(it.oc?' · '+esc(it.oc):'')+'</div>'+
+      (it.llegada?'<div style="font-size:10px;color:var(--txm)"><i class="ti ti-calendar-check" style="font-size:10px;vertical-align:-1px"></i> Llegó: '+fdS(it.llegada)+'</div>':'')+
+      (it.notes?'<div style="font-size:10px;color:var(--txm);font-style:italic">'+esc(it.notes)+'</div>':'')+
+      '<div style="font-size:9px;color:var(--txl)">'+esc(it.by||'')+' · '+fd(it.at)+'</div></div>'+
+      '<div class="brow"><button class="btn btnxs" onclick="oEditZI(\''+zid+'\','+i+')"><i class="ti ti-edit"></i></button><button class="btn btnxs btnd" onclick="dZI(\''+zid+'\','+i+')"><i class="ti ti-trash"></i></button></div></div>').join(''));
 }
 
-function rZone(zid){
-  const info={caseta:{t:'Caseta de Ladrillos',ic:'ti-home-2',s:'Bobinas medianas, cajas en pallets.'},
-    intemperie:{t:'Intemperie / Garaje',ic:'ti-sun-wind',s:'Bobinas grandes, tubos conduit, tubings.'}}[zid];
-  const items=S.zoneItems[zid]||[];
-  return`
-  <div class="ph"><div><div class="phtitle">${info.t}</div><div class="phsub">${info.s}</div></div>
-  <button class="btn btnp btnxs" onclick="oAddZI('${zid}','${info.t}')"><i class="ti ti-plus" aria-hidden="true"></i> Agregar material</button></div>
-  <div class="stats" style="grid-template-columns:repeat(3,1fr)">
-    <div class="stat"><div class="stn">${items.length}</div><div class="stl">Ítems</div></div>
-    <div class="stat"><div class="stn">${items.reduce((a,i)=>a+(+i.qty||0),0)}</div><div class="stl">Unidades</div></div>
-    <div class="stat"><div class="stn">${[...new Set(items.map(i=>i.proj).filter(Boolean))].length}</div><div class="stl">Proyectos</div></div>
-  </div>
-  ${items.length===0?`<div class="nodata"><i class="ti ti-package-off" aria-hidden="true"></i>Sin materiales en esta zona</div>`:
-    items.map((it,i)=>`<div class="zi">
-      <span class="ziic" style="font-size:17px">${iti(it.type).ic}</span>
-      <div class="zii"><div class="zin">${it.desc}</div>
-      <div style="font-size:10px;color:var(--txm)">${it.qty} ${it.unit}${it.proj?' · <b>'+it.proj+'</b>':''}${it.oc?' · '+it.oc:''}</div>
-      ${it.llegada?`<div style="font-size:10px;color:var(--txm)"><i class="ti ti-calendar-check" aria-hidden="true" style="font-size:10px;vertical-align:-1px"></i> Llegó: ${fdShort(it.llegada)}</div>`:''}
-      ${it.notes?`<div style="font-size:10px;color:var(--txm);font-style:italic">${it.notes}</div>`:''}
-      <div style="font-size:9px;color:var(--txl)">${it.by||''} · ${fd(it.at)}</div></div>
-      <div class="brow"><button class="btn btnxs" onclick="oEditZI('${zid}',${i})"><i class="ti ti-edit" aria-hidden="true"></i></button><button class="btn btnxs btnd" onclick="dZI('${zid}',${i})"><i class="ti ti-trash" aria-hidden="true"></i></button></div>
-    </div>`).join('')}`;
+function rListas(){
+  const disc=S.disc||'civil';const q=searches.listas||'';
+  const allI=S.listas[disc]||[];
+  const filtered=allI.map((item,i)=>({item,i})).filter(({item})=>matchStr([item.codigo,item.desc,item.notas,item.unidad].filter(Boolean).join(' '),q));
+  const completos=allI.filter(i=>getCantComp(i.codigo)>=(+i.cantReq||0)&&i.cantReq>0).length;
+  return'<div class="ph"><div><div class="phtitle">Listas de Materiales</div><div class="phsub">Por disciplina · Trazabilidad con Órdenes de Compra</div></div>'+
+    '<button class="btn btnp" onclick="oAddLI()"><i class="ti ti-plus"></i> Agregar ítem</button></div>'+
+    '<div class="disc-nav">'+DISCIPLINAS.map(d=>'<button class="disc-btn'+(disc===d.id?' act':'')+'" onclick="setDisc(\''+d.id+'\')">'+d.ic+' '+d.l+' <span style="opacity:.7">('+((S.listas[d.id]||[]).length)+')</span></button>').join('')+'</div>'+
+    (allI.length>0?'<div class="stats" style="grid-template-columns:repeat(3,1fr);margin-bottom:12px"><div class="stat"><div class="stn">'+allI.length+'</div><div class="stl">En lista</div></div><div class="stat"><div class="stn" style="color:#1E7040">'+completos+'</div><div class="stl">Completos</div></div><div class="stat"><div class="stn" style="color:#F5A800">'+(allI.length-completos)+'</div><div class="stl">Pendientes</div></div></div>':'')+
+    (!allI.length?'<div class="nodata"><i class="ti ti-clipboard-off"></i>Sin materiales en la lista. Agrega el primer ítem.</div>':
+    !filtered.length?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados para "'+esc(q)+'"</div>':
+    '<div class="lista-wrap"><table class="lista-tbl"><thead><tr><th>Código</th><th>Descripción</th><th>Und.</th><th style="text-align:right">Req.</th><th style="text-align:right">Comprado</th><th style="text-align:right">Falta</th><th>Estado</th><th></th></tr></thead><tbody>'+
+    filtered.map(({item,i})=>{
+      const comp=getCantComp(item.codigo);const req=+item.cantReq||0;const falta=Math.max(0,req-comp);const cls=getItemCls(item);
+      const stIco=cls==='rg'?'🟢':cls==='ry'?'🟡':'⚪';const stTxt=cls==='rg'?'Completo':cls==='ry'?'Parcial':'Sin compra';
+      return'<tr class="'+cls+'" onclick="oVerItem(\''+disc+'\','+i+')"><td><span class="cod">'+hl(item.codigo||'—',q)+'</span></td>'+
+        '<td style="max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hl(item.desc||'',q)+'</td>'+
+        '<td style="color:var(--txm)">'+esc(item.unidad||'—')+'</td>'+
+        '<td style="text-align:right;font-weight:500">'+req+'</td>'+
+        '<td style="text-align:right;color:'+(cls==='rg'?'var(--grn-tx)':cls==='ry'?'var(--amb-tx)':'var(--txm)')+'">'+comp+'</td>'+
+        '<td style="text-align:right;color:'+(falta>0?'var(--red-tx)':'var(--grn-tx)')+';font-weight:'+(falta>0?'500':'400')+'">'+falta+'</td>'+
+        '<td style="white-space:nowrap">'+stIco+' <span style="font-size:10px">'+stTxt+'</span></td>'+
+        '<td onclick="event.stopPropagation()"><div class="brow"><button class="btn btnxs" onclick="oEditLI(\''+disc+'\','+i+')"><i class="ti ti-edit"></i></button><button class="btn btnxs btnd" onclick="dLI(\''+disc+'\','+i+')"><i class="ti ti-trash"></i></button></div></td></tr>';
+    }).join('')+'</tbody></table></div>');
+}
+
+function rOC(){
+  const q=searches.oc||'';let ocs=[...S.ocs];
+  if(q)ocs=ocs.filter(oc=>matchStr([oc.numero,getProvNom(oc.provId),oc.notas].filter(Boolean).join(' '),q));
+  return'<div class="ph"><div><div class="phtitle">Órdenes de Compra</div><div class="phsub">'+S.ocs.length+' OC'+(S.ocs.length!==1?'s':'')+' registradas</div></div>'+
+    '<button class="btn btnp" onclick="oAddOC()"><i class="ti ti-plus"></i> Nueva OC</button></div>'+
+    (!ocs.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!ocs.length?'<div class="nodata"><i class="ti ti-file-off"></i>Sin órdenes de compra registradas</div>':
+    ocs.map(oc=>{const stIdx=OC_STATES.findIndex(s=>s.id===oc.estado);
+      return'<div class="oc-card"><div class="oc-hdr"><div style="flex:1;min-width:0">'+
+        '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="oc-num">'+hl(oc.numero,q)+'</span><span class="bdg '+ocBadge(oc.estado)+'">'+(OC_STATES.find(s=>s.id===oc.estado)?.l||oc.estado)+'</span></div>'+
+        '<div class="oc-meta">'+(oc.provId?'<i class="ti ti-truck" style="font-size:10px;vertical-align:-1px"></i> '+esc(getProvNom(oc.provId))+' · ':'')+
+        (oc.fechaEmision?'Emitida: '+fdS(oc.fechaEmision)+' · ':'')+(oc.fechaEntrega?'Entrega est.: '+fdS(oc.fechaEntrega):'')+'</div>'+
+        '<div class="flow">'+OC_STATES.map((s,idx)=>(idx>0?'<span class="farr">›</span>':'')+'<span class="fstep '+(idx<stIdx?'fdone':idx===stIdx?'fact':'')+'">'+(idx===stIdx?'<b>':'')+s.l+(idx===stIdx?'</b>':'')+'</span>').join('')+'</div></div>'+
+        '<div class="brow"><button class="btn btnxs" onclick="oEditOC(\''+oc.id+'\')"><i class="ti ti-edit"></i></button><button class="btn btnxs btnd" onclick="dOC(\''+oc.id+'\')"><i class="ti ti-trash"></i></button></div></div>'+
+        ((oc.materiales||[]).length>0?'<div class="oc-mats"><div style="font-size:9px;font-weight:500;color:var(--txm);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Materiales ('+oc.materiales.length+')</div>'+oc.materiales.map(m=>'<div class="oc-mat"><span class="mat-cod">'+esc(m.codigo||'—')+'</span><span style="flex:1">'+esc(m.desc||'')+'</span><span style="color:var(--n);font-weight:500;flex-shrink:0">'+m.qty+' '+esc(m.unidad||'')+'</span></div>').join('')+'</div>':'')+
+        (oc.notas?'<div style="font-size:10px;color:var(--txm);margin-top:7px;font-style:italic">'+esc(oc.notas)+'</div>':'')+
+        '</div>';}).join(''));
+}
+
+function rProveedores(){
+  const q=searches.proveedores||'';let provs=[...S.proveedores];
+  if(q)provs=provs.filter(p=>matchStr([p.nombre,p.pais,p.contacto,p.email,p.telefono].filter(Boolean).join(' '),q));
+  return'<div class="ph"><div><div class="phtitle">Proveedores</div><div class="phsub">'+S.proveedores.length+' proveedor'+(S.proveedores.length!==1?'es':'')+' registrado'+(S.proveedores.length!==1?'s':'')+' </div></div>'+
+    '<button class="btn btnp" onclick="oAddProv()"><i class="ti ti-plus"></i> Nuevo proveedor</button></div>'+
+    (!provs.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!provs.length?'<div class="nodata"><i class="ti ti-building-off"></i>Sin proveedores registrados</div>':
+    provs.map(p=>{const ocsP=S.ocs.filter(oc=>oc.provId===p.id);
+      return'<div class="prov-card"><div class="prov-flag">'+flagEmoji(p.pais)+'</div><div class="prov-info">'+
+        '<div class="prov-name">'+hl(p.nombre,q)+'</div>'+
+        '<div class="prov-meta">'+
+        (p.pais?'<span>🌍 '+hl(p.pais,q)+'</span>':'')+
+        (p.contacto?'<span>👤 '+hl(p.contacto,q)+'</span>':'')+
+        (p.telefono?'<span>📞 '+esc(p.telefono)+'</span>':'')+
+        (p.email?'<span>✉️ '+esc(p.email)+'</span>':'')+'</div>'+
+        (ocsP.length>0?'<div style="margin-top:6px;display:flex;gap:4px;flex-wrap:wrap;align-items:center"><span style="font-size:9px;color:var(--txm)">OCs:</span>'+ocsP.map(oc=>'<span style="font-size:9px;padding:1px 6px;border-radius:99px;background:var(--bg2);color:var(--n);font-family:monospace">'+esc(oc.numero)+'</span>').join('')+'</div>':'')+
+        (p.notas?'<div style="font-size:10px;color:var(--txm);margin-top:5px;font-style:italic">'+esc(p.notas)+'</div>':'')+
+        '</div><div class="brow" style="flex-shrink:0"><button class="btn btnxs" onclick="oEditProv(\''+p.id+'\')"><i class="ti ti-edit"></i></button><button class="btn btnxs btnd" onclick="dProv(\''+p.id+'\')"><i class="ti ti-trash"></i></button></div></div>';}).join(''));
+}
+
+function rCalc(){
+  const total=calcItems.reduce((a,i)=>a+i.subtotal,0);
+  const codes=allItems().filter(i=>i.codigo);
+  return'<div class="ph"><div><div class="phtitle"><i class="ti ti-weight" style="font-size:14px;vertical-align:-2px;margin-right:5px"></i>Calculadora de Peso</div>'+
+    '<div class="phsub">Estimación de peso total para contratación de transporte</div></div>'+
+    (calcItems.length>0?'<button class="btn btnxs btnd" onclick="clearCalc()"><i class="ti ti-trash"></i> Limpiar</button>':'')+
+    '</div><div class="card" style="margin-bottom:14px">'+
+    '<div style="font-size:10px;font-weight:500;color:var(--txm);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em">Agregar material</div>'+
+    '<div class="fr2" style="margin-bottom:8px">'+
+    '<div class="fg" style="margin:0"><label class="fl">Código (de lista)</label>'+
+    '<input class="fi" list="calc-dl" id="calc-cod" placeholder="Ej: ELC-001" oninput="autoFillCalc()">'+
+    '<datalist id="calc-dl">'+codes.map(i=>'<option value="'+esc(i.codigo)+'">'+esc(i.codigo)+' — '+esc(i.desc)+'</option>').join('')+'</datalist></div>'+
+    '<div class="fg" style="margin:0"><label class="fl">Descripción</label><input class="fi" id="calc-desc" placeholder="Si no está en lista, escríbela aquí"></div></div>'+
+    '<div class="fr3" style="margin-bottom:8px">'+
+    '<div class="fg" style="margin:0"><label class="fl">Peso unitario (kg)</label><input class="fi" type="number" id="calc-pw" min="0" step="0.01" placeholder="0.00"></div>'+
+    '<div class="fg" style="margin:0"><label class="fl">Cantidad</label><input class="fi" type="number" id="calc-qty" min="1" value="1"></div>'+
+    '<div class="fg" style="margin:0;display:flex;align-items:flex-end"><button class="btn btnp" style="width:100%;justify-content:center" onclick="addCalcItem()"><i class="ti ti-plus"></i> Agregar</button></div></div></div>'+
+    (!calcItems.length?'<div class="nodata"><i class="ti ti-scale-off"></i>Agrega materiales para calcular el peso total de carga</div>':
+    calcItems.map((item,i)=>'<div class="calc-item"><span style="font-size:16px">📦</span><div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:500;color:var(--tx)">'+(item.cod?'<span class="cod">'+esc(item.cod)+'</span> — ':'')+esc(item.desc)+'</div><div style="font-size:10px;color:var(--txm)">'+item.pesoUnit+' kg/ud × '+item.qty+' unidades</div></div><div style="text-align:right;flex-shrink:0"><div style="font-size:13px;font-weight:500;color:var(--n)">'+item.subtotal.toFixed(2)+' kg</div></div><button class="btn btnxs btnd" onclick="removeCalcItem('+i+')"><i class="ti ti-x"></i></button></div>').join('')+
+    '<div class="calc-total"><div><div style="font-size:10px;opacity:.8;margin-bottom:3px;text-transform:uppercase;letter-spacing:.05em">Peso total estimado</div><div class="calc-total-n">'+total.toFixed(2)+' kg</div></div><div style="text-align:right"><div style="font-size:14px;opacity:.9">'+(total/1000).toFixed(3)+' ton</div><div style="font-size:10px;opacity:.6;margin-top:3px">'+calcItems.length+' material'+(calcItems.length!==1?'es':'')+'</div></div></div>');
 }
 
 function rAg(){
-  const q=searches.agenda;
-  let ag=[...S.agenda].sort((a,b)=>a.date.localeCompare(b.date));
-  if(q)ag=ag.filter(a=>[a.material,a.supplier,a.proj,a.oc,a.notes].filter(Boolean).join(' ').toLowerCase().split(' ').some(()=>q.toLowerCase().trim().split(/\s+/).every(w=>[a.material,a.supplier,a.proj,a.oc,a.notes].filter(Boolean).join(' ').toLowerCase().includes(w))));
+  const q=searches.agenda||'';let ag=[...S.agenda].sort((a,b)=>a.date.localeCompare(b.date));
+  if(q)ag=ag.filter(a=>matchStr([a.material,a.supplier,a.proj,a.oc,a.notes].filter(Boolean).join(' '),q));
   const pend=ag.filter(a=>a.status!=='received'),recv=ag.filter(a=>a.status==='received');
-  return`
-  <div class="ph"><div><div class="phtitle">Agenda de entregas</div><div class="phsub">Fechas aproximadas de recepción de material</div></div>
-  <button class="btn btnp" onclick="oAddAg()"><i class="ti ti-plus" aria-hidden="true"></i> Nueva entrega</button></div>
-  ${!ag.length&&q?`<div class="nodata"><i class="ti ti-search-off" aria-hidden="true"></i>Sin resultados</div>`:!ag.length?'<div class="nodata"><i class="ti ti-calendar-off" aria-hidden="true"></i>Sin entregas registradas</div>':''}
-  ${pend.length?`<div class="stitle">Pendientes (${pend.length})</div>${pend.map(a=>rAgI(a,q)).join('')}`:''}
-  ${recv.length?`<div class="stitle" style="margin-top:14px">Recibidas (${recv.length})</div>${recv.map(a=>rAgI(a,q)).join('')}`:''}`;
+  return'<div class="ph"><div><div class="phtitle">Agenda de entregas</div><div class="phsub">Fechas aproximadas de recepción de material</div></div>'+
+    '<button class="btn btnp" onclick="oAddAg()"><i class="ti ti-plus"></i> Nueva entrega</button></div>'+
+    (!ag.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!ag.length?'<div class="nodata"><i class="ti ti-calendar-off"></i>Sin entregas registradas</div>':'')+
+    (pend.length?'<div class="stitle">Pendientes ('+pend.length+')</div>'+pend.map(a=>rAgI(a,q)).join(''):'')+
+    (recv.length?'<div class="stitle" style="margin-top:14px">Recibidas ('+recv.length+')</div>'+recv.map(a=>rAgI(a,q)).join(''):'')+
+    (!ag.length&&q?'':'');
 }
-function rAgI(a,q){
-  const d=fdate(a.date);
-  const sc={pending:'bpend',received:'brecv',delayed:'bdel'}[a.status]||'bpend';
-  const st={pending:'Pendiente',received:'Recibido',delayed:'Con retraso'}[a.status]||'Pendiente';
-  return`<div class="agi">
-    <div class="agd"><div class="agday">${d.day}</div><div class="agmon">${d.mon}</div></div>
-    <div style="flex:1;min-width:0">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px">
-        <div class="agttl">${hl(a.material,q)}</div><span class="bdg ${sc}" style="flex-shrink:0">${st}</span>
-      </div>
-      <div class="agmeta">${a.supplier?'<i class="ti ti-truck" aria-hidden="true" style="font-size:10px;vertical-align:-1px"></i> '+hl(a.supplier,q)+' · ':''}${a.proj?hl(a.proj,q)+' · ':''}${a.oc?'OC: '+hl(a.oc,q):''}</div>
-      ${a.notes?`<div class="agmeta" style="font-style:italic">${hl(a.notes,q)}</div>`:''}
-    </div>
-    <div class="brow"><button class="btn btnxs" onclick="oEditAg('${a.id}')"><i class="ti ti-edit" aria-hidden="true"></i></button><button class="btn btnxs btnd" onclick="dAg('${a.id}')"><i class="ti ti-trash" aria-hidden="true"></i></button></div>
-  </div>`;
-}
+function rAgI(a,q){const d=fdate(a.date);const sc={pending:'bpend',received:'brecv',delayed:'bdel'}[a.status]||'bpend';const st={pending:'Pendiente',received:'Recibido',delayed:'Con retraso'}[a.status]||'Pendiente';
+  return'<div class="agi"><div class="agd"><div class="agday">'+d.day+'</div><div class="agmon">'+d.mon+'</div></div>'+
+    '<div style="flex:1;min-width:0"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px"><div class="agttl">'+hl(a.material,q)+'</div><span class="bdg '+sc+'" style="flex-shrink:0">'+st+'</span></div>'+
+    '<div class="agmeta">'+(a.supplier?'<i class="ti ti-truck" style="font-size:10px;vertical-align:-1px"></i> '+hl(a.supplier,q)+' · ':'')+(a.proj?hl(a.proj,q)+' · ':'')+(a.oc?'OC: '+hl(a.oc,q):'')+'</div>'+
+    (a.notes?'<div class="agmeta" style="font-style:italic">'+hl(a.notes,q)+'</div>':'')+'</div>'+
+    '<div class="brow"><button class="btn btnxs" onclick="oEditAg(\''+a.id+'\')"><i class="ti ti-edit"></i></button><button class="btn btnxs btnd" onclick="dAg(\''+a.id+'\')"><i class="ti ti-trash"></i></button></div></div>';}
 
 function rDocs(){
-  const q=searches.docs;
-  let docs=[...S.docs];
-  if(q)docs=docs.filter(d=>[d.name,d.by,d.proj,d.zone,d.notes].filter(Boolean).join(' ').toLowerCase().split(' ').filter(()=>q.toLowerCase().trim().split(/\s+/).every(w=>[d.name,d.by,d.proj,d.zone,d.notes].filter(Boolean).join(' ').toLowerCase().includes(w))).length>0||q.toLowerCase().trim().split(/\s+/).every(w=>[d.name,d.by,d.proj,d.zone,d.notes].filter(Boolean).join(' ').toLowerCase().includes(w)));
-  return`
-  <div class="ph"><div><div class="phtitle">Documentos</div><div class="phsub">Informes y registros de almacenamiento</div></div>
-  <button class="btn btnp" onclick="oUpDoc()"><i class="ti ti-upload" aria-hidden="true"></i> Subir doc.</button></div>
-  ${!docs.length&&q?`<div class="nodata"><i class="ti ti-search-off" aria-hidden="true"></i>Sin resultados</div>`:!docs.length?'<div class="nodata"><i class="ti ti-files" aria-hidden="true"></i>Sin documentos registrados</div>':
-    docs.map(d=>{
-      const ext=(d.name||'').split('.').pop().toLowerCase();
-      const bg=ext==='pdf'?'#FCEAE8':ext==='docx'||ext==='doc'?'#D4E5FF':'#EEF2FA';
-      const ic=ext==='pdf'?'📕':ext==='docx'||ext==='doc'?'📘':'📄';
-      return`<div class="doci">
-        <div class="docic" style="background:${bg}">${ic}</div>
-        <div style="flex:1;min-width:0">
-          <div class="docin">${hl(d.name,q)}</div>
-          <div class="docim"><i class="ti ti-user" aria-hidden="true" style="font-size:10px;vertical-align:-1px"></i> ${hl(d.by,q)} · ${fd(d.at)}${d.proj?' · <b>'+hl(d.proj,q)+'</b>':''}</div>
-          ${d.zone?`<div class="docim"><i class="ti ti-map-pin" aria-hidden="true" style="font-size:10px;vertical-align:-1px"></i> ${hl(d.zone,q)}</div>`:''}
-          ${d.notes?`<div class="docim" style="font-style:italic">${hl(d.notes,q)}</div>`:''}
-        </div>
-        <div class="brow">${d.hasData&&d.fileId?`<button class="btn btnxs" onclick="dlDoc('${d.fileId}','${d.name}')"><i class="ti ti-download" aria-hidden="true"></i></button>`:''}
-        <button class="btn btnxs btnd" onclick="dDoc('${d.id}')"><i class="ti ti-trash" aria-hidden="true"></i></button></div>
-      </div>`;
-    }).join('')}`;
+  const q=searches.docs||'';let docs=[...S.docs];
+  if(q)docs=docs.filter(d=>matchStr([d.name,d.by,d.proj,d.zone,d.notes].filter(Boolean).join(' '),q));
+  return'<div class="ph"><div><div class="phtitle">Documentos</div><div class="phsub">Informes y registros de almacenamiento</div></div>'+
+    '<button class="btn btnp" onclick="oUpDoc()"><i class="ti ti-upload"></i> Subir doc.</button></div>'+
+    (!docs.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!docs.length?'<div class="nodata"><i class="ti ti-files"></i>Sin documentos registrados</div>':
+    docs.map(d=>{const ext=(d.name||'').split('.').pop().toLowerCase();const bg=ext==='pdf'?'#FCEAE8':ext==='docx'||ext==='doc'?'#D4E5FF':'#EEF2FA';const ic=ext==='pdf'?'📕':ext==='docx'||ext==='doc'?'📘':'📄';
+      return'<div class="doci"><div class="docic" style="background:'+bg+'">'+ic+'</div><div style="flex:1;min-width:0"><div class="docin">'+esc(d.name)+'</div>'+
+        '<div class="docim"><i class="ti ti-user" style="font-size:10px;vertical-align:-1px"></i> '+esc(d.by)+' · '+fd(d.at)+(d.proj?' · <b>'+esc(d.proj)+'</b>':'')+'</div>'+
+        (d.zone?'<div class="docim"><i class="ti ti-map-pin" style="font-size:10px;vertical-align:-1px"></i> '+esc(d.zone)+'</div>':'')+
+        (d.notes?'<div class="docim" style="font-style:italic">'+esc(d.notes)+'</div>':'')+'</div>'+
+        '<div class="brow">'+(d.hasData&&d.fileId?'<button class="btn btnxs" onclick="dlDoc(\''+d.fileId+'\',\''+esc(d.name)+'\')"><i class="ti ti-download"></i></button>':'')+
+        '<button class="btn btnxs btnd" onclick="dDoc(\''+d.id+'\')"><i class="ti ti-trash"></i></button></div></div>';}).join(''));
 }
 
 function rLog(){
-  const q=searches.registro;
-  let logs=[...S.changelog];
-  if(q)logs=logs.filter(l=>matchLog(l,q));
-  return`
-  <div class="ph"><div><div class="phtitle">Registro de cambios</div><div class="phsub">Historial de actividad en COBOLCE BPG</div></div>
-  ${S.changelog.length?`<button class="btn btnxs btnd" onclick="clrLog()"><i class="ti ti-trash" aria-hidden="true"></i> Limpiar</button>`:''}</div>
-  ${!logs.length&&q?`<div class="nodata"><i class="ti ti-search-off" aria-hidden="true"></i>Sin resultados</div>`:!logs.length?'<div class="nodata"><i class="ti ti-history" aria-hidden="true"></i>Sin registros aún</div>':
-    `<div class="card">${logs.map(l=>`<div class="logr">
-      <div class="logd"></div>
-      <div><div class="logt">${hl(l.act,q)}</div>${l.det?`<div class="logm">${hl(l.det,q)}</div>`:''}
-      <div class="logm"><i class="ti ti-user" aria-hidden="true" style="font-size:10px;vertical-align:-1px"></i> ${hl(l.user,q)} · ${fd(l.ts)}</div></div>
-    </div>`).join('')}</div>`}`;
+  const q=searches.registro||'';let logs=[...S.changelog];if(q)logs=logs.filter(l=>matchLog(l,q));
+  return'<div class="ph"><div><div class="phtitle">Registro de cambios</div><div class="phsub">Historial de actividad</div></div>'+
+    (S.changelog.length?'<button class="btn btnxs btnd" onclick="clrLog()"><i class="ti ti-trash"></i> Limpiar</button>':'')+
+    '</div>'+(!logs.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!logs.length?'<div class="nodata"><i class="ti ti-history"></i>Sin registros aún</div>':
+    '<div class="card">'+logs.map(l=>'<div class="logr"><div class="logd"></div><div><div class="logt">'+hl(l.act,q)+'</div>'+(l.det?'<div class="logm">'+hl(l.det,q)+'</div>':'')+
+    '<div class="logm"><i class="ti ti-user" style="font-size:10px;vertical-align:-1px"></i> '+hl(l.user,q)+' · '+fd(l.ts)+'</div></div></div>').join('')+'</div>');
 }
 
-/* === MODALS === */
 function rMover(){
-  let cont='',lg='';
-  if(modal.s==='usr')cont=mUsr();
-  else if(modal.s==='gab'){cont=mGab();lg=' mlg';}
-  else if(modal.s==='item')cont=mItem();
-  else if(modal.s==='pal')cont=mPal();
-  else if(modal.s==='ag')cont=mAg();
-  else if(modal.s==='zi')cont=mZI();
-  else if(modal.s==='doc')cont=mDoc();
-  else if(modal.s==='cfg')cont=mCfg();
-  return`<div class="mover" onclick="bgC(event)"><div class="modal${lg}" onclick="event.stopPropagation()">${cont}</div></div>`;
+  let c='',lg='';
+  if(modal.s==='usr')c=mUsr();
+  else if(modal.s==='gab'){c=mGab();lg=' mlg';}
+  else if(modal.s==='item')c=mItem();
+  else if(modal.s==='pal')c=mPal();
+  else if(modal.s==='ag')c=mAg();
+  else if(modal.s==='zi')c=mZI();
+  else if(modal.s==='doc')c=mDoc();
+  else if(modal.s==='cfg')c=mCfg();
+  else if(modal.s==='li')c=mLI();
+  else if(modal.s==='vi'){c=mVI();lg=' mlg';}
+  else if(modal.s==='oc'){c=mOC();lg=' mlg';}
+  else if(modal.s==='prov')c=mProv();
+  return'<div class="mover" onclick="bgC(event)"><div class="modal'+lg+'" onclick="event.stopPropagation()">'+c+'</div></div>';
 }
-function projInput(id,val){
-  return`<input class="fi" list="plist" id="${id}" value="${val||''}" placeholder="Hornos Fase 2, EPP, Material BPG...">
-  <datalist id="plist">${PROJ_HINTS.map(p=>`<option value="${p}">`).join('')}</datalist>`;}
-function mUsr(){return`<div class="mhdr"><div class="mttl"><i class="ti ti-user-circle" aria-hidden="true"></i> Identificarse</div></div>
-  <div class="mbody"><p style="font-size:12px;color:var(--txm);margin-bottom:12px">Ingresa tu nombre para registrar tus acciones en COBOLCE.</p>
-  <div class="fg"><label class="fl">Tu nombre / operario</label><input class="fi" id="u-n" value="${S.user||''}" placeholder="Ej: Juan Pérez"></div></div>
-  <div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svUsr()"><i class="ti ti-check" aria-hidden="true"></i> Confirmar</button></div>`;}
+
+function mUsr(){return'<div class="mhdr"><div class="mttl"><i class="ti ti-user-circle"></i> Identificarse</div></div><div class="mbody"><p style="font-size:12px;color:var(--txm);margin-bottom:12px">Ingresa tu nombre para registrar tus acciones.</p><div class="fg"><label class="fl">Nombre / operario</label><input class="fi" id="u-n" value="'+esc(S.user||'')+'" placeholder="Ej: Sergio Rodríguez" autofocus></div></div><div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svUsr()"><i class="ti ti-check"></i> Confirmar</button></div>';}
+
 function mGab(){
-  const{r,g}=modal.d;const cfg=S.config[r]||{lvls:4};const nl=cfg.lvls||4;
-  const rn=r==='hab1'?'Habitación 1':'Habitación 2';
-  return`<div class="mhdr"><div class="mttl"><i class="ti ti-layout-columns" aria-hidden="true"></i> Gabinete ${g} — ${rn}</div>
-    <button class="btn btnxs" onclick="cM()"><i class="ti ti-x" aria-hidden="true"></i></button></div>
-  <div class="mbody">
-    ${Array.from({length:nl},(_,li)=>{
-      const l=li+1;const sp=gls(r,g,l);const us=glu(r,g,l);
-      const items=gld(r,g,l).items||[];const p=sp>0?us/sp:0;const bi=binfo(p);
-      return`<div class="lvblk">
-        <div class="lvhdr">
-          <div class="lvhdrl"><span class="lvname">Nivel ${l}</span><span class="lvsp">${us}/${sp} espacios</span><span class="bdg ${bi.c}">${bi.t}</span></div>
-          <div class="brow">
-            <div style="width:44px;height:4px;background:var(--bg2);border-radius:2px;overflow:hidden"><div style="width:${Math.min(100,Math.round(p*100))}%;height:100%;background:${lvc(p)};border-radius:2px"></div></div>
-            <button class="btn btnxs" onclick="oItem('${r}',${g},${l})"><i class="ti ti-plus" aria-hidden="true"></i> Agregar</button>
-            <button class="btn btnxs" onclick="eSp('${r}',${g},${l},${sp})" title="Editar espacios"><i class="ti ti-settings" aria-hidden="true" style="font-size:10px"></i></button>
-          </div>
-        </div>
-        <div class="lvbody">
-          ${!items.length?'<div style="font-size:11px;color:var(--txm);text-align:center;padding:4px">Nivel vacío</div>':
-            items.map((it,i)=>`<div class="ic">
-              <span class="icico">${iti(it.type).ic}</span>
-              <div class="icinfo">
-                <div class="icn">${it.desc}</div>
-                <div class="icm">${it.qty} ${it.unit} · <b>${it.sp||1}</b> espacio${(it.sp||1)>1?'s':''}</div>
-                ${it.proj?`<span class="icp">${it.proj}</span>`:''}
-                ${it.oc?`<div class="icm" style="font-family:monospace;font-size:9px">${it.oc}</div>`:''}
-                ${it.llegada?`<div class="icm"><i class="ti ti-calendar-check" aria-hidden="true" style="font-size:10px;vertical-align:-1px"></i> Llegó: ${fdShort(it.llegada)}</div>`:''}
-                ${it.notes?`<div class="icm" style="font-style:italic">${it.notes}</div>`:''}
-                <div class="icby"><span>${it.by||''}</span><span>${fd(it.at)}</span></div>
-              </div>
-              <div class="brow"><button class="btn btnxs" onclick="oEditItem('${r}',${g},${l},${i})"><i class="ti ti-edit" aria-hidden="true"></i></button><button class="btn btnxs btnd" onclick="dItem('${r}',${g},${l},${i})"><i class="ti ti-trash" aria-hidden="true"></i></button></div>
-            </div>`).join('')}
-        </div>
-      </div>`;
-    }).join('')}
-  </div>
-  <div class="mfoot"><button class="btn" onclick="cM()">Cerrar</button></div>`;}
+  const{r,g}=modal.d;const cfg=S.config[r]||{lvls:4};const nl=cfg.lvls||4;const rn=r==='hab1'?'Habitación 1':'Habitación 2';
+  return'<div class="mhdr"><div class="mttl"><i class="ti ti-layout-columns"></i> Gabinete '+g+' — '+rn+'</div><button class="btn btnxs" onclick="cM()"><i class="ti ti-x"></i></button></div>'+
+    '<div class="mbody">'+Array.from({length:nl},(_,li)=>{
+      const l=li+1;const sp=gls(r,g,l);const us=glu(r,g,l);const items=gld(r,g,l).items||[];const p=sp>0?us/sp:0;const bi=binfo(p);
+      return'<div class="lvblk"><div class="lvhdr"><div class="lvhdrl"><span class="lvname">Nivel '+l+'</span><span class="lvsp">'+us+'/'+sp+' espacios</span><span class="bdg '+bi.c+'">'+bi.t+'</span></div>'+
+        '<div class="brow"><div style="width:44px;height:4px;background:var(--bg2);border-radius:2px;overflow:hidden"><div style="width:'+Math.min(100,Math.round(p*100))+'%;height:100%;background:'+lvc(p)+';border-radius:2px"></div></div>'+
+        '<button class="btn btnxs" onclick="oItem(\''+r+'\','+g+','+l+')"><i class="ti ti-plus"></i> Agregar</button>'+
+        '<button class="btn btnxs" onclick="eSp(\''+r+'\','+g+','+l+','+sp+')"><i class="ti ti-settings" style="font-size:10px"></i></button></div></div>'+
+        '<div class="lvbody">'+(!items.length?'<div style="font-size:11px;color:var(--txm);text-align:center;padding:4px">Nivel vacío</div>':
+        items.map((it,i)=>'<div class="ic"><span class="icico">'+iti(it.type).ic+'</span><div class="icinfo"><div class="icn">'+esc(it.desc)+'</div>'+
+          '<div class="icm">'+it.qty+' '+esc(it.unit)+' · <b>'+(it.sp||1)+'</b> espacio'+(( it.sp||1)>1?'s':'')+'</div>'+
+          (it.proj?'<span class="icp">'+esc(it.proj)+'</span>':'')+
+          (it.oc?'<div class="icm" style="font-family:monospace;font-size:9px">'+esc(it.oc)+'</div>':'')+
+          (it.llegada?'<div class="icm"><i class="ti ti-calendar-check" style="font-size:10px;vertical-align:-1px"></i> Llegó: '+fdS(it.llegada)+'</div>':'')+
+          (it.notes?'<div class="icm" style="font-style:italic">'+esc(it.notes)+'</div>':'')+
+          '<div class="icby"><span>'+esc(it.by||'')+'</span><span>'+fd(it.at)+'</span></div></div>'+
+          '<div class="brow"><button class="btn btnxs" onclick="oEditItem(\''+r+'\','+g+','+l+','+i+')"><i class="ti ti-edit"></i></button><button class="btn btnxs btnd" onclick="dItem(\''+r+'\','+g+','+l+','+i+')"><i class="ti ti-trash"></i></button></div></div>').join(''))+'</div></div>';}).join('')+'</div>'+
+    '<div class="mfoot"><button class="btn" onclick="cM()">Cerrar</button></div>';}
+
 function mItem(){
   const{r,g,l,ei,item}=modal.d;const sp=gls(r,g,l);
-  return`<div class="mhdr"><div class="mttl">${ei!==undefined?'Editar':'Agregar'} material — Gab. ${g} / Nivel ${l}</div>
-    <button class="btn btnxs" onclick="btG()"><i class="ti ti-arrow-left" aria-hidden="true"></i></button></div>
-  <div class="mbody">
-    <div class="fg"><label class="fl">Tipo de ítem</label><select class="fi" id="i-t">${ITYPES.map(t=>`<option value="${t.id}"${item?.type===t.id?' selected':''}>${t.ic} ${t.l}</option>`).join('')}</select></div>
-    <div class="fg"><label class="fl">Descripción del material</label><input class="fi" id="i-d" value="${item?.desc||''}" placeholder='Ej: Caja con Codos 90° 2" SCH80 HDG ASTM A234'></div>
-    <div class="fr3">
-      <div class="fg"><label class="fl">Cantidad</label><input class="fi" type="number" id="i-q" min="0" value="${item?.qty||1}"></div>
-      <div class="fg"><label class="fl">Unidad</label><input class="fi" id="i-u" value="${item?.unit||'PZA'}" placeholder="PZA"></div>
-      <div class="fg"><label class="fl">Espacios usados</label><input class="fi" type="number" id="i-s" min="1" max="${sp}" value="${item?.sp||1}"></div>
-    </div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">Proyecto / Asunto</label>${projInput('i-p',item?.proj)}</div>
-      <div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="i-o" value="${item?.oc||''}" placeholder="OC-2025-XXX"></div>
-    </div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">Fecha llegada al almacén</label><input type="date" class="fi" id="i-ll" value="${item?.llegada||''}"></div>
-      <div class="fg"><label class="fl">Notas</label><input class="fi" id="i-n" value="${item?.notes||''}" placeholder="Observaciones..."></div>
-    </div>
-  </div>
-  <div class="mfoot"><button class="btn" onclick="btG()">Cancelar</button><button class="btn btnp" onclick="svItem()"><i class="ti ti-check" aria-hidden="true"></i> Guardar</button></div>`;}
-function mPal(){return`<div class="mhdr"><div class="mttl"><i class="ti ti-box" aria-hidden="true"></i> Nueva zona de pallet</div></div>
-  <div class="mbody">
-    <div class="fg"><label class="fl">Descripción del pallet</label><input class="fi" id="p-l" placeholder="Ej: Pallet con válvulas Hornos Fase 2"></div>
-    <div class="fg"><label class="fl">Proyecto / Asunto</label>${projInput('p-p','')}</div>
-  </div>
-  <div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svPal()"><i class="ti ti-check" aria-hidden="true"></i> Agregar</button></div>`;}
-function mAg(){
-  const a=modal.d?.item;
-  return`<div class="mhdr"><div class="mttl"><i class="ti ti-calendar-event" aria-hidden="true"></i> ${a?'Editar':'Nueva'} entrega programada</div></div>
-  <div class="mbody">
-    <div class="fr2">
-      <div class="fg"><label class="fl">Fecha aproximada</label><input type="date" class="fi" id="a-dt" value="${a?.date||''}"></div>
-      <div class="fg"><label class="fl">Estado</label><select class="fi" id="a-st">
-        <option value="pending"${!a||a?.status==='pending'?' selected':''}>Pendiente</option>
-        <option value="received"${a?.status==='received'?' selected':''}>Recibido</option>
-        <option value="delayed"${a?.status==='delayed'?' selected':''}>Con retraso</option>
-      </select></div>
-    </div>
-    <div class="fg"><label class="fl">Material / Descripción</label><input class="fi" id="a-m" value="${a?.material||''}" placeholder="Ej: Codos SCH80 HDG, tubería ASTM A106..."></div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">Proveedor</label><input class="fi" id="a-s" value="${a?.supplier||''}" placeholder="Servipetrol, JN Importaciones..."></div>
-      <div class="fg"><label class="fl">Proyecto / Asunto</label>${projInput('a-p',a?.proj)}</div>
-    </div>
-    <div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="a-o" value="${a?.oc||''}" placeholder="OC-2025-XXX"></div>
-    <div class="fg"><label class="fl">Notas</label><input class="fi" id="a-n" value="${a?.notes||''}" placeholder="Observaciones, contacto proveedor..."></div>
-  </div>
-  <div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svAg()"><i class="ti ti-check" aria-hidden="true"></i> Guardar</button></div>`;}
-function mZI(){
-  const{zid,zlbl,ei,item}=modal.d;
-  return`<div class="mhdr"><div class="mttl">${ei!==undefined?'Editar':'Agregar'} material — ${zlbl}</div></div>
-  <div class="mbody">
-    <div class="fg"><label class="fl">Tipo</label><select class="fi" id="z-t">${ITYPES.map(t=>`<option value="${t.id}"${item?.type===t.id?' selected':''}>${t.ic} ${t.l}</option>`).join('')}</select></div>
-    <div class="fg"><label class="fl">Descripción</label><input class="fi" id="z-d" value="${item?.desc||''}" placeholder='Ej: Bobina cable 4AWG, Tubo conduit 1"...'></div>
-    <div class="fr2"><div class="fg"><label class="fl">Cantidad</label><input class="fi" type="number" id="z-q" min="0" value="${item?.qty||1}"></div>
-    <div class="fg"><label class="fl">Unidad</label><input class="fi" id="z-u" value="${item?.unit||'PZA'}" placeholder="PZA / M / KG"></div></div>
-    <div class="fr2"><div class="fg"><label class="fl">Proyecto / Asunto</label>${projInput('z-p',item?.proj)}</div>
-    <div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="z-o" value="${item?.oc||''}" placeholder="OC-2025-XXX"></div></div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">Fecha llegada al almacén</label><input type="date" class="fi" id="z-ll" value="${item?.llegada||''}"></div>
-      <div class="fg"><label class="fl">Notas</label><input class="fi" id="z-n" value="${item?.notes||''}" placeholder="Observaciones..."></div>
-    </div>
-  </div>
-  <div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svZI()"><i class="ti ti-check" aria-hidden="true"></i> Guardar</button></div>`;}
-function mDoc(){
-  return`<div class="mhdr"><div class="mttl"><i class="ti ti-upload" aria-hidden="true"></i> Registrar documento</div></div>
-  <div class="mbody">
-    <div class="fg"><label class="fl">Archivo (PDF, Word, Excel — hasta 10MB)</label>
-      <div class="upbox" id="ub" onclick="document.getElementById('fi').click()">
-        <i class="ti ti-file-upload" aria-hidden="true" style="font-size:22px;display:block;margin-bottom:5px;color:var(--txm)"></i>
-        <div style="font-size:12px;color:var(--txm)" id="ul">Haz clic para seleccionar un archivo</div>
-      </div>
-      <input type="file" id="fi" style="display:none" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.png,.jpg" onchange="hFile(event)">
-    </div>
-    <div class="fr2">
-      <div class="fg"><label class="fl">Operario / Subido por</label><input class="fi" id="d-b" value="${S.user||''}" placeholder="Tu nombre"></div>
-      <div class="fg"><label class="fl">Proyecto / Asunto</label>${projInput('d-p','')}</div>
-    </div>
-    <div class="fg"><label class="fl">Zona / Referencia</label><input class="fi" id="d-z" placeholder="Ej: Hab. 1 Gab. 3, Caseta..."></div>
-    <div class="fg"><label class="fl">Descripción / Notas</label><input class="fi" id="d-n" placeholder="Ej: Informe de recepción tubería ASTM A106"></div>
-  </div>
-  <div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svDoc()"><i class="ti ti-check" aria-hidden="true"></i> Registrar</button></div>`;}
-function mCfg(){
-  const{r}=modal.d;const cfg=S.config[r]||{gabs:7,lvls:4,dsp:10};const rn=r==='hab1'?'Habitación 1':'Habitación 2';
-  return`<div class="mhdr"><div class="mttl"><i class="ti ti-settings" aria-hidden="true"></i> Configurar ${rn}</div><button class="btn btnxs" onclick="cM()"><i class="ti ti-x" aria-hidden="true"></i></button></div>
-  <div class="mbody">
-    <div class="fr2">
-      <div class="fg"><label class="fl">Número de gabinetes</label><input class="fi" type="number" id="c-g" min="1" max="20" value="${cfg.gabs||7}"></div>
-      <div class="fg"><label class="fl">Niveles por gabinete</label><input class="fi" type="number" id="c-l" min="1" max="8" value="${cfg.lvls||4}"></div>
-    </div>
-    <div class="fg"><label class="fl">Espacios predeterminados por nivel</label><input class="fi" type="number" id="c-s" min="1" max="200" value="${cfg.dsp||10}">
-    <div style="font-size:10px;color:var(--txm);margin-top:4px">Se aplica a posiciones nuevas.</div></div>
-  </div>
-  <div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svCfg()"><i class="ti ti-check" aria-hidden="true"></i> Guardar</button></div>`;}
+  return'<div class="mhdr"><div class="mttl">'+(ei!==undefined?'Editar':'Agregar')+' material — Gab. '+g+' / Nivel '+l+'</div><button class="btn btnxs" onclick="btG()"><i class="ti ti-arrow-left"></i></button></div>'+
+    '<div class="mbody"><div class="fg"><label class="fl">Tipo de ítem</label><select class="fi" id="i-t">'+ITYPES.map(t=>'<option value="'+t.id+'"'+(item?.type===t.id?' selected':'')+'>'+t.ic+' '+t.l+'</option>').join('')+'</select></div>'+
+    '<div class="fg"><label class="fl">Descripción *</label><input class="fi" id="i-d" value="'+esc(item?.desc||'')+'" placeholder="Ej: Caja con Codos 90° 2&quot; SCH80 HDG" autofocus></div>'+
+    '<div class="fr3"><div class="fg"><label class="fl">Cantidad</label><input class="fi" type="number" id="i-q" min="0" value="'+(item?.qty||1)+'"></div><div class="fg"><label class="fl">Unidad</label><input class="fi" id="i-u" value="'+esc(item?.unit||'PZA')+'" placeholder="PZA"></div><div class="fg"><label class="fl">Espacios usados</label><input class="fi" type="number" id="i-s" min="1" max="'+sp+'" value="'+(item?.sp||1)+'"></div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Proyecto / Asunto</label>'+projInput('i-p',item?.proj)+'</div><div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="i-o" value="'+esc(item?.oc||'')+'" placeholder="OC-2025-XXX"></div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Fecha llegada al almacén</label><input type="date" class="fi" id="i-ll" value="'+(item?.llegada||'')+'"></div><div class="fg"><label class="fl">Notas</label><input class="fi" id="i-n" value="'+esc(item?.notes||'')+'" placeholder="Observaciones..."></div></div></div>'+
+    '<div class="mfoot"><button class="btn" onclick="btG()">Cancelar</button><button class="btn btnp" onclick="svItem()"><i class="ti ti-check"></i> Guardar</button></div>';}
 
-/* === ACTIONS === */
+function mPal(){return'<div class="mhdr"><div class="mttl"><i class="ti ti-box"></i> Nueva zona de pallet</div></div><div class="mbody"><div class="fg"><label class="fl">Descripción del pallet</label><input class="fi" id="p-l" placeholder="Ej: Pallet con válvulas Hornos Fase 2" autofocus></div><div class="fg"><label class="fl">Proyecto / Asunto</label>'+projInput('p-p','')+'</div></div><div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svPal()"><i class="ti ti-check"></i> Agregar</button></div>';}
+
+function mAg(){const a=modal.d?.item;
+  return'<div class="mhdr"><div class="mttl"><i class="ti ti-calendar-event"></i> '+(a?'Editar':'Nueva')+' entrega programada</div></div>'+
+    '<div class="mbody"><div class="fr2"><div class="fg"><label class="fl">Fecha aproximada</label><input type="date" class="fi" id="a-dt" value="'+(a?.date||'')+'"></div>'+
+    '<div class="fg"><label class="fl">Estado</label><select class="fi" id="a-st"><option value="pending"'+(!a||a?.status==='pending'?' selected':'')+'>Pendiente</option><option value="received"'+(a?.status==='received'?' selected':'')+'>Recibido</option><option value="delayed"'+(a?.status==='delayed'?' selected':'')+'>Con retraso</option></select></div></div>'+
+    '<div class="fg"><label class="fl">Material / Descripción *</label><input class="fi" id="a-m" value="'+esc(a?.material||'')+'" placeholder="Ej: Codos SCH80 HDG..." autofocus></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Proveedor</label><input class="fi" id="a-s" value="'+esc(a?.supplier||'')+'" placeholder="Servipetrol..."></div><div class="fg"><label class="fl">Proyecto</label>'+projInput('a-p',a?.proj)+'</div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="a-o" value="'+esc(a?.oc||'')+'" placeholder="OC-2025-XXX"></div><div class="fg"><label class="fl">Notas</label><input class="fi" id="a-n" value="'+esc(a?.notes||'')+'" placeholder="..."></div></div></div>'+
+    '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svAg()"><i class="ti ti-check"></i> Guardar</button></div>';}
+
+function mZI(){const{zid,zlbl,ei,item}=modal.d;
+  return'<div class="mhdr"><div class="mttl">'+(ei!==undefined?'Editar':'Agregar')+' material — '+esc(zlbl)+'</div></div>'+
+    '<div class="mbody"><div class="fg"><label class="fl">Tipo</label><select class="fi" id="z-t">'+ITYPES.map(t=>'<option value="'+t.id+'"'+(item?.type===t.id?' selected':'')+'>'+t.ic+' '+t.l+'</option>').join('')+'</select></div>'+
+    '<div class="fg"><label class="fl">Descripción *</label><input class="fi" id="z-d" value="'+esc(item?.desc||'')+'" placeholder="Ej: Bobina cable 4AWG..." autofocus></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Cantidad</label><input class="fi" type="number" id="z-q" min="0" value="'+(item?.qty||1)+'"></div><div class="fg"><label class="fl">Unidad</label><input class="fi" id="z-u" value="'+esc(item?.unit||'PZA')+'" placeholder="PZA / M / KG"></div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Proyecto</label>'+projInput('z-p',item?.proj)+'</div><div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="z-o" value="'+esc(item?.oc||'')+'" placeholder="OC-2025-XXX"></div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Fecha llegada al almacén</label><input type="date" class="fi" id="z-ll" value="'+(item?.llegada||'')+'"></div><div class="fg"><label class="fl">Notas</label><input class="fi" id="z-n" value="'+esc(item?.notes||'')+'" placeholder="..."></div></div></div>'+
+    '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svZI()"><i class="ti ti-check"></i> Guardar</button></div>';}
+
+function mDoc(){return'<div class="mhdr"><div class="mttl"><i class="ti ti-upload"></i> Registrar documento</div></div>'+
+    '<div class="mbody"><div class="fg"><label class="fl">Archivo (PDF, Word, Excel — hasta 10MB)</label>'+
+    '<div class="upbox" id="ub" onclick="document.getElementById(\'fi\').click()"><i class="ti ti-file-upload" style="font-size:22px;display:block;margin-bottom:5px;color:var(--txm)"></i><div style="font-size:12px;color:var(--txm)" id="ul">Haz clic para seleccionar un archivo</div></div>'+
+    '<input type="file" id="fi" style="display:none" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.png,.jpg" onchange="hFile(event)"></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Subido por</label><input class="fi" id="d-b" value="'+esc(S.user||'')+'" placeholder="Tu nombre"></div><div class="fg"><label class="fl">Proyecto</label>'+projInput('d-p','')+'</div></div>'+
+    '<div class="fg"><label class="fl">Zona / Referencia</label><input class="fi" id="d-z" placeholder="Ej: Hab. 1 Gab. 3..."></div>'+
+    '<div class="fg"><label class="fl">Descripción / Notas</label><input class="fi" id="d-n" placeholder="Ej: Informe de recepción..."></div></div>'+
+    '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svDoc()"><i class="ti ti-check"></i> Registrar</button></div>';}
+
+function mCfg(){const{r}=modal.d;const cfg=S.config[r]||{gabs:7,lvls:4,dsp:10};const rn=r==='hab1'?'Habitación 1':'Habitación 2';
+  return'<div class="mhdr"><div class="mttl"><i class="ti ti-settings"></i> Configurar '+rn+'</div><button class="btn btnxs" onclick="cM()"><i class="ti ti-x"></i></button></div>'+
+    '<div class="mbody"><div class="fr2"><div class="fg"><label class="fl">Número de gabinetes</label><input class="fi" type="number" id="c-g" min="1" max="20" value="'+(cfg.gabs||7)+'"></div><div class="fg"><label class="fl">Niveles por gabinete</label><input class="fi" type="number" id="c-l" min="1" max="8" value="'+(cfg.lvls||4)+'"></div></div>'+
+    '<div class="fg"><label class="fl">Espacios predeterminados por nivel</label><input class="fi" type="number" id="c-s" min="1" max="200" value="'+(cfg.dsp||10)+'"></div></div>'+
+    '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svCfg()"><i class="ti ti-check"></i> Guardar</button></div>';}
+
+function mLI(){const{disc,ei,item}=modal.d;const dObj=DISCIPLINAS.find(d=>d.id===disc)||DISCIPLINAS[0];
+  return'<div class="mhdr"><div class="mttl"><i class="ti ti-list-check"></i> '+(ei!==undefined?'Editar':'Agregar')+' ítem — Lista '+dObj.l+'</div></div>'+
+    '<div class="mbody"><div class="fr2"><div class="fg"><label class="fl">Código único *</label><input class="fi" id="li-cod" value="'+esc(item?.codigo||'')+'" placeholder="Ej: ELC-001, MEC-015" autofocus><div style="font-size:10px;color:var(--txm);margin-top:3px">Vincula este ítem con las OCs.</div></div>'+
+    '<div class="fg"><label class="fl">Disciplina</label><select class="fi" id="li-disc">'+DISCIPLINAS.map(d=>'<option value="'+d.id+'"'+(disc===d.id?' selected':'')+'>'+d.ic+' '+d.l+'</option>').join('')+'</select></div></div>'+
+    '<div class="fg"><label class="fl">Descripción *</label><input class="fi" id="li-desc" value="'+esc(item?.desc||'')+'" placeholder="Ej: Tubo ASTM A106 Gr. B 6m SCH80 HDG ø2&quot;"></div>'+
+    '<div class="fr3"><div class="fg"><label class="fl">Cantidad requerida</label><input class="fi" type="number" id="li-qty" min="0" value="'+(item?.cantReq||'')+'"></div>'+
+    '<div class="fg"><label class="fl">Unidad</label><input class="fi" id="li-und" value="'+esc(item?.unidad||'')+'" placeholder="PZA / M / KG"></div>'+
+    '<div class="fg"><label class="fl">Peso unitario (kg)</label><input class="fi" type="number" id="li-pw" min="0" step="0.001" value="'+(item?.pesoUnit||'')+'" placeholder="0.000"></div></div>'+
+    '<div class="fg"><label class="fl">Especificaciones / Notas</label><input class="fi" id="li-notes" value="'+esc(item?.notas||'')+'" placeholder="Normas, material, accesorios incluidos..."></div></div>'+
+    '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svLI()"><i class="ti ti-check"></i> Guardar</button></div>';}
+
+function mVI(){const{disc,idx}=modal.d;const item=S.listas[disc]?.[idx];
+  if(!item)return'<div class="mhdr"><div class="mttl">Error</div></div><div class="mbody">Ítem no encontrado</div>';
+  const comp=getCantComp(item.codigo);const req=+item.cantReq||0;const falta=Math.max(0,req-comp);
+  const ocsI=getOCsForCod(item.codigo);const dObj=DISCIPLINAS.find(d=>d.id===disc)||DISCIPLINAS[0];
+  return'<div class="mhdr"><div class="mttl"><span class="cod" style="font-size:13px">'+esc(item.codigo||'—')+'</span> <span style="color:var(--txm);font-weight:400">— '+dObj.l+'</span></div><button class="btn btnxs" onclick="cM()"><i class="ti ti-x"></i></button></div>'+
+    '<div class="mbody"><div style="font-size:14px;font-weight:500;color:var(--tx);margin-bottom:4px">'+esc(item.desc)+'</div>'+
+    '<div style="font-size:11px;color:var(--txm);margin-bottom:14px">'+esc(item.unidad||'')+(item.pesoUnit?' · Peso unit.: '+item.pesoUnit+' kg/ud':'')+'</div>'+
+    '<div class="stats" style="grid-template-columns:repeat(3,1fr);margin-bottom:14px"><div class="stat"><div class="stn">'+req+'</div><div class="stl">Requerido</div></div>'+
+    '<div class="stat"><div class="stn" style="color:'+(comp>0?'var(--grn-tx)':'var(--txm)')+'">'+comp+'</div><div class="stl">Comprado</div></div>'+
+    '<div class="stat"><div class="stn" style="color:'+(falta>0?'var(--red-tx)':'var(--grn-tx)')+'">'+falta+'</div><div class="stl">Faltante</div></div></div>'+
+    (item.pesoUnit&&req?'<div style="font-size:11px;color:var(--txm);margin-bottom:12px;padding:8px 10px;background:var(--bg2);border-radius:6px">⚖️ Peso total estimado (requerido): <b>'+(req*item.pesoUnit).toFixed(2)+' kg</b></div>':'')+
+    '<div class="stitle">OCs que contienen este ítem ('+ocsI.length+')</div>'+
+    (!ocsI.length?'<div style="font-size:11px;color:var(--txm);margin-bottom:10px">No aparece en ninguna OC aún.</div>':
+    ocsI.map(oc=>{const mat=oc.materiales.find(m=>m.codigo===item.codigo);
+      return'<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--bg2);border-radius:6px;margin-bottom:5px">'+
+        '<span class="cod">'+esc(oc.numero)+'</span><span style="flex:1;font-size:11px;color:var(--txm)">'+esc(getProvNom(oc.provId))+'</span>'+
+        '<span style="font-size:11px;font-weight:500;color:var(--n)">'+(mat?.qty||0)+' '+esc(mat?.unidad||item.unidad||'')+'</span>'+
+        '<span class="bdg '+ocBadge(oc.estado)+'">'+(OC_STATES.find(s=>s.id===oc.estado)?.l||oc.estado)+'</span></div>';}).join(''))+
+    (item.notas?'<div class="stitle" style="margin-top:12px">Especificaciones</div><div style="font-size:11px;color:var(--txm)">'+esc(item.notas)+'</div>':'')+
+    '</div><div class="mfoot"><button class="btn" onclick="cM()">Cerrar</button><button class="btn btnxs btnp" onclick="oEditLI(\''+disc+'\','+idx+')"><i class="ti ti-edit"></i> Editar</button></div>';}
+
+function mOC(){const{ei,item}=modal.d;const codes=allItems().filter(i=>i.codigo);
+  return'<div class="mhdr"><div class="mttl"><i class="ti ti-file-invoice"></i> '+(ei!==undefined?'Editar':'Nueva')+' Orden de Compra</div><button class="btn btnxs" onclick="cM()"><i class="ti ti-x"></i></button></div>'+
+    '<div class="mbody"><div class="fr2"><div class="fg"><label class="fl">Número de OC *</label><input class="fi" id="oc-num" value="'+esc(item?.numero||'')+'" placeholder="OC-2025-001" autofocus></div>'+
+    '<div class="fg"><label class="fl">Proveedor</label><select class="fi" id="oc-prov"><option value="">— Seleccionar —</option>'+S.proveedores.map(p=>'<option value="'+p.id+'"'+(item?.provId===p.id?' selected':'')+'>'+esc(p.nombre)+' ('+esc(p.pais||'—')+')</option>').join('')+'</select></div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Fecha de emisión</label><input type="date" class="fi" id="oc-fe" value="'+(item?.fechaEmision||'')+'"></div>'+
+    '<div class="fg"><label class="fl">Fecha estimada entrega</label><input type="date" class="fi" id="oc-fd" value="'+(item?.fechaEntrega||'')+'"></div></div>'+
+    '<div class="fg"><label class="fl">Estado actual</label><select class="fi" id="oc-est">'+OC_STATES.map(s=>'<option value="'+s.id+'"'+((item?.estado||'cotizacion')===s.id?' selected':'')+'>'+s.l+'</option>').join('')+'</select></div>'+
+    '<div class="fg"><label class="fl">Materiales incluidos en esta OC</label>'+
+    '<div id="mm-list">'+modalMats.map((m,i)=>'<div style="display:flex;align-items:center;gap:5px;padding:5px 8px;background:var(--bg2);border-radius:6px;margin-bottom:4px">'+
+      '<span class="mat-cod" style="min-width:70px">'+esc(m.codigo||'—')+'</span>'+
+      '<span style="flex:1;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(m.desc||'')+'</span>'+
+      '<span style="font-size:11px;font-weight:500;color:var(--n);flex-shrink:0;margin-right:4px">'+m.qty+' '+esc(m.unidad||'')+'</span>'+
+      '<button class="btn btnxs btnd" onclick="rmMM('+i+')"><i class="ti ti-x"></i></button></div>').join('')+'</div>'+
+    '<datalist id="oc-cdl">'+codes.map(i=>'<option value="'+esc(i.codigo)+'">'+esc(i.codigo)+' — '+esc(i.desc)+'</option>').join('')+'</datalist>'+
+    '<div style="display:grid;grid-template-columns:90px 1fr 65px 50px auto;gap:5px;margin-top:6px;align-items:center">'+
+    '<input class="fi" id="nm-cod" list="oc-cdl" placeholder="Código" style="font-size:11px" oninput="autoFillMD()">'+
+    '<input class="fi" id="nm-desc" placeholder="Descripción" style="font-size:11px">'+
+    '<input class="fi" type="number" id="nm-qty" placeholder="Cant." style="font-size:11px">'+
+    '<input class="fi" id="nm-und" placeholder="Und." style="font-size:11px">'+
+    '<button class="btn btnxs btnp" onclick="addMM()"><i class="ti ti-plus"></i></button></div></div>'+
+    '<div class="fg"><label class="fl">Notas</label><input class="fi" id="oc-notes" value="'+esc(item?.notas||'')+'" placeholder="Observaciones..."></div></div>'+
+    '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svOC()"><i class="ti ti-check"></i> Guardar OC</button></div>';}
+
+function mProv(){const{ei,item}=modal.d;
+  return'<div class="mhdr"><div class="mttl"><i class="ti ti-building-store"></i> '+(ei!==undefined?'Editar':'Nuevo')+' proveedor</div></div>'+
+    '<div class="mbody"><div class="fr2"><div class="fg"><label class="fl">Nombre del proveedor *</label><input class="fi" id="pv-nom" value="'+esc(item?.nombre||'')+'" placeholder="Ej: Servipetrol Ltda." autofocus></div>'+
+    '<div class="fg"><label class="fl">País</label><select class="fi" id="pv-pais"><option value="">— Seleccionar —</option>'+PAISES.map(p=>'<option value="'+p+'"'+(item?.pais===p?' selected':'')+'>'+flagEmoji(p)+' '+p+'</option>').join('')+'</select></div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Nombre del contacto</label><input class="fi" id="pv-con" value="'+esc(item?.contacto||'')+'" placeholder="Juan García"></div>'+
+    '<div class="fg"><label class="fl">Teléfono</label><input class="fi" id="pv-tel" value="'+esc(item?.telefono||'')+'" placeholder="+591 XXX XXXX"></div></div>'+
+    '<div class="fg"><label class="fl">Correo electrónico</label><input class="fi" id="pv-email" value="'+esc(item?.email||'')+'" placeholder="contacto@proveedor.com"></div>'+
+    '<div class="fg"><label class="fl">Notas / Observaciones</label><input class="fi" id="pv-notes" value="'+esc(item?.notas||'')+'" placeholder="Especialidad, condiciones de pago..."></div></div>'+
+    '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svProv()"><i class="ti ti-check"></i> Guardar</button></div>';}
+
+/* ACTIONS */
 function setTab(t){S.tab=t;render();}
 function setRoom(r){S.room=r;render();}
 function setSearch(v){searches[S.tab]=v;render();}
 function clearSearch(){searches[S.tab]='';render();}
+function setDisc(d){S.disc=d;render();}
 function bgC(e){if(modal?.s!=='usr')cM();}
 function cM(){modal=null;render();}
 function showUsr(){modal={s:'usr',d:{}};render();}
-function svUsr(){
-  const n=document.getElementById('u-n')?.value?.trim();
-  if(!n){tst('Ingresa tu nombre');return;}
-  S.user=n;localStorage.setItem('cobolce-user',n);modal=null;render();tst('Identificado como '+n);
-}
-function toggleDark(){
-  S.dark=!S.dark;localStorage.setItem('cobolce-dark',S.dark);
-  document.body.classList.toggle('dark',S.dark);render();
-}
+function svUsr(){const n=document.getElementById('u-n')?.value?.trim();if(!n){tst('Ingresa tu nombre');return;}S.user=n;localStorage.setItem('cobolce-user',n);modal=null;render();tst('Identificado como '+n);}
+function toggleDark(){S.dark=!S.dark;localStorage.setItem('cobolce-dark',S.dark);document.body.classList.toggle('dark',S.dark);render();}
+
 function oGab(r,g){modal={s:'gab',d:{r,g}};render();}
 function btG(){const{r,g}=modal.d;modal={s:'gab',d:{r,g}};render();}
 function oItem(r,g,l){modal={s:'item',d:{r,g,l}};render();}
 function oEditItem(r,g,l,i){const item=gld(r,g,l).items[i];modal={s:'item',d:{r,g,l,ei:i,item:{...item}}};render();}
 function svItem(){
   if(!S.user){tst('Identifícate primero');showUsr();return;}
-  const{r,g,l,ei}=modal.d;
-  const desc=document.getElementById('i-d')?.value?.trim();
-  if(!desc){tst('Ingresa una descripción');return;}
-  const it={id:uid(),type:document.getElementById('i-t')?.value||'box',desc,
-    qty:+document.getElementById('i-q')?.value||1,unit:document.getElementById('i-u')?.value?.trim()||'PZA',
-    sp:Math.max(1,+document.getElementById('i-s')?.value||1),
-    proj:document.getElementById('i-p')?.value?.trim()||'',
-    oc:document.getElementById('i-o')?.value?.trim()||'',
-    llegada:document.getElementById('i-ll')?.value||'',
-    notes:document.getElementById('i-n')?.value?.trim()||'',
-    by:S.user,at:new Date().toISOString()};
+  const{r,g,l,ei}=modal.d;const desc=document.getElementById('i-d')?.value?.trim();if(!desc){tst('Ingresa una descripción');return;}
+  const it={id:uid(),type:document.getElementById('i-t')?.value||'box',desc,qty:+document.getElementById('i-q')?.value||1,unit:document.getElementById('i-u')?.value?.trim()||'PZA',sp:Math.max(1,+document.getElementById('i-s')?.value||1),proj:document.getElementById('i-p')?.value?.trim()||'',oc:document.getElementById('i-o')?.value?.trim()||'',llegada:document.getElementById('i-ll')?.value||'',notes:document.getElementById('i-n')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
   const ld=gld(r,g,l);
-  if(ei!==undefined){it.id=ld.items[ei].id;it.by=ld.items[ei].by;it.at=ld.items[ei].at;ld.items[ei]=it;}
-  else ld.items.push(it);
-  alog(`Material ${ei!==undefined?'editado':'agregado'} — Gab. ${g} N${l}`,`${it.desc}${it.proj?' · '+it.proj:''}${it.llegada?' · Llegó: '+fdShort(it.llegada):''}`);
+  if(ei!==undefined){it.id=ld.items[ei].id;it.by=ld.items[ei].by;it.at=ld.items[ei].at;ld.items[ei]=it;}else ld.items.push(it);
+  alog('Material '+(ei!==undefined?'editado':'agregado')+' — Gab. '+g+' N'+l,it.desc+(it.llegada?' · Llegó: '+fdS(it.llegada):''));
   modal={s:'gab',d:{r,g}};sv(['pos','log']);render();tst(ei!==undefined?'Material actualizado':'Material agregado');
 }
-function dItem(r,g,l,i){
-  if(!confirm('¿Eliminar este material?'))return;
-  const ld=gld(r,g,l);const n=ld.items[i]?.desc;ld.items.splice(i,1);
-  alog(`Material eliminado — Gab. ${g} N${l}`,n);modal={s:'gab',d:{r,g}};sv(['pos','log']);render();tst('Material eliminado');
-}
-function eSp(r,g,l,cur){
-  const v=prompt(`Espacios en Gab. ${g} Nivel ${l} (actual: ${cur}):`,cur);
-  if(v===null)return;const n=Math.max(1,parseInt(v)||10);
-  gld(r,g,l).sp=n;alog(`Espacios actualizados — Gab. ${g} N${l}`,`${n} espacios`);
-  modal={s:'gab',d:{r,g}};sv(['pos','log']);render();
-}
+function dItem(r,g,l,i){if(!confirm('¿Eliminar este material?'))return;const ld=gld(r,g,l);const n=ld.items[i]?.desc;ld.items.splice(i,1);alog('Material eliminado — Gab. '+g+' N'+l,n);modal={s:'gab',d:{r,g}};sv(['pos','log']);render();tst('Material eliminado');}
+function eSp(r,g,l,cur){const v=prompt('Espacios en Gab. '+g+' Nivel '+l+' (actual: '+cur+'):',cur);if(v===null)return;const n=Math.max(1,parseInt(v)||10);gld(r,g,l).sp=n;alog('Espacios actualizados — Gab. '+g+' N'+l,n+' espacios');modal={s:'gab',d:{r,g}};sv(['pos','log']);render();}
 function oPallet(r){modal={s:'pal',d:{r}};render();}
-function svPal(){
-  if(!S.user){tst('Identifícate primero');return;}
-  const lbl=document.getElementById('p-l')?.value?.trim();
-  if(!lbl){tst('Ingresa una descripción');return;}
-  if(!S.pallets[modal.d.r])S.pallets[modal.d.r]=[];
-  S.pallets[modal.d.r].push({id:uid(),lbl,proj:document.getElementById('p-p')?.value?.trim()||'',items:[],by:S.user,at:new Date().toISOString()});
-  alog('Pallet agregado',`${lbl}`);sv(['pal','log']);modal=null;render();tst('Pallet agregado');
-}
-function dPallet(r,pid){
-  if(!confirm('¿Eliminar pallet y su contenido?'))return;
-  const idx=S.pallets[r].findIndex(p=>p.id===pid);
-  if(idx>=0){alog('Pallet eliminado',S.pallets[r][idx].lbl);S.pallets[r].splice(idx,1);}
-  sv(['pal','log']);render();tst('Pallet eliminado');
-}
-function getZList(zid){
-  if(zid==='caseta'||zid==='intemperie')return S.zoneItems[zid];
-  const pts=zid.split('-');return S.pallets[pts[0]]?.find(p=>p.id===pts[2])?.items||[];
-}
+function svPal(){if(!S.user){tst('Identifícate primero');return;}const lbl=document.getElementById('p-l')?.value?.trim();if(!lbl){tst('Ingresa una descripción');return;}if(!S.pallets[modal.d.r])S.pallets[modal.d.r]=[];S.pallets[modal.d.r].push({id:uid(),lbl,items:[],by:S.user,at:new Date().toISOString()});alog('Pallet agregado',lbl);sv(['pal','log']);modal=null;render();tst('Pallet agregado');}
+function dPallet(r,pid){if(!confirm('¿Eliminar pallet y su contenido?'))return;const idx=S.pallets[r].findIndex(p=>p.id===pid);if(idx>=0){alog('Pallet eliminado',S.pallets[r][idx].lbl);S.pallets[r].splice(idx,1);}sv(['pal','log']);render();tst('Pallet eliminado');}
+function getZList(zid){if(zid==='caseta'||zid==='intemperie'||zid==='cotoca')return S.zoneItems[zid];const p=zid.split('-');return S.pallets[p[0]]?.find(x=>x.id===p[2])?.items||[];}
 function oAddZI(zid,zlbl){modal={s:'zi',d:{zid,zlbl}};render();}
-function oEditZI(zid,i){const items=getZList(zid);const item=items[i];const zlbl=zid==='caseta'?'Caseta':zid==='intemperie'?'Intemperie':'Pallet';modal={s:'zi',d:{zid,zlbl,ei:i,item:{...item}}};render();}
+function oEditZI(zid,i){const items=getZList(zid);const item=items[i];const zlbl=zid==='caseta'?'Caseta de Ladrillos':zid==='intemperie'?'Intemperie / Garaje':zid==='cotoca'?'Almacén Cotoca':'Pallet';modal={s:'zi',d:{zid,zlbl,ei:i,item:{...item}}};render();}
 function svZI(){
   if(!S.user){tst('Identifícate primero');return;}
-  const{zid,ei}=modal.d;const desc=document.getElementById('z-d')?.value?.trim();
-  if(!desc){tst('Ingresa una descripción');return;}
-  const it={id:uid(),type:document.getElementById('z-t')?.value||'box',desc,
-    qty:+document.getElementById('z-q')?.value||1,unit:document.getElementById('z-u')?.value?.trim()||'PZA',
-    proj:document.getElementById('z-p')?.value?.trim()||'',oc:document.getElementById('z-o')?.value?.trim()||'',
-    llegada:document.getElementById('z-ll')?.value||'',notes:document.getElementById('z-n')?.value?.trim()||'',
-    by:S.user,at:new Date().toISOString()};
+  const{zid,ei}=modal.d;const desc=document.getElementById('z-d')?.value?.trim();if(!desc){tst('Ingresa una descripción');return;}
+  const it={id:uid(),type:document.getElementById('z-t')?.value||'box',desc,qty:+document.getElementById('z-q')?.value||1,unit:document.getElementById('z-u')?.value?.trim()||'PZA',proj:document.getElementById('z-p')?.value?.trim()||'',oc:document.getElementById('z-o')?.value?.trim()||'',llegada:document.getElementById('z-ll')?.value||'',notes:document.getElementById('z-n')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
   const list=getZList(zid);
   if(ei!==undefined){it.id=list[ei].id;it.by=list[ei].by;it.at=list[ei].at;list[ei]=it;}else list.push(it);
-  const zone=zid==='caseta'?'Caseta':zid==='intemperie'?'Intemperie':'Pallet';
-  alog(`Material ${ei!==undefined?'editado':'agregado'} — ${zone}`,desc);
-  sv(zid==='caseta'||zid==='intemperie'?['zi','log']:['pal','log']);modal=null;render();tst('Material guardado');
+  const zone=zid==='caseta'?'Caseta':zid==='intemperie'?'Intemperie':zid==='cotoca'?'Cotoca':'Pallet';
+  alog('Material '+(ei!==undefined?'editado':'agregado')+' — '+zone,desc);
+  sv(['caseta','intemperie','cotoca'].includes(zid)?['zi','log']:['pal','log']);modal=null;render();tst('Material guardado');
 }
-function dZI(zid,i){
-  if(!confirm('¿Eliminar este material?'))return;
-  const list=getZList(zid);const n=list[i]?.desc;list.splice(i,1);
-  const zone=zid==='caseta'?'Caseta':zid==='intemperie'?'Intemperie':'Pallet';
-  alog(`Material eliminado — ${zone}`,n);sv(zid==='caseta'||zid==='intemperie'?['zi','log']:['pal','log']);render();tst('Material eliminado');
+function dZI(zid,i){if(!confirm('¿Eliminar este material?'))return;const list=getZList(zid);const n=list[i]?.desc;list.splice(i,1);const zone=zid==='caseta'?'Caseta':zid==='intemperie'?'Intemperie':zid==='cotoca'?'Cotoca':'Pallet';alog('Material eliminado — '+zone,n);sv(['caseta','intemperie','cotoca'].includes(zid)?['zi','log']:['pal','log']);render();tst('Material eliminado');}
+function oCfg(r){modal={s:'cfg',d:{r}};render();}
+function svCfg(){const{r}=modal.d;if(!S.config[r])S.config[r]={};S.config[r].gabs=Math.max(1,+document.getElementById('c-g')?.value||7);S.config[r].lvls=Math.max(1,+document.getElementById('c-l')?.value||4);S.config[r].dsp=Math.max(1,+document.getElementById('c-s')?.value||10);alog('Config actualizada',r==='hab1'?'Hab. 1':'Hab. 2');sv(['cfg','log']);modal=null;render();tst('Config guardada');}
+
+function oAddLI(){modal={s:'li',d:{disc:S.disc||'civil'}};render();}
+function oEditLI(disc,idx){const item=S.listas[disc][idx];modal={s:'li',d:{disc,ei:idx,item:{...item}}};render();}
+function oVerItem(disc,idx){modal={s:'vi',d:{disc,idx}};render();}
+function svLI(){
+  if(!S.user){tst('Identifícate primero');return;}
+  const disc=document.getElementById('li-disc')?.value||modal.d.disc;
+  const cod=document.getElementById('li-cod')?.value?.trim();const desc=document.getElementById('li-desc')?.value?.trim();
+  if(!cod){tst('El código es obligatorio');return;}if(!desc){tst('La descripción es obligatoria');return;}
+  const origDisc=modal.d.disc;const ei=modal.d.ei;
+  const existing=(S.listas[disc]||[]).findIndex(i=>i.codigo===cod);
+  if(existing>=0&&(disc!==origDisc||existing!==ei)){tst('El código '+cod+' ya existe en '+DISCIPLINAS.find(d=>d.id===disc)?.l);return;}
+  const item={id:uid(),codigo:cod,desc,unidad:document.getElementById('li-und')?.value?.trim()||'',cantReq:+document.getElementById('li-qty')?.value||0,pesoUnit:+document.getElementById('li-pw')?.value||0,notas:document.getElementById('li-notes')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
+  if(!S.listas[disc])S.listas[disc]=[];
+  if(ei!==undefined&&disc===origDisc){item.id=S.listas[disc][ei].id;item.by=S.listas[disc][ei].by;item.at=S.listas[disc][ei].at;S.listas[disc][ei]=item;}
+  else if(ei!==undefined&&disc!==origDisc){S.listas[origDisc].splice(ei,1);S.listas[disc].push(item);}
+  else{S.listas[disc].push(item);}
+  S.disc=disc;alog('Ítem '+(ei!==undefined?'editado':'agregado')+' en Lista '+DISCIPLINAS.find(d=>d.id===disc)?.l,cod+' — '+desc);
+  sv(['listas','log']);modal=null;render();tst('Ítem guardado');
 }
+function dLI(disc,idx){if(!confirm('¿Eliminar este ítem de la lista?'))return;const n=S.listas[disc][idx]?.desc;S.listas[disc].splice(idx,1);alog('Ítem eliminado de Lista '+DISCIPLINAS.find(d=>d.id===disc)?.l,n);sv(['listas','log']);render();tst('Ítem eliminado');}
+
+function oAddOC(){modalMats=[];modal={s:'oc',d:{}};render();}
+function oEditOC(id){const idx=S.ocs.findIndex(o=>o.id===id);const oc=S.ocs[idx];modalMats=[...(oc.materiales||[])];modal={s:'oc',d:{ei:idx,item:{...oc}}};render();}
+function autoFillMD(){const cod=document.getElementById('nm-cod')?.value?.trim();if(!cod)return;for(const items of Object.values(S.listas)){const f=items.find(i=>i.codigo===cod);if(f){const d=document.getElementById('nm-desc');const u=document.getElementById('nm-und');if(d&&!d.value)d.value=f.desc;if(u&&!u.value)u.value=f.unidad||'';return;}}}
+function addMM(){const cod=document.getElementById('nm-cod')?.value?.trim()||'';let desc=document.getElementById('nm-desc')?.value?.trim()||'';const qty=+document.getElementById('nm-qty')?.value||0;const unidad=document.getElementById('nm-und')?.value?.trim()||'';if(!cod&&!desc){tst('Ingresa código o descripción');return;}if(!qty){tst('Ingresa la cantidad');return;}if(cod&&!desc){for(const items of Object.values(S.listas)){const f=items.find(i=>i.codigo===cod);if(f){desc=f.desc;break;}}}modalMats.push({codigo:cod,desc,qty,unidad});render();}
+function rmMM(i){modalMats.splice(i,1);render();}
+function svOC(){
+  if(!S.user){tst('Identifícate primero');return;}
+  const numero=document.getElementById('oc-num')?.value?.trim();if(!numero){tst('Ingresa el número de OC');return;}
+  const oc={id:uid(),numero,provId:document.getElementById('oc-prov')?.value||'',fechaEmision:document.getElementById('oc-fe')?.value||'',fechaEntrega:document.getElementById('oc-fd')?.value||'',estado:document.getElementById('oc-est')?.value||'cotizacion',materiales:[...modalMats],notas:document.getElementById('oc-notes')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
+  const ei=modal.d?.ei;
+  if(ei!==undefined){oc.id=S.ocs[ei].id;oc.by=S.ocs[ei].by;oc.at=S.ocs[ei].at;S.ocs[ei]=oc;alog('OC actualizada',numero);}
+  else{S.ocs.push(oc);alog('OC registrada',numero+(oc.provId?' · '+getProvNom(oc.provId):''));}
+  sv(['ocs','log']);modal=null;render();tst('OC guardada');
+}
+function dOC(id){if(!confirm('¿Eliminar esta OC?'))return;const o=S.ocs.find(x=>x.id===id);S.ocs=S.ocs.filter(x=>x.id!==id);alog('OC eliminada',o?.numero||'');sv(['ocs','log']);render();tst('OC eliminada');}
+
+function oAddProv(){modal={s:'prov',d:{}};render();}
+function oEditProv(id){const idx=S.proveedores.findIndex(p=>p.id===id);const p=S.proveedores[idx];modal={s:'prov',d:{ei:idx,item:{...p}}};render();}
+function svProv(){
+  if(!S.user){tst('Identifícate primero');return;}
+  const nombre=document.getElementById('pv-nom')?.value?.trim();if(!nombre){tst('Ingresa el nombre del proveedor');return;}
+  const p={id:uid(),nombre,pais:document.getElementById('pv-pais')?.value||'',contacto:document.getElementById('pv-con')?.value?.trim()||'',telefono:document.getElementById('pv-tel')?.value?.trim()||'',email:document.getElementById('pv-email')?.value?.trim()||'',notas:document.getElementById('pv-notes')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
+  const ei=modal.d?.ei;
+  if(ei!==undefined){p.id=S.proveedores[ei].id;p.by=S.proveedores[ei].by;p.at=S.proveedores[ei].at;S.proveedores[ei]=p;alog('Proveedor actualizado',nombre);}
+  else{S.proveedores.push(p);alog('Proveedor registrado',nombre+(p.pais?' ('+p.pais+')':''));}
+  sv(['provs','log']);modal=null;render();tst('Proveedor guardado');
+}
+function dProv(id){if(!confirm('¿Eliminar este proveedor?'))return;const p=S.proveedores.find(x=>x.id===id);S.proveedores=S.proveedores.filter(x=>x.id!==id);alog('Proveedor eliminado',p?.nombre||'');sv(['provs','log']);render();tst('Proveedor eliminado');}
+
 function oAddAg(){modal={s:'ag',d:{}};render();}
 function oEditAg(id){const item=S.agenda.find(a=>a.id===id);modal={s:'ag',d:{item:{...item}}};render();}
-function svAg(){
-  if(!S.user){tst('Identifícate primero');return;}
-  const date=document.getElementById('a-dt')?.value;const mat=document.getElementById('a-m')?.value?.trim();
-  if(!date||!mat){tst('Completa fecha y descripción');return;}
-  const en={id:uid(),date,material:mat,
-    supplier:document.getElementById('a-s')?.value?.trim()||'',proj:document.getElementById('a-p')?.value?.trim()||'',
-    oc:document.getElementById('a-o')?.value?.trim()||'',notes:document.getElementById('a-n')?.value?.trim()||'',
-    status:document.getElementById('a-st')?.value||'pending',by:S.user,at:new Date().toISOString()};
-  const ei=modal.d?.item;
-  if(ei){const idx=S.agenda.findIndex(a=>a.id===ei.id);if(idx>=0){en.id=ei.id;en.by=ei.by;en.at=ei.at;S.agenda[idx]=en;}}
-  else S.agenda.push(en);
-  alog(ei?'Entrega actualizada':'Entrega registrada en agenda',mat);sv(['ag','log']);modal=null;render();tst('Entrega guardada');
-}
-function dAg(id){
-  if(!confirm('¿Eliminar esta entrega?'))return;
-  const a=S.agenda.find(x=>x.id===id);S.agenda=S.agenda.filter(x=>x.id!==id);
-  alog('Entrega eliminada',a?.material||'');sv(['ag','log']);render();tst('Entrega eliminada');
-}
+function svAg(){if(!S.user){tst('Identifícate primero');return;}const date=document.getElementById('a-dt')?.value;const mat=document.getElementById('a-m')?.value?.trim();if(!date||!mat){tst('Completa fecha y descripción');return;}const en={id:uid(),date,material:mat,supplier:document.getElementById('a-s')?.value?.trim()||'',proj:document.getElementById('a-p')?.value?.trim()||'',oc:document.getElementById('a-o')?.value?.trim()||'',notes:document.getElementById('a-n')?.value?.trim()||'',status:document.getElementById('a-st')?.value||'pending',by:S.user,at:new Date().toISOString()};const ei=modal.d?.item;if(ei){const idx=S.agenda.findIndex(a=>a.id===ei.id);if(idx>=0){en.id=ei.id;en.by=ei.by;en.at=ei.at;S.agenda[idx]=en;}}else S.agenda.push(en);alog(ei?'Entrega actualizada':'Entrega registrada en agenda',mat);sv(['ag','log']);modal=null;render();tst('Entrega guardada');}
+function dAg(id){if(!confirm('¿Eliminar esta entrega?'))return;const a=S.agenda.find(x=>x.id===id);S.agenda=S.agenda.filter(x=>x.id!==id);alog('Entrega eliminada',a?.material||'');sv(['ag','log']);render();tst('Entrega eliminada');}
+
 function oUpDoc(){pFile=null;modal={s:'doc',d:{}};render();}
-function hFile(e){
-  const file=e.target.files[0];if(!file)return;
-  pFile={file,name:file.name,size:file.size};
-  const ul=document.getElementById('ul');if(ul)ul.textContent=`✓ ${file.name} (${(file.size/1024).toFixed(0)} KB)`;
-  const ub=document.getElementById('ub');if(ub)ub.style.borderColor='#F5A800';
-}
-async function svDoc(){
-  const by=document.getElementById('d-b')?.value?.trim()||S.user||'Anónimo';
-  const notes=document.getElementById('d-n')?.value?.trim()||'';
-  let fileId=null,fileName=null;
-  if(pFile?.file){
-    tst('Subiendo archivo...');
-    try{
-      const fd=new FormData();fd.append('archivo',pFile.file,pFile.name);
-      const r=await fetch('/api/archivos',{method:'POST',body:fd});
-      const result=await r.json();
-      if(result.id){fileId=result.id;fileName=result.nombre;}
-    }catch(e){tst('Error al subir archivo');}
-  }
-  const name=fileName||pFile?.name||(notes||'Documento sin archivo');
-  const doc={id:uid(),name,by,at:new Date().toISOString(),
-    proj:document.getElementById('d-p')?.value?.trim()||'',
-    zone:document.getElementById('d-z')?.value?.trim()||'',
-    notes,hasData:!!fileId,fileId};
-  S.docs.unshift(doc);alog('Documento registrado',`${name} · por ${by}`);
-  sv(['docs','log']);pFile=null;modal=null;render();tst('Documento registrado');
-}
-function dlDoc(fileId,nombre){
-  const a=document.createElement('a');a.href=`/api/archivos/${fileId}`;a.download=nombre;a.click();
-}
-function dDoc(id){
-  if(!confirm('¿Eliminar este documento?'))return;
-  const doc=S.docs.find(d=>d.id===id);S.docs=S.docs.filter(d=>d.id!==id);
-  if(doc?.fileId)fetch(`/api/archivos/${doc.fileId}`,{method:'DELETE'}).catch(()=>{});
-  alog('Documento eliminado',doc?.name||'');sv(['docs','log']);render();tst('Documento eliminado');
-}
-function oCfg(r){modal={s:'cfg',d:{r}};render();}
-function svCfg(){
-  const{r}=modal.d;if(!S.config[r])S.config[r]={};
-  S.config[r].gabs=Math.max(1,+document.getElementById('c-g')?.value||7);
-  S.config[r].lvls=Math.max(1,+document.getElementById('c-l')?.value||4);
-  S.config[r].dsp=Math.max(1,+document.getElementById('c-s')?.value||10);
-  alog('Configuración actualizada',`${r==='hab1'?'Hab. 1':'Hab. 2'}: ${S.config[r].gabs} gabinetes`);
-  sv(['cfg','log']);modal=null;render();tst('Configuración guardada');
-}
+function hFile(e){const file=e.target.files[0];if(!file)return;pFile={file,name:file.name,size:file.size};const ul=document.getElementById('ul');if(ul)ul.textContent='✓ '+file.name+' ('+Math.round(file.size/1024)+' KB)';const ub=document.getElementById('ub');if(ub)ub.style.borderColor='#F5A800';}
+async function svDoc(){const by=document.getElementById('d-b')?.value?.trim()||S.user||'Anónimo';const notes=document.getElementById('d-n')?.value?.trim()||'';let fileId=null,fileName=null;if(pFile?.file){tst('Subiendo archivo...');try{const fd2=new FormData();fd2.append('archivo',pFile.file,pFile.name);const r=await fetch('/api/archivos',{method:'POST',body:fd2});const res=await r.json();if(res.id){fileId=res.id;fileName=res.nombre;}}catch(e){tst('Error al subir archivo');}}const name=fileName||pFile?.name||(notes||'Documento sin archivo');const doc={id:uid(),name,by,at:new Date().toISOString(),proj:document.getElementById('d-p')?.value?.trim()||'',zone:document.getElementById('d-z')?.value?.trim()||'',notes,hasData:!!fileId,fileId};S.docs.unshift(doc);alog('Documento registrado',name+' · por '+by);sv(['docs','log']);pFile=null;modal=null;render();tst('Documento registrado');}
+function dlDoc(fileId,nombre){const a=document.createElement('a');a.href='/api/archivos/'+fileId;a.download=nombre;a.click();}
+function dDoc(id){if(!confirm('¿Eliminar este documento?'))return;const doc=S.docs.find(d=>d.id===id);S.docs=S.docs.filter(d=>d.id!==id);if(doc?.fileId)fetch('/api/archivos/'+doc.fileId,{method:'DELETE'}).catch(()=>{});alog('Documento eliminado',doc?.name||'');sv(['docs','log']);render();tst('Documento eliminado');}
 function clrLog(){if(!confirm('¿Limpiar registro?'))return;S.changelog=[];sv(['log']);render();tst('Registro limpiado');}
-function tst(msg){
-  toastMsg=msg;clearTimeout(toastTmr);render();
-  toastTmr=setTimeout(()=>{toastMsg='';render();},3000);
-}
-async function poll(){
-  try{
-    const r=await fetch('/api/lastmod');const d=await r.json();
-    if(d.lm>localLM){await loadAll();render();}
-  }catch(e){}
-}
-async function init(){
-  await loadAll();
-  if(!S.user)modal={s:'usr',d:{}};
-  render();setInterval(poll,20000);
-}
+
+function autoFillCalc(){const cod=document.getElementById('calc-cod')?.value?.trim();if(!cod)return;for(const items of Object.values(S.listas)){const f=items.find(i=>i.codigo===cod);if(f){const d=document.getElementById('calc-desc');const p=document.getElementById('calc-pw');if(d&&!d.value)d.value=f.desc;if(p&&!p.value&&f.pesoUnit)p.value=f.pesoUnit;return;}}}
+function addCalcItem(){const cod=document.getElementById('calc-cod')?.value?.trim()||'';let desc=document.getElementById('calc-desc')?.value?.trim()||'';let pw=parseFloat(document.getElementById('calc-pw')?.value)||0;const qty=parseFloat(document.getElementById('calc-qty')?.value)||1;if(cod&&!desc){for(const items of Object.values(S.listas)){const f=items.find(i=>i.codigo===cod);if(f){desc=f.desc;if(!pw&&f.pesoUnit)pw=f.pesoUnit;break;}}}if(!desc&&!cod){tst('Ingresa un código o descripción');return;}if(!pw){tst('Ingresa el peso unitario en kg');return;}calcItems.push({cod,desc:desc||cod,pesoUnit:pw,qty,subtotal:pw*qty});render();}
+function removeCalcItem(i){calcItems.splice(i,1);render();}
+function clearCalc(){calcItems=[];render();}
+
+function tst(msg){toastMsg=msg;clearTimeout(toastTmr);render();toastTmr=setTimeout(()=>{toastMsg='';render();},3000);}
+async function poll(){try{const r=await fetch('/api/lastmod');const d=await r.json();if(d.lm>localLM){await loadAll();render();}}catch(e){}}
+async function init(){await loadAll();if(!S.user)modal={s:'usr',d:{}};render();setInterval(poll,20000);}
 init();
+
 </script>
 </body>
 </html>
