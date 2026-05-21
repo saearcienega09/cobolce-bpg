@@ -605,7 +605,8 @@ function mOC(){const{ei,item}=modal.d;const codes=allItems().filter(i=>i.codigo)
     '<div id="mm-list">'+modalMats.map((m,i)=>'<div style="display:flex;align-items:center;gap:5px;padding:5px 8px;background:var(--bg2);border-radius:6px;margin-bottom:4px">'+
       '<span class="mat-cod" style="min-width:70px">'+esc(m.codigo||'—')+'</span>'+
       '<span style="flex:1;font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(m.desc||'')+'</span>'+
-      '<span style="font-size:11px;font-weight:500;color:var(--n);flex-shrink:0;margin-right:4px">'+m.qty+' '+esc(m.unidad||'')+'</span>'+
+      '<input type="number" class="price-input" style="width:62px;font-weight:500;color:var(--n)" min="0" step="0.01" value="'+m.qty+'" onchange="updateMMqty('+i+',this.value)" title="Editar cantidad">'+
+      '<span style="font-size:11px;color:var(--txm);flex-shrink:0">'+esc(m.unidad||'')+'</span>'+
       '<button class="btn btnxs btnd" onclick="rmMM('+i+')"><i class="ti ti-x"></i></button></div>').join('')+'</div>'+
     '<datalist id="oc-cdl">'+codes.map(i=>'<option value="'+esc(i.codigo)+'">'+esc(i.codigo)+' — '+esc(i.desc)+'</option>').join('')+'</datalist>'+
     '<div style="display:grid;grid-template-columns:90px 1fr 65px 50px auto;gap:5px;margin-top:6px;align-items:center">'+
@@ -700,6 +701,7 @@ function oEditOC(id){const idx=S.ocs.findIndex(o=>o.id===id);const oc=S.ocs[idx]
 function autoFillMD(){const cod=document.getElementById('nm-cod')?.value?.trim();if(!cod)return;for(const items of Object.values(S.listas)){const f=items.find(i=>i.codigo===cod);if(f){const d=document.getElementById('nm-desc');const u=document.getElementById('nm-und');if(d&&!d.value)d.value=f.desc;if(u&&!u.value)u.value=f.unidad||'';return;}}}
 function addMM(){const cod=document.getElementById('nm-cod')?.value?.trim()||'';let desc=document.getElementById('nm-desc')?.value?.trim()||'';const qty=+document.getElementById('nm-qty')?.value||0;const unidad=document.getElementById('nm-und')?.value?.trim()||'';if(!cod&&!desc){tst('Ingresa código o descripción');return;}if(!qty){tst('Ingresa la cantidad');return;}if(cod&&!desc){for(const items of Object.values(S.listas)){const f=items.find(i=>i.codigo===cod);if(f){desc=f.desc;break;}}}modalMats.push({codigo:cod,desc,qty,unidad});render();}
 function rmMM(i){modalMats.splice(i,1);render();}
+function updateMMqty(i,v){if(modalMats[i]!==undefined)modalMats[i].qty=parseFloat(v)||0;}
 function svOC(){
   if(!S.user){tst('Identifícate primero');return;}
   const numero=document.getElementById('oc-num')?.value?.trim();if(!numero){tst('Ingresa el número de OC');return;}
