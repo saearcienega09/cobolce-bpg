@@ -484,12 +484,11 @@ function rListas(){
     '<div class="disc-nav">'+DISCIPLINAS.map(d=>'<button class="disc-btn'+(disc===d.id?' act':'')+'" onclick="setDisc(\''+d.id+'\')">'+d.ic+' '+d.l+' <span style="opacity:.7">('+((S.listas[d.id]||[]).length)+')</span></button>').join('')+'</div>'+
     (allI.length>0?'<div class="stats" style="grid-template-columns:repeat(3,1fr);margin-bottom:12px"><div class="stat"><div class="stn">'+allI.length+'</div><div class="stl">En lista</div></div><div class="stat"><div class="stn" style="color:#1E7040">'+completos+'</div><div class="stl">Completos</div></div><div class="stat"><div class="stn" style="color:#F5A800">'+(allI.length-completos)+'</div><div class="stl">Pendientes</div></div></div>':'')+
     (!allI.length?'<div class="nodata"><i class="ti ti-clipboard-off"></i>Sin materiales en la lista. Agrega el primer ítem.</div>':
-    !filtered.length?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados para "'+esc(q)+'"</div>':
+    !filtered.length?('<div class="nodata"><i class="ti ti-'+(q?'search-off':'filter-off')+'" style="font-size:26px"></i>'+(q?'Sin resultados para "'+esc(q)+'"':'Sin ítems para el filtro seleccionado.')+'<br><button class="btn btnp btnxs" style="margin-top:12px" onclick="listaFiltroCompra=\'todos\';listaFiltroEstado=\'todos\';clearSearch();render()"><i class="ti ti-x"></i> Quitar todos los filtros</button></div>'):
     '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+
     '<input type="checkbox" class="check-all" title="Seleccionar todos" onchange="this.checked?selectAll():clearSel()">'+
     '<span style="font-size:10px;color:var(--txm)">'+(selSet.size>0?selSet.size+' seleccionados — ':'')+'Clic en fila para ver detalle, checkbox para seleccionar</span></div>'+
-    rSortBar('listas',[{k:'cod-asc',l:'Código A→Z'},{k:'cod-desc',l:'Código Z→A'},{k:'desc-asc',l:'Descripción'},{k:'falta-desc',l:'Mayor faltante'},{k:'estado-asc',l:'Estado'}])+
-    rListaFilterBar()+
+    '<div id="lista-controls">'+rSortBar('listas',[{k:'cod-asc',l:'Código A→Z'},{k:'cod-desc',l:'Código Z→A'},{k:'desc-asc',l:'Descripción'},{k:'falta-desc',l:'Mayor faltante'},{k:'estado-asc',l:'Estado'}])+rListaFilterBar()+'</div>'+
     '<div class="lista-wrap"><table class="lista-tbl"><thead><tr><th></th><th>Código</th><th>Descripción</th><th>Und.</th><th style="text-align:right">Req.</th><th style="text-align:right">Comprado</th><th style="text-align:right">Falta</th><th>Compra</th><th>Estado ítem</th><th></th></tr></thead><tbody>'+
     filtered.map(({item,i})=>{
       const comp=getCantComp(item.codigo);const req=+item.cantReq||0;const falta=Math.max(0,req-comp);const cls=getItemCls(item);
