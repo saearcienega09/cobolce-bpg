@@ -163,6 +163,40 @@ body.dark .best-cell{background:#0D2E1A!important}
 .warehouse-loc{font-size:9px;padding:2px 7px;border-radius:99px;background:var(--n);color:#fff;display:inline-block;margin:1px 2px;font-family:monospace}
 body.dark .warehouse-loc{background:var(--nl);color:#fff}
 
+
+/* Dark mode: inputs, selects, textareas */
+body.dark .fi{background:var(--bg2);border-color:var(--bdr2)}
+body.dark .price-input{background:var(--bg2);color:var(--tx);border-color:var(--bdr2)}
+body.dark input,body.dark select,body.dark textarea{color:var(--tx)}
+body.dark input[type=number],body.dark input[type=date],body.dark input[type=text]{background:var(--bg2)}
+/* Row: excedente (azul claro) */
+.lista-tbl tbody tr.rbl td{background:#EAF0FF}
+body.dark .lista-tbl tbody tr.rbl td{background:#0C1D3A}
+/* Row: anulado (tachado + apagado) */
+.lista-tbl tbody tr.ranu td{opacity:.42;text-decoration:line-through}
+/* Sort/filter bars */
+.sort-bar{display:flex;align-items:center;gap:5px;margin-bottom:10px;flex-wrap:wrap}
+.srt-btn{padding:4px 10px;border-radius:99px;border:1px solid var(--bdr2);background:var(--card);color:var(--txm);font-size:10px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:3px;transition:all .1s;white-space:nowrap}
+.srt-btn:hover{background:var(--bg);color:var(--tx)}.srt-btn.act{background:var(--n);border-color:var(--n);color:#fff}
+.filter-bar{display:flex;align-items:center;gap:5px;padding:8px 10px;background:var(--bg2);border-radius:var(--rad);border:1px solid var(--bdr);margin-bottom:10px;flex-wrap:wrap}
+.fp{padding:3px 9px;border-radius:99px;border:1px solid var(--bdr2);background:var(--card);color:var(--txm);font-size:10px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .1s}
+.fp:hover{opacity:.85}.fp.act{font-weight:500;border-width:1.5px}
+.fp-all.act{background:var(--bg2);color:var(--tx);border-color:var(--bdr2)}
+.fp-none.act{background:var(--red-bg);color:var(--red-tx);border-color:var(--red-tx)}
+.fp-part.act{background:var(--amb-bg);color:var(--amb-tx);border-color:var(--amb-tx)}
+.fp-full.act{background:var(--grn-bg);color:var(--grn-tx);border-color:var(--grn-tx)}
+.fp-over.act{background:#EAF0FF;color:#1A3C7A;border-color:#5080C0}
+body.dark .fp-over.act{background:#0C1D3A;color:#7EB3FF;border-color:#4070B0}
+/* Estado badges en listas */
+.eb{font-size:9px;padding:2px 7px;border-radius:99px;font-weight:500;white-space:nowrap;flex-shrink:0}
+.eb-pend{background:var(--bg2);color:var(--txm)}
+.eb-cot{background:#FFF0E0;color:#8B4500}body.dark .eb-cot{background:#2A1800;color:#FFB060}
+.eb-oc{background:#E8EDFF;color:#2A3DA0}body.dark .eb-oc{background:#0A1535;color:#8AA0FF}
+.eb-insp{background:var(--amb-bg);color:var(--amb-tx)}
+.eb-tran{background:#E0F0FF;color:#1A5A8A}body.dark .eb-tran{background:#0A2035;color:#60B0FF}
+.eb-adua{background:#F0E8FF;color:#5A1A8A}body.dark .eb-adua{background:#1A0A35;color:#B060FF}
+.eb-recv{background:var(--grn-bg);color:var(--grn-tx)}
+.eb-anul{background:#EBEBEB;color:#888}body.dark .eb-anul{background:#222;color:#666}
 </style>
 </head>
 <body>
@@ -174,6 +208,17 @@ const ITYPES=[{id:'box',l:'Caja',ic:'📦'},{id:'pallet',l:'Pallet de material',
 const PROJ_HINTS=['Hornos Fase 1','Hornos Fase 2','APE GLP','General','EPP','Material BPG','Mantenimiento','Otro'];
 const DISCIPLINAS=[{id:'civil',l:'Civil',ic:'🏗️'},{id:'electrica',l:'Eléctrica',ic:'⚡'},{id:'instrumentacion',l:'Inst. y Control',ic:'🎛️'},{id:'mecanica',l:'Mecánica',ic:'⚙️'}];
 const OC_STATES=[{id:'cotizacion',l:'Cotización'},{id:'revision',l:'Rev. Técnica'},{id:'aprobada',l:'Aprobada'},{id:'enviada',l:'OC Enviada'},{id:'transito',l:'En Tránsito'},{id:'aduana',l:'En Aduana'},{id:'recibido',l:'Recibido'}];
+
+const ITEM_ESTADOS=[
+  {id:'pendiente',l:'Pendiente',cls:'eb-pend'},
+  {id:'cotizacion',l:'En Cotización',cls:'eb-cot'},
+  {id:'oc',l:'En Orden de Compra',cls:'eb-oc'},
+  {id:'inspeccion',l:'En Inspección Técnica',cls:'eb-insp'},
+  {id:'transito',l:'En Tránsito',cls:'eb-tran'},
+  {id:'aduana',l:'En Aduana',cls:'eb-adua'},
+  {id:'recibido',l:'Recibido en almacén',cls:'eb-recv'},
+  {id:'anulado',l:'ANULADO',cls:'eb-anul'}
+];
 const PAISES=['Bolivia','Argentina','Chile','Perú','Brasil','EEUU','Paraguay','China','España','Colombia','Uruguay','Otro'];
 const SK={pos:'cobolce-pos',zi:'cobolce-zi',pal:'cobolce-pal',ag:'cobolce-ag',docs:'cobolce-docs',log:'cobolce-log',cfg:'cobolce-cfg',listas:'cobolce-listas',ocs:'cobolce-ocs',provs:'cobolce-provs',cotiz:'cobolce-cotiz'};
 
@@ -240,8 +285,92 @@ function matchLog(l,q){return matchStr([l.act,l.det,l.user].filter(Boolean).join
 function projInput(id,val){return '<input class="fi" list="plist" id="'+id+'" value="'+esc(val||'')+'" placeholder="Hornos Fase 2, EPP..."><datalist id="plist">'+PROJ_HINTS.map(p=>'<option value="'+p+'">').join('')+'</datalist>';}
 function getCantComp(cod){if(!cod)return 0;return S.ocs.reduce((t,oc)=>{const m=(oc.materiales||[]).find(m=>m.codigo===cod);return t+(m?+m.qty||0:0);},0);}
 function getOCsForCod(cod){if(!cod)return[];return S.ocs.filter(oc=>(oc.materiales||[]).some(m=>m.codigo===cod));}
-function getItemCls(item){const c=getCantComp(item.codigo);if(c<=0)return'';if(c>=(+item.cantReq||0)&&item.cantReq>0)return'rg';return'ry';}
+function getItemCls(item){
+  if(item.estado==='anulado')return'ranu';
+  const c=getCantComp(item.codigo);const req=+item.cantReq||0;
+  if(c<=0)return'';
+  if(req>0&&c>req)return'rbl';  // excedente → azul
+  if(req>0&&c>=req)return'rg';  // completo → verde
+  return'ry';                    // parcial → amarillo
+}
 function getProvNom(pid){const p=S.proveedores.find(p=>p.id===pid);return p?p.nombre:pid||'—';}
+
+function getItemStatusInfo(item){
+  const cls=getItemCls(item);
+  if(cls==='ranu')return{ico:'⛔',txt:'Anulado'};
+  if(cls==='rbl')return{ico:'🔵',txt:'Excedente'};
+  if(cls==='rg')return{ico:'🟢',txt:'Completo'};
+  if(cls==='ry')return{ico:'🟡',txt:'Parcial'};
+  return{ico:'⚪',txt:'Sin compra'};
+}
+function getEstadoBadge(estado){
+  const e=ITEM_ESTADOS.find(x=>x.id===estado)||ITEM_ESTADOS[0];
+  return'<span class="eb '+e.cls+'">'+e.l+'</span>';
+}
+function applySort(items,key){
+  const arr=[...items];
+  const [field,dir]=key.split('-');const asc=dir==='asc';
+  return arr.sort((a,b)=>{
+    let va,vb;
+    if(field==='cod'){va=a.codigo||'';vb=b.codigo||'';}
+    else if(field==='desc'){va=a.desc||'';vb=b.desc||'';}
+    else if(field==='falta'){va=Math.max(0,(+a.cantReq||0)-getCantComp(a.codigo));vb=Math.max(0,(+b.cantReq||0)-getCantComp(b.codigo));}
+    else if(field==='estado'){va=a.estado||'pendiente';vb=b.estado||'pendiente';}
+    else if(field==='num'){va=a.numero||a.nombre||'';vb=b.numero||b.nombre||'';}
+    else if(field==='nom'){va=a.nombre||'';vb=b.nombre||'';}
+    else if(field==='fecha'){va=a.date||a.fechaEntrega||a.at||'';vb=b.date||b.fechaEntrega||b.at||'';}
+    else{va=a.desc||a.material||'';vb=b.desc||b.material||'';}
+    if(typeof va==='string')return asc?va.localeCompare(vb):vb.localeCompare(va);
+    return asc?va-vb:vb-va;
+  });
+}
+function rSortBar(tab,opts){
+  return'<div class="sort-bar"><span style="font-size:9px;color:var(--txm);text-transform:uppercase;letter-spacing:.06em;flex-shrink:0">Orden:</span>'+
+  opts.map(o=>'<button class="srt-btn'+(sortState[tab]===o.k?' act':'')+'" onclick="setSortState(\\\''+tab+'\\\',\\\''+o.k+'\\\')">'+
+    (sortState[tab]===o.k?'<i class="ti '+(o.k.endsWith('asc')?'ti-sort-ascending':'ti-sort-descending')+'" style="font-size:9px"></i> ':'')+o.l+'</button>').join('')+
+  '</div>';
+}
+function setSortState(tab,k){sortState[tab]=k;render();}
+function rListaFilterBar(){
+  const compOpts=[
+    {k:'todos',l:'Todos',cls:'fp-all'},
+    {k:'sinCompra',l:'⚪ Sin compra',cls:'fp-none'},
+    {k:'parcial',l:'🟡 Parcial',cls:'fp-part'},
+    {k:'completo',l:'🟢 Completo',cls:'fp-full'},
+    {k:'excedente',l:'🔵 Excedente',cls:'fp-over'}
+  ];
+  const estadoOpts=[{k:'todos',l:'Todos los estados',cls:'fp-all'},...ITEM_ESTADOS.map(e=>({k:e.id,l:e.l,cls:'fp-all'}))];
+  return'<div class="filter-bar">'+
+    '<span style="font-size:9px;color:var(--txm);text-transform:uppercase;letter-spacing:.06em;flex-shrink:0;margin-right:2px">Compra:</span>'+
+    compOpts.map(o=>'<button class="fp '+o.cls+(listaFiltroCompra===o.k?' act':'')+'" onclick="setListaFiltro(\'compra\',\''+o.k+'\')">'+o.l+'</button>').join('')+
+    '<span style="width:1px;background:var(--bdr);height:16px;flex-shrink:0;margin:0 4px"></span>'+
+    '<span style="font-size:9px;color:var(--txm);text-transform:uppercase;letter-spacing:.06em;flex-shrink:0;margin-right:2px">Estado:</span>'+
+    estadoOpts.map(o=>'<button class="fp '+(listaFiltroEstado===o.k?'fp-all act':'')+'" onclick="setListaFiltro(\'estado\',\''+o.k+'\')" style="'+(o.k!=='todos'?'':'')+'">'+(o.k==='todos'?o.l:getEstadoBadge(o.k))+'</button>').join('')+
+    '</div>';
+}
+function setListaFiltro(tipo,val){
+  if(tipo==='compra')listaFiltroCompra=val;
+  else listaFiltroEstado=val;
+  render();
+}
+function applyListaFilters(items){
+  return items.filter(item=>{
+    // Filtro compra
+    const cls=getItemCls(item);
+    if(listaFiltroCompra!=='todos'){
+      if(listaFiltroCompra==='sinCompra'&&cls!=='')return false;
+      if(listaFiltroCompra==='parcial'&&cls!=='ry')return false;
+      if(listaFiltroCompra==='completo'&&cls!=='rg')return false;
+      if(listaFiltroCompra==='excedente'&&cls!=='rbl')return false;
+    }
+    // Filtro estado
+    if(listaFiltroEstado!=='todos'){
+      const est=item.estado||'pendiente';
+      if(est!==listaFiltroEstado)return false;
+    }
+    return true;
+  });
+}
 function flagEmoji(pais){const f={Bolivia:'🇧🇴',Argentina:'🇦🇷',Chile:'🇨🇱',Perú:'🇵🇪',Brasil:'🇧🇷',EEUU:'🇺🇸',Paraguay:'🇵🇾',China:'🇨🇳',España:'🇪🇸',Colombia:'🇨🇴',Uruguay:'🇺🇾'};return f[pais]||'🌐';}
 function ocBadge(st){const m={recibido:'bok',aduana:'bmid',transito:'bmid',enviada:'bmid',aprobada:'brecv',revision:'bpend',cotizacion:'bemp'};return m[st]||'bemp';}
 function allItems(){const a=[];DISCIPLINAS.forEach(d=>(S.listas[d.id]||[]).forEach(i=>a.push(Object.assign({},i,{disc:d.id}))));return a;}
@@ -348,7 +477,7 @@ function rZone(zid){
 function rListas(){
   const disc=S.disc||'civil';const q=searches.listas||'';
   const allI=S.listas[disc]||[];
-  const filtered=allI.map((item,i)=>({item,i})).filter(({item})=>matchStr([item.codigo,item.desc,item.notas,item.unidad].filter(Boolean).join(' '),q));
+  let filt=applyListaFilters(allI.map((item,i)=>({item,i})).filter(({item})=>matchStr([item.codigo,item.desc,item.notas,item.unidad,(item.estado||'')].filter(Boolean).join(' '),q)).map(x=>x));const sortedFilt=applySort(filt.map(x=>x.item),sortState.listas).map(si=>({item:si,i:allI.indexOf(si)}));const filtered=sortedFilt;
   const completos=allI.filter(i=>getCantComp(i.codigo)>=(+i.cantReq||0)&&i.cantReq>0).length;
   return'<div class="ph"><div><div class="phtitle">Listas de Materiales</div><div class="phsub">Por disciplina · Trazabilidad con Órdenes de Compra</div></div>'+
     '<div class="brow"><button class="btn btnp" onclick="oAddLI()"><i class="ti ti-plus"></i> Agregar ítem</button><button class="btn" onclick="exportExcel(\'lista\')"><i class="ti ti-download"></i> Excel</button></div></div>'+
@@ -359,10 +488,12 @@ function rListas(){
     '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+
     '<input type="checkbox" class="check-all" title="Seleccionar todos" onchange="this.checked?selectAll():clearSel()">'+
     '<span style="font-size:10px;color:var(--txm)">'+(selSet.size>0?selSet.size+' seleccionados — ':'')+'Clic en fila para ver detalle, checkbox para seleccionar</span></div>'+
-    '<div class="lista-wrap"><table class="lista-tbl"><thead><tr><th></th><th>Código</th><th>Descripción</th><th>Und.</th><th style="text-align:right">Req.</th><th style="text-align:right">Comprado</th><th style="text-align:right">Falta</th><th>Estado</th><th></th></tr></thead><tbody>'+
+    rSortBar('listas',[{k:'cod-asc',l:'Código A→Z'},{k:'cod-desc',l:'Código Z→A'},{k:'desc-asc',l:'Descripción'},{k:'falta-desc',l:'Mayor faltante'},{k:'estado-asc',l:'Estado'}])+
+    rListaFilterBar()+
+    '<div class="lista-wrap"><table class="lista-tbl"><thead><tr><th></th><th>Código</th><th>Descripción</th><th>Und.</th><th style="text-align:right">Req.</th><th style="text-align:right">Comprado</th><th style="text-align:right">Falta</th><th>Compra</th><th>Estado ítem</th><th></th></tr></thead><tbody>'+
     filtered.map(({item,i})=>{
       const comp=getCantComp(item.codigo);const req=+item.cantReq||0;const falta=Math.max(0,req-comp);const cls=getItemCls(item);
-      const stIco=cls==='rg'?'🟢':cls==='ry'?'🟡':'⚪';const stTxt=cls==='rg'?'Completo':cls==='ry'?'Parcial':'Sin compra';
+      const si=getItemStatusInfo(item);const stIco=si.ico;const stTxt=si.txt;
       return'<tr class="'+cls+'" onclick="onRowClick(\''+disc+'\','+i+')"><td onclick="event.stopPropagation()"><input type="checkbox" class="li-check" onchange="toggleSel(\''+item.id+'\',event)"'+(selSet.has(item.id)?' checked':'')+' title="Seleccionar"></td>'+
         '<td><span class="cod">'+hl(item.codigo||'—',q)+'</span></td>'+
         '<td style="max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hl(item.desc||'',q)+'</td>'+
@@ -371,6 +502,7 @@ function rListas(){
         '<td style="text-align:right;color:'+(cls==='rg'?'var(--grn-tx)':cls==='ry'?'var(--amb-tx)':'var(--txm)')+'">'+comp+'</td>'+
         '<td style="text-align:right;color:'+(falta>0?'var(--red-tx)':'var(--grn-tx)')+';font-weight:'+(falta>0?'500':'400')+'">'+falta+'</td>'+
         '<td style="white-space:nowrap">'+stIco+' <span style="font-size:10px">'+stTxt+'</span></td>'+
+        '<td>'+getEstadoBadge(item.estado||'pendiente')+'</td>'+
         '<td onclick="event.stopPropagation()"><div class="brow"><button class="btn btnxs" onclick="oEditLI(\''+disc+'\','+i+')"><i class="ti ti-edit"></i></button><button class="btn btnxs btnd" onclick="dLI(\''+disc+'\','+i+')"><i class="ti ti-trash"></i></button></div></td></tr>';
     }).join('')+'</tbody></table></div>');
 }
@@ -378,9 +510,11 @@ function rListas(){
 function rOC(){
   const q=searches.oc||'';let ocs=[...S.ocs];
   if(q)ocs=ocs.filter(oc=>matchStr([oc.numero,getProvNom(oc.provId),oc.notas].filter(Boolean).join(' '),q));
+  ocs=applySort(ocs,sortState.oc);
   return'<div class="ph"><div><div class="phtitle">Órdenes de Compra</div><div class="phsub">'+S.ocs.length+' OC'+(S.ocs.length!==1?'s':'')+' registradas</div></div>'+
     '<div class="brow"><button class="btn btnp" onclick="oAddOC()"><i class="ti ti-plus"></i> Nueva OC</button><button class="btn" onclick="exportExcel(\'ocs\')"><i class="ti ti-download"></i> Excel</button></div></div>'+
-    (!ocs.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!ocs.length?'<div class="nodata"><i class="ti ti-file-off"></i>Sin órdenes de compra registradas</div>':
+    rSortBar('oc',[{k:'num-asc',l:'N° OC A→Z'},{k:'num-desc',l:'N° OC Z→A'},{k:'fecha-asc',l:'Emisión ↑'},{k:'fecha-desc',l:'Emisión ↓'},{k:'fecha-asc',l:'Entrega ↑'}])+
+  (!ocs.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!ocs.length?'<div class="nodata"><i class="ti ti-file-off"></i>Sin órdenes de compra registradas</div>':
     ocs.map(oc=>{const stIdx=OC_STATES.findIndex(s=>s.id===oc.estado);
       return'<div class="oc-card"><div class="oc-hdr"><div style="flex:1;min-width:0">'+
         '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="oc-num">'+hl(oc.numero,q)+'</span><span class="bdg '+ocBadge(oc.estado)+'">'+(OC_STATES.find(s=>s.id===oc.estado)?.l||oc.estado)+'</span></div>'+
@@ -396,9 +530,11 @@ function rOC(){
 function rProveedores(){
   const q=searches.proveedores||'';let provs=[...S.proveedores];
   if(q)provs=provs.filter(p=>matchStr([p.nombre,p.pais,p.contacto,p.email,p.telefono].filter(Boolean).join(' '),q));
+  provs=applySort(provs,sortState.proveedores);
   return'<div class="ph"><div><div class="phtitle">Proveedores</div><div class="phsub">'+S.proveedores.length+' proveedor'+(S.proveedores.length!==1?'es':'')+' registrado'+(S.proveedores.length!==1?'s':'')+' </div></div>'+
     '<button class="btn btnp" onclick="oAddProv()"><i class="ti ti-plus"></i> Nuevo proveedor</button></div>'+
-    (!provs.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!provs.length?'<div class="nodata"><i class="ti ti-building-off"></i>Sin proveedores registrados</div>':
+    rSortBar('proveedores',[{k:'nom-asc',l:'Nombre A→Z'},{k:'nom-desc',l:'Nombre Z→A'}])+
+  (!provs.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!provs.length?'<div class="nodata"><i class="ti ti-building-off"></i>Sin proveedores registrados</div>':
     provs.map(p=>{const ocsP=S.ocs.filter(oc=>oc.provId===p.id);
       return'<div class="prov-card"><div class="prov-flag">'+flagEmoji(p.pais)+'</div><div class="prov-info">'+
         '<div class="prov-name">'+hl(p.nombre,q)+'</div>'+
@@ -435,11 +571,13 @@ function rCalc(){
 }
 
 function rAg(){
-  const q=searches.agenda||'';let ag=[...S.agenda].sort((a,b)=>a.date.localeCompare(b.date));
+  const q=searches.agenda||'';let ag=[...S.agenda];
   if(q)ag=ag.filter(a=>matchStr([a.material,a.supplier,a.proj,a.oc,a.notes].filter(Boolean).join(' '),q));
+  ag=applySort(ag,sortState.agenda);
   const pend=ag.filter(a=>a.status!=='received'),recv=ag.filter(a=>a.status==='received');
+  const sortAgHtml=rSortBar('agenda',[{k:'fecha-asc',l:'Fecha ↑'},{k:'fecha-desc',l:'Fecha ↓'},{k:'desc-asc',l:'Material A→Z'}]);
   return'<div class="ph"><div><div class="phtitle">Agenda de entregas</div><div class="phsub">Fechas aproximadas de recepción de material</div></div>'+
-    '<button class="btn btnp" onclick="oAddAg()"><i class="ti ti-plus"></i> Nueva entrega</button></div>'+
+    '<button class="btn btnp" onclick="oAddAg()"><i class="ti ti-plus"></i> Nueva entrega</button></div>'+sortAgHtml+
     (!ag.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!ag.length?'<div class="nodata"><i class="ti ti-calendar-off"></i>Sin entregas registradas</div>':'')+
     (pend.length?'<div class="stitle">Pendientes ('+pend.length+')</div>'+pend.map(a=>rAgI(a,q)).join(''):'')+
     (recv.length?'<div class="stitle" style="margin-top:14px">Recibidas ('+recv.length+')</div>'+recv.map(a=>rAgI(a,q)).join(''):'')+
@@ -455,8 +593,9 @@ function rAgI(a,q){const d=fdate(a.date);const sc={pending:'bpend',received:'bre
 function rDocs(){
   const q=searches.docs||'';let docs=[...S.docs];
   if(q)docs=docs.filter(d=>matchStr([d.name,d.by,d.proj,d.zone,d.notes].filter(Boolean).join(' '),q));
+  docs=applySort(docs,sortState.docs);
   return'<div class="ph"><div><div class="phtitle">Documentos</div><div class="phsub">Informes y registros de almacenamiento</div></div>'+
-    '<button class="btn btnp" onclick="oUpDoc()"><i class="ti ti-upload"></i> Subir doc.</button></div>'+
+    '<button class="btn btnp" onclick="oUpDoc()"><i class="ti ti-upload"></i> Subir doc.</button></div>'+rSortBar('docs',[{k:'fecha-desc',l:'Más reciente'},{k:'fecha-asc',l:'Más antiguo'},{k:'desc-asc',l:'Nombre A→Z'}])+
     (!docs.length&&q?'<div class="nodata"><i class="ti ti-search-off"></i>Sin resultados</div>':!docs.length?'<div class="nodata"><i class="ti ti-files"></i>Sin documentos registrados</div>':
     docs.map(d=>{const ext=(d.name||'').split('.').pop().toLowerCase();const bg=ext==='pdf'?'#FCEAE8':ext==='docx'||ext==='doc'?'#D4E5FF':'#EEF2FA';const ic=ext==='pdf'?'📕':ext==='docx'||ext==='doc'?'📘':'📄';
       return'<div class="doci"><div class="docic" style="background:'+bg+'">'+ic+'</div><div style="flex:1;min-width:0"><div class="docin">'+esc(d.name)+'</div>'+
@@ -688,7 +827,7 @@ function svLI(){
   const origDisc=modal.d.disc;const ei=modal.d.ei;
   const existing=(S.listas[disc]||[]).findIndex(i=>i.codigo===cod);
   if(existing>=0&&(disc!==origDisc||existing!==ei)){tst('El código '+cod+' ya existe en '+DISCIPLINAS.find(d=>d.id===disc)?.l);return;}
-  const item={id:uid(),codigo:cod,desc,unidad:document.getElementById('li-und')?.value?.trim()||'',cantReq:+document.getElementById('li-qty')?.value||0,pesoUnit:+document.getElementById('li-pw')?.value||0,notas:document.getElementById('li-notes')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
+  const item={id:uid(),codigo:cod,desc,unidad:document.getElementById('li-und')?.value?.trim()||'',cantReq:+document.getElementById('li-qty')?.value||0,pesoUnit:+document.getElementById('li-pw')?.value||0,estado:document.getElementById('li-est')?.value||'pendiente',notas:document.getElementById('li-notes')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
   if(!S.listas[disc])S.listas[disc]=[];
   if(ei!==undefined&&disc===origDisc){item.id=S.listas[disc][ei].id;item.by=S.listas[disc][ei].by;item.at=S.listas[disc][ei].at;S.listas[disc][ei]=item;}
   else if(ei!==undefined&&disc!==origDisc){S.listas[origDisc].splice(ei,1);S.listas[disc].push(item);}
@@ -753,6 +892,10 @@ init();
 /* ===========================
    NUEVAS VARIABLES DE ESTADO
    =========================== */
+
+let sortState={listas:'cod-asc',oc:'num-asc',proveedores:'nom-asc',agenda:'fecha-asc',docs:'fecha-desc',cotiz:'fecha-desc'};
+let listaFiltroCompra='todos'; // todos sinCompra parcial completo excedente
+let listaFiltroEstado='todos'; // todos o id de ITEM_ESTADOS
 let selSet = new Set();
 let cotizItems = []; // temp items for cotiz modal
 let cotizCols = [];  // temp cols for cotiz modal
