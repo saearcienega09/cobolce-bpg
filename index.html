@@ -689,24 +689,24 @@ function mItem(){
     '<div class="mbody">'+
     '<div class="fg" style="background:var(--bg2);border-radius:var(--rad);padding:10px 12px;margin-bottom:12px;border:1px solid var(--bdr)">'+
     '<label class="fl"><b>&#128269; Buscar de lista</b> <span style="font-weight:400;color:var(--txm)">por código o descripción</span></label>'+
-    '<div style="position:relative"><input class="fi" id="i-lc" value="'+esc(item?.liCod||'')+"'" + ' placeholder="ELC-001 ó Cable THHN..." oninput="wsSearch(\'i-lc\',\'i-d\',\'i-u\')" onblur="wsBlur(\'i-lc\')" autocomplete="off" style="font-family:monospace;font-weight:600">'+
+    '<div style="position:relative"><input class="fi" id="i-lc" value="'+esc(item?.liCod||'')+'" placeholder="ELC-001 ó Cable THHN..." oninput="wsSearch(\'i-lc\',\'i-d\',\'i-u\')" onblur="wsBlur(\'i-lc\')" autocomplete="off" style="font-family:monospace;font-weight:600">'+
     '<div id="i-lc-dd" class="li-srch-dd"></div></div></div>'+
     '<div class="fg"><label class="fl">Tipo de ítem</label><select class="fi" id="i-t">'+ITYPES.map(t=>'<option value="'+t.id+'"'+(item?.type===t.id?' selected':'')+'>'+t.ic+' '+t.l+'</option>').join('')+'</select></div>'+
-    '<div class="fg"><label class="fl">Descripción *</label><input class="fi" id="i-d" value="'+esc(item?.desc||'')+"'" + ' placeholder="Se completa al buscar"></div>'+
+    '<div class="fg"><label class="fl">Descripción *</label><input class="fi" id="i-d" value="'+esc(item?.desc||'')+'" placeholder="Se completa al buscar"></div>'+
     '<div class="fr3"><div class="fg"><label class="fl">Cantidad</label><input class="fi" type="number" id="i-q" min="0" value="'+(item?.qty||1)+'"></div>'+
     '<div class="fg"><label class="fl">Unidad</label><input class="fi" id="i-u" value="'+esc(item?.unit||'PZA')+'"></div>'+
     '<div class="fg"><label class="fl">Espacios</label><input class="fi" type="number" id="i-s" min="1" max="'+sp+'" value="'+(item?.sp||1)+'"></div></div>'+
     '<div class="fr2"><div class="fg"><label class="fl">Proyecto</label>'+projInput('i-p',item?.proj)+'</div>'+
-    '<div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="i-o" value="'+esc(item?.oc||'')+"'" + ' placeholder="OC-2025-XXX"></div></div>'+
+    '<div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="i-o" value="'+esc(item?.oc||'')+'" placeholder="OC-2025-XXX"></div></div>'+
     '<div style="font-size:10px;font-weight:500;color:var(--txm);text-transform:uppercase;letter-spacing:.07em;margin:10px 0 6px">Características técnicas <span style="font-weight:400;opacity:.7">(opcional)</span></div>'+
-    '<div class="fr3"><div class="fg"><label class="fl">Diámetro</label><input class="fi" id="i-diam" value="'+esc(item?.diametro||'')+"'" + ' placeholder="2&quot;, DN50"></div>'+
-    '<div class="fg"><label class="fl">Dimensión</label><input class="fi" id="i-dim" value="'+esc(item?.dimension||'')+"'" + ' placeholder="6m, SCH80"></div>'+
-    '<div class="fg"><label class="fl">Color</label><input class="fi" id="i-col" value="'+esc(item?.color||'')+"'" + ' placeholder="Negro, Rojo"></div></div>'+
-    '<div class="fr3"><div class="fg"><label class="fl">Marca</label><input class="fi" id="i-mar" value="'+esc(item?.marca||'')+"'" + ' placeholder="Crouse-Hinds"></div>'+
-    '<div class="fg"><label class="fl">Serie</label><input class="fi" id="i-ser" value="'+esc(item?.serie||'')+"'" + ' placeholder="Form 7"></div>'+
-    '<div class="fg"><label class="fl">Modelo</label><input class="fi" id="i-mod" value="'+esc(item?.modelo||'')+"'" + ' placeholder="EYS100"></div></div>'+
+    '<div class="fr3"><div class="fg"><label class="fl">Diámetro</label><input class="fi" id="i-diam" value="'+esc(item?.diametro||'')+'" placeholder="2&quot;, DN50"></div>'+
+    '<div class="fg"><label class="fl">Dimensión</label><input class="fi" id="i-dim" value="'+esc(item?.dimension||'')+'" placeholder="6m, SCH80"></div>'+
+    '<div class="fg"><label class="fl">Color</label><input class="fi" id="i-col" value="'+esc(item?.color||'')+'" placeholder="Negro, Rojo"></div></div>'+
+    '<div class="fr3"><div class="fg"><label class="fl">Marca</label><input class="fi" id="i-mar" value="'+esc(item?.marca||'')+'" placeholder="Crouse-Hinds"></div>'+
+    '<div class="fg"><label class="fl">Serie</label><input class="fi" id="i-ser" value="'+esc(item?.serie||'')+'" placeholder="Form 7"></div>'+
+    '<div class="fg"><label class="fl">Modelo</label><input class="fi" id="i-mod" value="'+esc(item?.modelo||'')+'" placeholder="EYS100"></div></div>'+
     '<div class="fr2"><div class="fg"><label class="fl">Fecha llegada</label><input type="date" class="fi" id="i-ll" value="'+(item?.llegada||'')+'"></div>'+
-    '<div class="fg"><label class="fl">Notas</label><input class="fi" id="i-n" value="'+esc(item?.notes||'')+"'" + ' placeholder="Observaciones..."></div></div>'+
+    '<div class="fg"><label class="fl">Notas</label><input class="fi" id="i-n" value="'+esc(item?.notes||'')+'" placeholder="Observaciones..."></div></div>'+
     '</div>'+
     '<div class="mfoot"><button class="btn" onclick="btG()">Cancelar</button><button class="btn btnp" onclick="svItem()"><i class="ti ti-check"></i> Guardar</button></div>';
 }
@@ -728,23 +728,23 @@ function mZI(){
     '<div class="mbody">'+
     '<div class="fg" style="background:var(--bg2);border-radius:var(--rad);padding:10px 12px;margin-bottom:12px;border:1px solid var(--bdr)">'+
     '<label class="fl"><b>&#128269; Buscar de lista</b> <span style="font-weight:400;color:var(--txm)">por código o descripción</span></label>'+
-    '<div style="position:relative"><input class="fi" id="z-lc" value="'+esc(item?.liCod||'')+"'" + ' placeholder="ELC-001 ó Cable THHN..." oninput="wsSearch(\'z-lc\',\'z-d\',\'z-u\')" onblur="wsBlur(\'z-lc\')" autocomplete="off" style="font-family:monospace;font-weight:600">'+
+    '<div style="position:relative"><input class="fi" id="z-lc" value="'+esc(item?.liCod||'')+'" placeholder="ELC-001 ó Cable THHN..." oninput="wsSearch(\'z-lc\',\'z-d\',\'z-u\')" onblur="wsBlur(\'z-lc\')" autocomplete="off" style="font-family:monospace;font-weight:600">'+
     '<div id="z-lc-dd" class="li-srch-dd"></div></div></div>'+
     '<div class="fg"><label class="fl">Tipo</label><select class="fi" id="z-t">'+ITYPES.map(t=>'<option value="'+t.id+'"'+(item?.type===t.id?' selected':'')+'>'+t.ic+' '+t.l+'</option>').join('')+'</select></div>'+
-    '<div class="fg"><label class="fl">Descripción *</label><input class="fi" id="z-d" value="'+esc(item?.desc||'')+"'" + ' placeholder="Se completa al buscar..."></div>'+
+    '<div class="fg"><label class="fl">Descripción *</label><input class="fi" id="z-d" value="'+esc(item?.desc||'')+'" placeholder="Se completa al buscar..."></div>'+
     '<div class="fr2"><div class="fg"><label class="fl">Cantidad</label><input class="fi" type="number" id="z-q" min="0" value="'+(item?.qty||1)+'"></div>'+
     '<div class="fg"><label class="fl">Unidad</label><input class="fi" id="z-u" value="'+esc(item?.unit||'PZA')+'"></div></div>'+
     '<div style="font-size:10px;font-weight:500;color:var(--txm);text-transform:uppercase;letter-spacing:.07em;margin:10px 0 6px">Características técnicas <span style="font-weight:400;opacity:.7">(opcional)</span></div>'+
-    '<div class="fr3"><div class="fg"><label class="fl">Diámetro</label><input class="fi" id="z-diam" value="'+esc(item?.diametro||'')+"'" + ' placeholder="2&quot;, DN50"></div>'+
-    '<div class="fg"><label class="fl">Dimensión</label><input class="fi" id="z-dim" value="'+esc(item?.dimension||'')+"'" + ' placeholder="6m, SCH80"></div>'+
-    '<div class="fg"><label class="fl">Color</label><input class="fi" id="z-col" value="'+esc(item?.color||'')+"'" + ' placeholder="Negro, Rojo"></div></div>'+
-    '<div class="fr3"><div class="fg"><label class="fl">Marca</label><input class="fi" id="z-mar" value="'+esc(item?.marca||'')+"'" + ' placeholder="Crouse-Hinds"></div>'+
-    '<div class="fg"><label class="fl">Serie</label><input class="fi" id="z-ser" value="'+esc(item?.serie||'')+"'" + ' placeholder="Form 7"></div>'+
-    '<div class="fg"><label class="fl">Modelo</label><input class="fi" id="z-mod" value="'+esc(item?.modelo||'')+"'" + ' placeholder="EYS100"></div></div>'+
+    '<div class="fr3"><div class="fg"><label class="fl">Diámetro</label><input class="fi" id="z-diam" value="'+esc(item?.diametro||'')+'" placeholder="2&quot;, DN50"></div>'+
+    '<div class="fg"><label class="fl">Dimensión</label><input class="fi" id="z-dim" value="'+esc(item?.dimension||'')+'" placeholder="6m, SCH80"></div>'+
+    '<div class="fg"><label class="fl">Color</label><input class="fi" id="z-col" value="'+esc(item?.color||'')+'" placeholder="Negro, Rojo"></div></div>'+
+    '<div class="fr3"><div class="fg"><label class="fl">Marca</label><input class="fi" id="z-mar" value="'+esc(item?.marca||'')+'" placeholder="Crouse-Hinds"></div>'+
+    '<div class="fg"><label class="fl">Serie</label><input class="fi" id="z-ser" value="'+esc(item?.serie||'')+'" placeholder="Form 7"></div>'+
+    '<div class="fg"><label class="fl">Modelo</label><input class="fi" id="z-mod" value="'+esc(item?.modelo||'')+'" placeholder="EYS100"></div></div>'+
     '<div class="fr2"><div class="fg"><label class="fl">Proyecto</label>'+projInput('z-p',item?.proj)+'</div>'+
-    '<div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="z-o" value="'+esc(item?.oc||'')+"'" + ' placeholder="OC-2025-XXX"></div></div>'+
+    '<div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="z-o" value="'+esc(item?.oc||'')+'" placeholder="OC-2025-XXX"></div></div>'+
     '<div class="fr2"><div class="fg"><label class="fl">Fecha llegada</label><input type="date" class="fi" id="z-ll" value="'+(item?.llegada||'')+'"></div>'+
-    '<div class="fg"><label class="fl">Notas</label><input class="fi" id="z-n" value="'+esc(item?.notes||'')+"'" + ' placeholder="..."></div></div>'+
+    '<div class="fg"><label class="fl">Notas</label><input class="fi" id="z-n" value="'+esc(item?.notes||'')+'" placeholder="..."></div></div>'+
     '</div>'+
     '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svZI()"><i class="ti ti-check"></i> Guardar</button></div>';
 }
