@@ -197,6 +197,14 @@ body.dark .fp-over.act{background:#0C1D3A;color:#7EB3FF;border-color:#4070B0}
 .eb-adua{background:#F0E8FF;color:#5A1A8A}body.dark .eb-adua{background:#1A0A35;color:#B060FF}
 .eb-recv{background:var(--grn-bg);color:var(--grn-tx)}
 .eb-anul{background:#EBEBEB;color:#888}body.dark .eb-anul{background:#222;color:#666}
+
+.li-srch-dd{display:none;position:absolute;top:100%;left:0;right:0;background:var(--card);border:1px solid var(--bdr2);border-radius:0 0 var(--rad) var(--rad);z-index:120;max-height:220px;overflow-y:auto;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.li-srch-opt{padding:8px 10px;cursor:pointer;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:8px;transition:background .1s}
+.li-srch-opt:last-child{border-bottom:none}.li-srch-opt:hover{background:var(--bg2)}
+.li-srch-cod{font-family:monospace;font-weight:600;color:var(--n);flex-shrink:0;font-size:11px;min-width:70px}
+body.dark .li-srch-cod{color:var(--g)}
+.li-srch-desc{font-size:11px;color:var(--txm);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li-srch-disc{font-size:9px;color:var(--txl);flex-shrink:0;margin-left:4px}
 </style>
 </head>
 <body>
@@ -678,12 +686,30 @@ function mGab(){
 function mItem(){
   const{r,g,l,ei,item}=modal.d;const sp=gls(r,g,l);
   return'<div class="mhdr"><div class="mttl">'+(ei!==undefined?'Editar':'Agregar')+' material — Gab. '+g+' / Nivel '+l+'</div><button class="btn btnxs" onclick="btG()"><i class="ti ti-arrow-left"></i></button></div>'+
-    '<div class="mbody"><div class="fg"><label class="fl">Tipo de ítem</label><select class="fi" id="i-t">'+ITYPES.map(t=>'<option value="'+t.id+'"'+(item?.type===t.id?' selected':'')+'>'+t.ic+' '+t.l+'</option>').join('')+'</select></div>'+
-    '<div class="fg"><label class="fl">Descripción *</label><input class="fi" id="i-d" value="'+esc(item?.desc||'')+'" placeholder="Ej: Caja con Codos 90° 2&quot; SCH80 HDG" autofocus></div>'+
-    '<div class="fr3"><div class="fg"><label class="fl">Cantidad</label><input class="fi" type="number" id="i-q" min="0" value="'+(item?.qty||1)+'"></div><div class="fg"><label class="fl">Unidad</label><input class="fi" id="i-u" value="'+esc(item?.unit||'PZA')+'" placeholder="PZA"></div><div class="fg"><label class="fl">Espacios usados</label><input class="fi" type="number" id="i-s" min="1" max="'+sp+'" value="'+(item?.sp||1)+'"></div></div>'+
-    '<div class="fr2"><div class="fg"><label class="fl">Proyecto / Asunto</label>'+projInput('i-p',item?.proj)+'</div><div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="i-o" value="'+esc(item?.oc||'')+'" placeholder="OC-2025-XXX"></div></div>'+
-    '<div class="fr2"><div class="fg"><label class="fl">Fecha llegada al almacén</label><input type="date" class="fi" id="i-ll" value="'+(item?.llegada||'')+'"></div><div class="fg"><label class="fl">Notas</label><input class="fi" id="i-n" value="'+esc(item?.notes||'')+'" placeholder="Observaciones..."></div></div></div>'+
-    '<div class="mfoot"><button class="btn" onclick="btG()">Cancelar</button><button class="btn btnp" onclick="svItem()"><i class="ti ti-check"></i> Guardar</button></div>';}
+    '<div class="mbody">'+
+    '<div class="fg" style="background:var(--bg2);border-radius:var(--rad);padding:10px 12px;margin-bottom:12px;border:1px solid var(--bdr)">'+
+    '<label class="fl"><b>&#128269; Buscar de lista</b> <span style="font-weight:400;color:var(--txm)">por código o descripción</span></label>'+
+    '<div style="position:relative"><input class="fi" id="i-lc" value="'+esc(item?.liCod||'')+"'" + ' placeholder="ELC-001 ó Cable THHN..." oninput="wsSearch(\'i-lc\',\'i-d\',\'i-u\')" onblur="wsBlur(\'i-lc\')" autocomplete="off" style="font-family:monospace;font-weight:600">'+
+    '<div id="i-lc-dd" class="li-srch-dd"></div></div></div>'+
+    '<div class="fg"><label class="fl">Tipo de ítem</label><select class="fi" id="i-t">'+ITYPES.map(t=>'<option value="'+t.id+'"'+(item?.type===t.id?' selected':'')+'>'+t.ic+' '+t.l+'</option>').join('')+'</select></div>'+
+    '<div class="fg"><label class="fl">Descripción *</label><input class="fi" id="i-d" value="'+esc(item?.desc||'')+"'" + ' placeholder="Se completa al buscar"></div>'+
+    '<div class="fr3"><div class="fg"><label class="fl">Cantidad</label><input class="fi" type="number" id="i-q" min="0" value="'+(item?.qty||1)+'"></div>'+
+    '<div class="fg"><label class="fl">Unidad</label><input class="fi" id="i-u" value="'+esc(item?.unit||'PZA')+'"></div>'+
+    '<div class="fg"><label class="fl">Espacios</label><input class="fi" type="number" id="i-s" min="1" max="'+sp+'" value="'+(item?.sp||1)+'"></div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Proyecto</label>'+projInput('i-p',item?.proj)+'</div>'+
+    '<div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="i-o" value="'+esc(item?.oc||'')+"'" + ' placeholder="OC-2025-XXX"></div></div>'+
+    '<div style="font-size:10px;font-weight:500;color:var(--txm);text-transform:uppercase;letter-spacing:.07em;margin:10px 0 6px">Características técnicas <span style="font-weight:400;opacity:.7">(opcional)</span></div>'+
+    '<div class="fr3"><div class="fg"><label class="fl">Diámetro</label><input class="fi" id="i-diam" value="'+esc(item?.diametro||'')+"'" + ' placeholder="2&quot;, DN50"></div>'+
+    '<div class="fg"><label class="fl">Dimensión</label><input class="fi" id="i-dim" value="'+esc(item?.dimension||'')+"'" + ' placeholder="6m, SCH80"></div>'+
+    '<div class="fg"><label class="fl">Color</label><input class="fi" id="i-col" value="'+esc(item?.color||'')+"'" + ' placeholder="Negro, Rojo"></div></div>'+
+    '<div class="fr3"><div class="fg"><label class="fl">Marca</label><input class="fi" id="i-mar" value="'+esc(item?.marca||'')+"'" + ' placeholder="Crouse-Hinds"></div>'+
+    '<div class="fg"><label class="fl">Serie</label><input class="fi" id="i-ser" value="'+esc(item?.serie||'')+"'" + ' placeholder="Form 7"></div>'+
+    '<div class="fg"><label class="fl">Modelo</label><input class="fi" id="i-mod" value="'+esc(item?.modelo||'')+"'" + ' placeholder="EYS100"></div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Fecha llegada</label><input type="date" class="fi" id="i-ll" value="'+(item?.llegada||'')+'"></div>'+
+    '<div class="fg"><label class="fl">Notas</label><input class="fi" id="i-n" value="'+esc(item?.notes||'')+"'" + ' placeholder="Observaciones..."></div></div>'+
+    '</div>'+
+    '<div class="mfoot"><button class="btn" onclick="btG()">Cancelar</button><button class="btn btnp" onclick="svItem()"><i class="ti ti-check"></i> Guardar</button></div>';
+}
 
 function mPal(){return'<div class="mhdr"><div class="mttl"><i class="ti ti-box"></i> Nueva zona de pallet</div></div><div class="mbody"><div class="fg"><label class="fl">Descripción del pallet</label><input class="fi" id="p-l" placeholder="Ej: Pallet con válvulas Hornos Fase 2" autofocus></div><div class="fg"><label class="fl">Proyecto / Asunto</label>'+projInput('p-p','')+'</div></div><div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svPal()"><i class="ti ti-check"></i> Agregar</button></div>';}
 
@@ -696,14 +722,32 @@ function mAg(){const a=modal.d?.item;
     '<div class="fr2"><div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="a-o" value="'+esc(a?.oc||'')+'" placeholder="OC-2025-XXX"></div><div class="fg"><label class="fl">Notas</label><input class="fi" id="a-n" value="'+esc(a?.notes||'')+'" placeholder="..."></div></div></div>'+
     '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svAg()"><i class="ti ti-check"></i> Guardar</button></div>';}
 
-function mZI(){const{zid,zlbl,ei,item}=modal.d;
+function mZI(){
+  const{zid,zlbl,ei,item}=modal.d;
   return'<div class="mhdr"><div class="mttl">'+(ei!==undefined?'Editar':'Agregar')+' material — '+esc(zlbl)+'</div></div>'+
-    '<div class="mbody"><div class="fg"><label class="fl">Tipo</label><select class="fi" id="z-t">'+ITYPES.map(t=>'<option value="'+t.id+'"'+(item?.type===t.id?' selected':'')+'>'+t.ic+' '+t.l+'</option>').join('')+'</select></div>'+
-    '<div class="fg"><label class="fl">Descripción *</label><input class="fi" id="z-d" value="'+esc(item?.desc||'')+'" placeholder="Ej: Bobina cable 4AWG..." autofocus></div>'+
-    '<div class="fr2"><div class="fg"><label class="fl">Cantidad</label><input class="fi" type="number" id="z-q" min="0" value="'+(item?.qty||1)+'"></div><div class="fg"><label class="fl">Unidad</label><input class="fi" id="z-u" value="'+esc(item?.unit||'PZA')+'" placeholder="PZA / M / KG"></div></div>'+
-    '<div class="fr2"><div class="fg"><label class="fl">Proyecto</label>'+projInput('z-p',item?.proj)+'</div><div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="z-o" value="'+esc(item?.oc||'')+'" placeholder="OC-2025-XXX"></div></div>'+
-    '<div class="fr2"><div class="fg"><label class="fl">Fecha llegada al almacén</label><input type="date" class="fi" id="z-ll" value="'+(item?.llegada||'')+'"></div><div class="fg"><label class="fl">Notas</label><input class="fi" id="z-n" value="'+esc(item?.notes||'')+'" placeholder="..."></div></div></div>'+
-    '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svZI()"><i class="ti ti-check"></i> Guardar</button></div>';}
+    '<div class="mbody">'+
+    '<div class="fg" style="background:var(--bg2);border-radius:var(--rad);padding:10px 12px;margin-bottom:12px;border:1px solid var(--bdr)">'+
+    '<label class="fl"><b>&#128269; Buscar de lista</b> <span style="font-weight:400;color:var(--txm)">por código o descripción</span></label>'+
+    '<div style="position:relative"><input class="fi" id="z-lc" value="'+esc(item?.liCod||'')+"'" + ' placeholder="ELC-001 ó Cable THHN..." oninput="wsSearch(\'z-lc\',\'z-d\',\'z-u\')" onblur="wsBlur(\'z-lc\')" autocomplete="off" style="font-family:monospace;font-weight:600">'+
+    '<div id="z-lc-dd" class="li-srch-dd"></div></div></div>'+
+    '<div class="fg"><label class="fl">Tipo</label><select class="fi" id="z-t">'+ITYPES.map(t=>'<option value="'+t.id+'"'+(item?.type===t.id?' selected':'')+'>'+t.ic+' '+t.l+'</option>').join('')+'</select></div>'+
+    '<div class="fg"><label class="fl">Descripción *</label><input class="fi" id="z-d" value="'+esc(item?.desc||'')+"'" + ' placeholder="Se completa al buscar..."></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Cantidad</label><input class="fi" type="number" id="z-q" min="0" value="'+(item?.qty||1)+'"></div>'+
+    '<div class="fg"><label class="fl">Unidad</label><input class="fi" id="z-u" value="'+esc(item?.unit||'PZA')+'"></div></div>'+
+    '<div style="font-size:10px;font-weight:500;color:var(--txm);text-transform:uppercase;letter-spacing:.07em;margin:10px 0 6px">Características técnicas <span style="font-weight:400;opacity:.7">(opcional)</span></div>'+
+    '<div class="fr3"><div class="fg"><label class="fl">Diámetro</label><input class="fi" id="z-diam" value="'+esc(item?.diametro||'')+"'" + ' placeholder="2&quot;, DN50"></div>'+
+    '<div class="fg"><label class="fl">Dimensión</label><input class="fi" id="z-dim" value="'+esc(item?.dimension||'')+"'" + ' placeholder="6m, SCH80"></div>'+
+    '<div class="fg"><label class="fl">Color</label><input class="fi" id="z-col" value="'+esc(item?.color||'')+"'" + ' placeholder="Negro, Rojo"></div></div>'+
+    '<div class="fr3"><div class="fg"><label class="fl">Marca</label><input class="fi" id="z-mar" value="'+esc(item?.marca||'')+"'" + ' placeholder="Crouse-Hinds"></div>'+
+    '<div class="fg"><label class="fl">Serie</label><input class="fi" id="z-ser" value="'+esc(item?.serie||'')+"'" + ' placeholder="Form 7"></div>'+
+    '<div class="fg"><label class="fl">Modelo</label><input class="fi" id="z-mod" value="'+esc(item?.modelo||'')+"'" + ' placeholder="EYS100"></div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Proyecto</label>'+projInput('z-p',item?.proj)+'</div>'+
+    '<div class="fg"><label class="fl">Ref. OC</label><input class="fi" id="z-o" value="'+esc(item?.oc||'')+"'" + ' placeholder="OC-2025-XXX"></div></div>'+
+    '<div class="fr2"><div class="fg"><label class="fl">Fecha llegada</label><input type="date" class="fi" id="z-ll" value="'+(item?.llegada||'')+'"></div>'+
+    '<div class="fg"><label class="fl">Notas</label><input class="fi" id="z-n" value="'+esc(item?.notes||'')+"'" + ' placeholder="..."></div></div>'+
+    '</div>'+
+    '<div class="mfoot"><button class="btn" onclick="cM()">Cancelar</button><button class="btn btnp" onclick="svZI()"><i class="ti ti-check"></i> Guardar</button></div>';
+}
 
 function mDoc(){return'<div class="mhdr"><div class="mttl"><i class="ti ti-upload"></i> Registrar documento</div></div>'+
     '<div class="mbody"><div class="fg"><label class="fl">Archivo (PDF, Word, Excel — hasta 10MB)</label>'+
@@ -807,7 +851,7 @@ function oEditItem(r,g,l,i){const item=gld(r,g,l).items[i];modal={s:'item',d:{r,
 function svItem(){
   if(!S.user){tst('Identifícate primero');showUsr();return;}
   const{r,g,l,ei}=modal.d;const desc=document.getElementById('i-d')?.value?.trim();if(!desc){tst('Ingresa una descripción');return;}
-  const it={id:uid(),type:document.getElementById('i-t')?.value||'box',desc,qty:+document.getElementById('i-q')?.value||1,unit:document.getElementById('i-u')?.value?.trim()||'PZA',sp:Math.max(1,+document.getElementById('i-s')?.value||1),proj:document.getElementById('i-p')?.value?.trim()||'',oc:document.getElementById('i-o')?.value?.trim()||'',liCod:document.getElementById('i-lc')?.value?.trim()||'',llegada:document.getElementById('i-ll')?.value||'',notes:document.getElementById('i-n')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
+  const it={id:uid(),type:document.getElementById('i-t')?.value||'box',desc,qty:+document.getElementById('i-q')?.value||1,unit:document.getElementById('i-u')?.value?.trim()||'PZA',sp:Math.max(1,+document.getElementById('i-s')?.value||1),proj:document.getElementById('i-p')?.value?.trim()||'',oc:document.getElementById('i-o')?.value?.trim()||'',liCod:document.getElementById('i-lc')?.value?.trim()||'',diametro:document.getElementById('i-diam')?.value?.trim()||'',dimension:document.getElementById('i-dim')?.value?.trim()||'',color:document.getElementById('i-col')?.value?.trim()||'',marca:document.getElementById('i-mar')?.value?.trim()||'',serie:document.getElementById('i-ser')?.value?.trim()||'',modelo:document.getElementById('i-mod')?.value?.trim()||'',llegada:document.getElementById('i-ll')?.value||'',notes:document.getElementById('i-n')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
   const ld=gld(r,g,l);
   if(ei!==undefined){it.id=ld.items[ei].id;it.by=ld.items[ei].by;it.at=ld.items[ei].at;ld.items[ei]=it;}else ld.items.push(it);
   alog('Material '+(ei!==undefined?'editado':'agregado')+' — Gab. '+g+' N'+l,it.desc+(it.llegada?' · Llegó: '+fdS(it.llegada):''));
@@ -824,7 +868,7 @@ function oEditZI(zid,i){const items=getZList(zid);const item=items[i];const zlbl
 function svZI(){
   if(!S.user){tst('Identifícate primero');return;}
   const{zid,ei}=modal.d;const desc=document.getElementById('z-d')?.value?.trim();if(!desc){tst('Ingresa una descripción');return;}
-  const it={id:uid(),type:document.getElementById('z-t')?.value||'box',desc,qty:+document.getElementById('z-q')?.value||1,unit:document.getElementById('z-u')?.value?.trim()||'PZA',proj:document.getElementById('z-p')?.value?.trim()||'',oc:document.getElementById('z-o')?.value?.trim()||'',llegada:document.getElementById('z-ll')?.value||'',notes:document.getElementById('z-n')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
+  const it={id:uid(),type:document.getElementById('z-t')?.value||'box',desc,qty:+document.getElementById('z-q')?.value||1,unit:document.getElementById('z-u')?.value?.trim()||'PZA',proj:document.getElementById('z-p')?.value?.trim()||'',oc:document.getElementById('z-o')?.value?.trim()||'',liCod:document.getElementById('z-lc')?.value?.trim()||'',diametro:document.getElementById('z-diam')?.value?.trim()||'',dimension:document.getElementById('z-dim')?.value?.trim()||'',color:document.getElementById('z-col')?.value?.trim()||'',marca:document.getElementById('z-mar')?.value?.trim()||'',serie:document.getElementById('z-ser')?.value?.trim()||'',modelo:document.getElementById('z-mod')?.value?.trim()||'',llegada:document.getElementById('z-ll')?.value||'',notes:document.getElementById('z-n')?.value?.trim()||'',by:S.user,at:new Date().toISOString()};
   const list=getZList(zid);
   if(ei!==undefined){it.id=list[ei].id;it.by=list[ei].by;it.at=list[ei].at;list[ei]=it;}else list.push(it);
   const zone=zid==='caseta'?'Caseta':zid==='intemperie'?'Intemperie':zid==='cotoca'?'Cotoca':'Pallet';
@@ -903,6 +947,9 @@ function addCalcItem(){const cod=document.getElementById('calc-cod')?.value?.tri
 function removeCalcItem(i){calcItems.splice(i,1);render();}
 function clearCalc(){calcItems=[];render();}
 
+function wsSearch(inputId,descId,undId){var val=(document.getElementById(inputId)?document.getElementById(inputId).value:'').trim().toLowerCase();var dd=document.getElementById(inputId+'-dd');if(!dd)return;if(!val){dd.style.display='none';return;}var DISC={civil:'Civil',electrica:'Elec.',instrumentacion:'I&C',mecanica:'Mec.'};var all=[];DISCIPLINAS.forEach(function(d){(S.listas[d.id]||[]).forEach(function(i){all.push(Object.assign({},i,{disc:d.id}));});});var res=all.filter(function(i){return(i.codigo||'').toLowerCase().indexOf(val)>=0||(i.desc||'').toLowerCase().indexOf(val)>=0;}).slice(0,10);if(!res.length){dd.style.display='none';return;}dd.innerHTML=res.map(function(item){var safeDesc=(item.desc||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');return'<div class="li-srch-opt" onmousedown="wsSelect(event,\''+inputId+'\',\''+descId+'\',\''+undId+'\',\''+item.codigo+'\')">'+'<span class="li-srch-cod">'+(item.codigo||'')+'</span><span class="li-srch-desc">'+safeDesc+'</span>'+'<span class="li-srch-disc">'+(DISC[item.disc]||'')+'</span></div>';}).join('');dd.style.display='block';}
+function wsSelect(e,inputId,descId,undId,cod){if(e)e.preventDefault();var found=null;for(var k in S.listas){var f=(S.listas[k]||[]).find(function(i){return i.codigo===cod;});if(f){found=f;break;}}if(!found)return;var inp=document.getElementById(inputId);var d=document.getElementById(descId);var u=document.getElementById(undId);if(inp){inp.value=found.codigo;inp.style.borderColor='var(--grn-tx)';inp.style.background='var(--grn-bg)';}if(d)d.value=found.desc||'';if(u)u.value=found.unidad||'';var dd=document.getElementById(inputId+'-dd');if(dd)dd.style.display='none';}
+function wsBlur(inputId){setTimeout(function(){var dd=document.getElementById(inputId+'-dd');if(dd)dd.style.display='none';},200);}
 function tst(msg){toastMsg=msg;clearTimeout(toastTmr);render();toastTmr=setTimeout(()=>{toastMsg='';render();},3000);}
 async function poll(){try{const r=await fetch('/api/lastmod');const d=await r.json();if(d.lm>localLM){await loadAll();render();}}catch(e){}}
 async function init(){await loadAll();if(!S.user)modal={s:'usr',d:{}};render();setInterval(poll,20000);}
